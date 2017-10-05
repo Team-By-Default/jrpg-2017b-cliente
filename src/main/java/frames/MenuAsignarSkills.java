@@ -49,17 +49,15 @@ public class MenuAsignarSkills extends JFrame {
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();
 		puntosInteligenciaInicial = cliente.getPaquetePersonaje().getInteligencia();
 		
-		/*Si alguien te dice que getCasta funka, es un mentiroso
-		 * if(cliente.getPaquetePersonaje().getCasta()=="Hechicero")
-			puntosInteligenciaBase+=5;
-		if(cliente.getPaquetePersonaje().getCasta()=="Guerrero")
-			puntosFuerzaBase+=5;
-		if(cliente.getPaquetePersonaje().getRaza()=="Humano")
+		if(cliente.getPaquetePersonaje().getCasta().equals("Asesino"))
 			puntosDestrezaBase+=5;
-			*/
+		if(cliente.getPaquetePersonaje().getCasta().equals("Guerrero"))
+			puntosFuerzaBase+=5;
+		if(cliente.getPaquetePersonaje().getCasta().equals("Hechicero"))
+			puntosInteligenciaBase+=5;
 		
 		puntosAsignarBase=(cliente.getPaquetePersonaje().getNivel()-1)*3;
-		puntosAsignarInicial=puntosAsignarBase-(puntosFuerzaInicial-puntosFuerzaBase)-(puntosDestrezaInicial-puntosDestrezaBase)-(puntosInteligenciaInicial-puntosInteligenciaBase)+5;
+		puntosAsignarInicial=puntosAsignarBase-(puntosFuerzaInicial-puntosFuerzaBase)-(puntosDestrezaInicial-puntosDestrezaBase)-(puntosInteligenciaInicial-puntosInteligenciaBase);
 		
 		puntosAsignar = puntosAsignarInicial;
 		puntosFuerza = puntosFuerzaInicial;
@@ -183,7 +181,7 @@ public class MenuAsignarSkills extends JFrame {
 		buttonReset.setIcon(icono_reiniciar);
 		buttonReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {;
-				puntosAsignarInicial=puntosAsignarBase+5;
+				puntosAsignarInicial=puntosAsignarBase;
 				puntosAsignar=puntosAsignarInicial;
 				
 				puntosFuerzaInicial=puntosFuerzaBase;
