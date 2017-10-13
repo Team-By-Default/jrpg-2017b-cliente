@@ -59,6 +59,9 @@ public class Recursos {
 	private static BufferedImage[] elfoAbajoDer;
 	private static BufferedImage[] elfoAbajo;
 	private static BufferedImage[] elfoAbajoIzq;
+
+	public static BufferedImage monstruo;//NPC
+	
 	// Fin Personajes
 
 	// Entorno
@@ -106,6 +109,9 @@ public class Recursos {
 		mochila = ImageIO.read(new File("recursos//mochila.png"));
 		menu = ImageIO.read(new File("recursos//menu.png"));
 		chat = ImageIO.read(new File("recursos//chat.png"));
+		
+		// NPC
+		monstruo = ImageIO.read(new File("recursos//monstruo.png"));
 
 		// Inicio humano
 		spriteHumano = new SpriteSheet(CargadorImagen.cargarImagen("/Humano.png"));
