@@ -21,6 +21,7 @@ import juego.Juego;
 import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
 import mundo.Mundo;
 import recursos.Recursos;
@@ -32,6 +33,8 @@ public class EstadoJuego extends Estado {
 	private Mundo mundo;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
 	private Map<Integer, PaquetePersonaje> personajesConectados;
+	private Map<Integer, PaqueteMovimiento> ubicacionNPCs;
+	private Map<Integer, PaqueteNPC> NPCs;
 	private boolean haySolicitud;
 	private int tipoSolicitud;
 
@@ -71,6 +74,7 @@ public class EstadoJuego extends Estado {
 		mundo.graficar(g);
 		//entidadPersonaje.graficar(g);
 		graficarPersonajes(g);
+		graficarNPCs(g);
 		mundo.graficarObstaculos(g);
 		entidadPersonaje.graficarNombre(g);
 		g.drawImage(Recursos.marco, 0, 0, juego.getAncho(), juego.getAlto(), null);
@@ -103,6 +107,27 @@ public class EstadoJuego extends Estado {
 			}
 		}
 	}
+	
+	public void graficarNPCs(Graphics g) {
+		
+		if(juego.getNPCs() != null){
+			NPCs = new HashMap(juego.getNPCs());
+			ubicacionNPCs = new HashMap(juego.getUbicacionNPCs());
+			Iterator<Integer> it = NPCs.keySet().iterator();
+			int key;
+			PaqueteMovimiento actual;
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
+			while (it.hasNext()) {
+				key = it.next();
+				actual = ubicacionNPCs.get(key);
+				if (actual != null) {
+						Pantalla.centerString(g, new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), (int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ), 0, 10), NPCs.get(actual.getIdPersonaje()).getNombre());
+						g.drawImage( Recursos.monstruo, (int) (actual.getPosX() - juego.getCamara().getxOffset() ), (int) (actual.getPosY() - juego.getCamara().getyOffset()), 64, 64, null);
+				}
+			}
+		}
+	}	
 
 	public Entidad getPersonaje() {
 		return entidadPersonaje;
@@ -149,5 +174,4 @@ public class EstadoJuego extends Estado {
 	public boolean esEstadoDeJuego() {
 		return true;
 	}
-
 }
