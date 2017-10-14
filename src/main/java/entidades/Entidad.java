@@ -5,8 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -14,6 +16,7 @@ import com.google.gson.Gson;
 
 import chat.VentanaContactos;
 import estados.Estado;
+import estados.EstadoBatallaNPC;
 import frames.MenuEscape;
 import frames.MenuInventario;
 import interfaz.MenuInfoPersonaje;
@@ -21,6 +24,7 @@ import juego.Juego;
 import juego.Pantalla;
 import mensajeria.PaqueteBatalla;
 import mensajeria.PaqueteComerciar;
+import mensajeria.PaqueteNPC;
 import mensajeria.PaqueteMovimiento;
 import mundo.Grafo;
 import mundo.Mundo;
@@ -436,6 +440,7 @@ public class Entidad {
 
 			// Le envio la posicion
 			if (intervaloEnvio == 2) {
+				verSiNoEstaCercaDeUnNPC();
 				enviarPosicion();
 				intervaloEnvio = 0;
 			}
@@ -679,4 +684,49 @@ public class Entidad {
 	public int getYOffset() {
 		return yOffset;
 	}
+	private void verSiNoEstaCercaDeUnNPC() {
+		if(juego.getNPCs() != null){
+			boolean esPelea = false;
+			
+			Map<Integer, PaqueteNPC> NPCs;
+			NPCs = new HashMap(juego.getNPCs());
+			Map<Integer, PaqueteMovimiento> ubicacionNPCs;
+			ubicacionNPCs = new HashMap( juego.getUbicacionNPCs() );
+			
+			Iterator<Integer> it = ubicacionNPCs.keySet().iterator();
+			int key;
+			PaqueteMovimiento actual;
+	
+			while (it.hasNext()) {
+				key = it.next();
+				actual = ubicacionNPCs.get(key);
+				if (actual != null) {
+					if( actual.getPosX() - x < 50 && x > -50 &&
+						actual.getPosY() - y < 50 && y > -50){
+						// iniciar pelea
+						
+						PaqueteBatalla pBatalla = new PaqueteBatalla();
+						
+						pBatalla.setId(juego.getPersonaje().getId());
+						pBatalla.setIdEnemigo(  key  );
+						
+						juego.getPersonaje().setEstado( Estado.estadoBatallaNPC );
+						Estado.setEstado(null);
+						juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
+						Estado.setEstado(juego.getEstadoBatallaNPC());
+						
+						
+						//mandarcomando INICIARPELEA al servidor asi los hace invisibles;
+												
+						//Cliente.log.append("Se Peleaaaaaaaaaaaaa" + actual.getPosX() + "," + actual.getPosY() + "       " + escuchaCliente.getPaqueteMovimiento().getPosX() + "," + escuchaCliente.getPaqueteMovimiento().getPosY() + System.lineSeparator());
+						esPelea = true;
+						break;
+					}
+				}
+			}
+		}
+		}
+			
+			
+			
 }

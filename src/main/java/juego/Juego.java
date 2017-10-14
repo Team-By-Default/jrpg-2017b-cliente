@@ -35,6 +35,7 @@ public class Juego implements Runnable {
 	// Estados
 	private Estado estadoJuego;
 	private Estado estadoBatalla;
+	private Estado estadoBatallaNPC;
 
 	// HandlerMouse
 	private HandlerMouse handlerMouse;
@@ -206,7 +207,15 @@ public class Juego implements Runnable {
 	public void setEstadoBatalla(EstadoBatalla estadoBatalla){
 		this.estadoBatalla = estadoBatalla;
 	}
-
+	
+	public Estado getEstadoBatallaNPC() {
+		return estadoBatallaNPC;
+	}
+	
+	public void setEstadoBatallaNPC(Estado estadoBatallaNPC) {
+		this.estadoBatallaNPC = estadoBatallaNPC;
+	}
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
