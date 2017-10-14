@@ -52,7 +52,7 @@ public class EstadoBatallaNPC extends Estado {
 	private Gson gson = new Gson();
 
 	private BufferedImage miniaturaPersonaje;
-	private BufferedImage miniaturaEnemigo;
+	private BufferedImage miniaturaNPC;
 
 	private MenuBatalla menuBatalla;
 
@@ -71,7 +71,7 @@ public class EstadoBatallaNPC extends Estado {
 
 		menuBatalla = new MenuBatalla(miTurno, personaje);
 
-	  //miniaturaEnemigo = Recursos.Ogro.png;
+	    miniaturaNPC = Recursos.monstruo;
 		miniaturaPersonaje = Recursos.personaje.get(personaje.getNombreRaza()).get(5)[0];
 
 		paqueteFinalizarBatalla = new PaqueteFinalizarBatalla();
@@ -157,7 +157,7 @@ public class EstadoBatallaNPC extends Estado {
 						if(personaje.ganarExperiencia(enemigo.getNivel() * 40))
 						{
 							juego.getPersonaje().setNivel(personaje.getNivel());
-							juego.getPersonaje().setPuntosSkill(personaje.getPuntosSkill() + 2);
+							//juego.getPersonaje().setPuntosSkill(personaje.getPuntosSkill() + 2);
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
 						}
 						
@@ -212,7 +212,7 @@ public class EstadoBatallaNPC extends Estado {
 		mundo.graficar(g);
 
 		g.drawImage(Recursos.personaje.get(paquetePersonaje.getRaza()).get(3)[0], 0, 175, 256, 256, null);
-	    g.drawImage(Recursos.personaje.get(paquetePersonaje.getRaza()).get(7)[0], 550, 75, 256, 256, null);
+	    g.drawImage(Recursos.monstruo, 550, 75, 256, 256, null);
 
 		mundo.graficarObstaculos(g);
 		menuBatalla.graficar(g);
@@ -220,7 +220,7 @@ public class EstadoBatallaNPC extends Estado {
 		g.setColor(Color.GREEN);
 
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 25, 5, personaje, miniaturaPersonaje);
-		 EstadoNPC.dibujarEstadoDeNPC(g, 550, 5, enemigo,  miniaturaPersonaje);
+		 EstadoNPC.dibujarEstadoDeNPC(g, 550, 5, enemigo,  miniaturaNPC);
 	}
 
 	private void crearPersonajes() 
@@ -276,7 +276,7 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			
-			paquetePersonaje.setPuntosSkill(personaje.getPuntosSkill());
+			//paquetePersonaje.setPuntosSkill(personaje.getPuntosSkill());
 			paquetePersonaje.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
