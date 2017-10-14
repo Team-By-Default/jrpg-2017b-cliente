@@ -90,8 +90,8 @@ public class EstadoJuego extends Estado {
 	public void graficarPersonajes(Graphics g) {
 
 		if(juego.getPersonajesConectados() != null){
-			personajesConectados = new HashMap(juego.getPersonajesConectados());
-			ubicacionPersonajes = new HashMap(juego.getUbicacionPersonajes());
+			personajesConectados = new HashMap<Integer, PaquetePersonaje>(juego.getPersonajesConectados());
+			ubicacionPersonajes = new HashMap<Integer, PaqueteMovimiento>(juego.getUbicacionPersonajes());
 			Iterator<Integer> it = personajesConectados.keySet().iterator();
 			int key;
 			PaqueteMovimiento actual;
@@ -100,9 +100,21 @@ public class EstadoJuego extends Estado {
 			while (it.hasNext()) {
 				key = it.next();
 				actual = ubicacionPersonajes.get(key);
-				if (actual != null && actual.getIdPersonaje() != juego.getPersonaje().getId() && personajesConectados.get(actual.getIdPersonaje()).getEstado() == Estado.estadoJuego) {
-						Pantalla.centerString(g, new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), (int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ), 0, 10), personajesConectados.get(actual.getIdPersonaje()).getNombre());
-						g.drawImage(Recursos.personaje.get(personajesConectados.get(actual.getIdPersonaje()).getRaza()).get(actual.getDireccion())[actual.getFrame()], (int) (actual.getPosX() - juego.getCamara().getxOffset() ), (int) (actual.getPosY() - juego.getCamara().getyOffset()), 64, 64, null);
+				if (actual != null && 
+						actual.getIdPersonaje() != juego.getPersonaje().getId() && 
+						personajesConectados.get(actual.getIdPersonaje()).getEstado() == Estado.estadoJuego) {
+					
+					Pantalla.centerString(g, 
+							new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), 
+									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ),
+									0, 10), 
+							personajesConectados.get(actual.getIdPersonaje()).getNombre());
+					
+					g.drawImage(Recursos.personaje.get(
+							personajesConectados.get(actual.getIdPersonaje()).getRaza()).get(actual.getDireccion())[actual.getFrame()],
+							(int) (actual.getPosX() - juego.getCamara().getxOffset() ), 
+							(int) (actual.getPosY() - juego.getCamara().getyOffset()), 
+							64, 64, null);
 				}
 			}
 		}
@@ -111,8 +123,8 @@ public class EstadoJuego extends Estado {
 	public void graficarNPCs(Graphics g) {
 		
 		if(juego.getNPCs() != null){
-			NPCs = new HashMap(juego.getNPCs());
-			ubicacionNPCs = new HashMap(juego.getUbicacionNPCs());
+			NPCs = new HashMap<Integer, PaqueteNPC>(juego.getNPCs());
+			ubicacionNPCs = new HashMap<Integer, PaqueteMovimiento>(juego.getUbicacionNPCs());
 			Iterator<Integer> it = NPCs.keySet().iterator();
 			int key;
 			PaqueteMovimiento actual;
