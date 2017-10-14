@@ -71,5 +71,4 @@ public class EscuchaMensajes extends Thread {
 	/**Pide los personajes conectados
 	 * @return devuelve el mapa con los personajes conectados
 	 */
-
 }

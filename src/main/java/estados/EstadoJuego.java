@@ -21,8 +21,8 @@ import juego.Juego;
 import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.PaqueteMovimiento;
-import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteNPC;
+import mensajeria.PaquetePersonaje;
 import mundo.Mundo;
 import recursos.Recursos;
 
@@ -174,5 +174,4 @@ public class EstadoJuego extends Estado {
 	public boolean esEstadoDeJuego() {
 		return true;
 	}
-
 }
