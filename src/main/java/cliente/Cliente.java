@@ -177,7 +177,7 @@ public class Cliente extends Thread {
 					// Finalizo el menu de carga
 					menuCarga.dispose();
 				}
-			} catch (IOException | InterruptedException | ClassNotFoundException e) {
+			} catch (IOException | InterruptedException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 				JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor durante el inicio de sesión.");
 				System.exit(1);
 			}

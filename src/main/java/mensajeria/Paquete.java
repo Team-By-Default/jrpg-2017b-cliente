@@ -68,7 +68,20 @@ public class Paquete implements Serializable, Cloneable {
 		return obj;
 	}
 	
-	public Comando getObjeto(String nombrePaquete) {
+	/**
+	 * Prepara el comando según el nombre del paquete de comandos y el número
+	 * de comando previamente seteado
+	 * @param nombrePaquete es el nombre del paquete que tiene los comandos
+	 * @return el objeto Comando
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
+	public Comando getObjeto(String nombrePaquete) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		//Prefiero tirar excepciones y que lo resuelva el llamador a devolver null y que el llamador no se lo espere
+		return (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMES[comando]).newInstance();
+		
+		/* Version anterior
 		try {
 			Comando c;
 			c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMES[comando]).newInstance();
@@ -76,9 +89,25 @@ public class Paquete implements Serializable, Cloneable {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			return null;
 		}
+		*/
 
 	}
-	public static Comando getObjetoSet(String nombrePaquete, int accion) {
+	
+	/**
+	 * Prepara el comando según el nombre del paquete de comandos y el número
+	 * de comando indicado
+	 * @param nombrePaquete es el nombre del paquete que tiene los comandos
+	 * @param accion es el número de comando
+	 * @return el objeto Comando
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
+	public static Comando getObjetoSet(String nombrePaquete, int accion) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		//Prefiero tirar excepciones y que lo resuelva el llamador a devolver null y que el llamador no se lo espere
+		return (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMESBIS[accion]).newInstance();
+		
+		/*Version anterior
 		try {
 			Comando c;
 			c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMESBIS[accion]).newInstance();
@@ -86,7 +115,7 @@ public class Paquete implements Serializable, Cloneable {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			return null;
 		}
-
+		*/
 	}
 
 
