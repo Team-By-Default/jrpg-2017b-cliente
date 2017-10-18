@@ -11,7 +11,8 @@ public abstract class Comando {
 			"ActualizarNPCs", "IniciarBatallaNPC", "FinalizarBatallaNPC"  };
 	public static final String[] CLASSNAMESBIS = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesionSet", "MostrarMapas",
 			"Movimiento", "RegistroSet", "SalirSet", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl", 
-			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", "ActualizarNPCs", "IniciarBatallaNPC", "FinalizarBatallaNPC" };
+			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", 
+			"ActualizarNPCs", "IniciarBatallaNPC", "FinalizarBatallaNPC" };
 	
 	public static final int CONEXION = 0;
 	public static final int CREACIONPJ = 1;
