@@ -144,10 +144,19 @@ public class EstadoJuego extends Estado {
 	public Entidad getPersonaje() {
 		return entidadPersonaje;
 	}
-
+	
+	/**
+	 * Devuelve el nombre del mundo en que está
+	 * @return nombre del mundo
+	 */
 	private String getMundo() {
 		int mundo = juego.getPersonaje().getMapa();
-
+		String[] nombres = {"Aubenor", "Aris", "Eodrim"};
+		if(mundo > 0 && mundo <= nombres.length)
+			return nombres[mundo - 1];
+		return null;
+		
+		/* Version anterior
 		if (mundo == 1) {
 			return "Aubenor";
 		} else if (mundo == 2) {
@@ -157,6 +166,7 @@ public class EstadoJuego extends Estado {
 		}
 
 		return null;
+		*/
 	}
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
