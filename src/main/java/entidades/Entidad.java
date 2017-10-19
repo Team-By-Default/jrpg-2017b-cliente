@@ -58,18 +58,30 @@ public class Entidad {
 	private int[] tile;
 
 	// Movimiento Actual
-	private static final int horizontalDer = 4;
+	/**
+	 * Números de orientación del personaje, para poder
+	 * seleccionar las animaciones. Subíndices del vector
+	 * mover.
+	 */
 	private static final int horizontalIzq = 0;
+	private static final int diagonalSupIzq = 1;
 	private static final int verticalSup = 2;
+	private static final int diagonalSupDer = 3;
+	private static final int horizontalDer = 4;
+	private static final int diagonalInfDer = 5;
 	private static final int verticalInf = 6;
 	private static final int diagonalInfIzq = 7;
-	private static final int diagonalInfDer = 5;
-	private static final int diagonalSupDer = 3;
-	private static final int diagonalSupIzq = 1;
 	private int movimientoHacia = 6;
 	private boolean enMovimiento;
 
 	// Animaciones
+	/**
+	 * Vector de animaciones. Usar las constantes de
+	 * orientación del personaje como subíndices.
+	 */
+	private final Animacion[] mover;
+	
+	/* Variables reemplazadas por el vector mover
 	private final Animacion moverIzq;
 	private final Animacion moverArribaIzq;
 	private final Animacion moverArriba;
@@ -78,7 +90,8 @@ public class Entidad {
 	private final Animacion moverAbajoDer;
 	private final Animacion moverAbajo;
 	private final Animacion moverAbajoIzq;
-
+	*/
+	
 	private final Gson gson = new Gson();
 	private int intervaloEnvio = 0;
 
@@ -121,7 +134,12 @@ public class Entidad {
 		yOffset = alto / 2;
 		x = (int) (spawnX / 64) * 64;
 		y = (int) (spawnY / 32) * 32;
-
+		
+		this.mover = new Animacion [8];
+		for(int i = 0; i < 8; i++)
+			this.mover[i] = new Animacion(velAnimacion, animaciones.get(i));
+		
+		/* Variables reemplazadas por el vector mover
 		moverIzq = new Animacion(velAnimacion, animaciones.get(0));
 		moverArribaIzq = new Animacion(velAnimacion, animaciones.get(1));
 		moverArriba = new Animacion(velAnimacion, animaciones.get(2));
@@ -130,6 +148,7 @@ public class Entidad {
 		moverAbajoDer = new Animacion(velAnimacion, animaciones.get(5));
 		moverAbajo = new Animacion(velAnimacion, animaciones.get(6));
 		moverAbajoIzq = new Animacion(velAnimacion, animaciones.get(7));
+		*/
 
 		// Informo mi posicion actual
 		juego.getUbicacionPersonaje().setPosX(x);
@@ -137,10 +156,21 @@ public class Entidad {
 		juego.getUbicacionPersonaje().setDireccion(getDireccion());
 		juego.getUbicacionPersonaje().setFrame(getFrame());
 	}
+	
 	/**Actualiza el personaje
 	 */
 	public void actualizar() {
-
+		
+		if(enMovimiento) {
+			for(int i =0; i < 8; i++)
+				this.mover[i].actualizar();
+		}
+		else {
+			for(int i=0; i<8; i++)
+				this.mover[i].reset();
+		}
+		
+		/* Version anterior, variables reemplazadas por vector mover
 		if (enMovimiento) {
 			moverIzq.actualizar();
 			moverArribaIzq.actualizar();
@@ -160,12 +190,14 @@ public class Entidad {
 			moverAbajo.reset();
 			moverAbajoIzq.reset();
 		}
+		*/
 
 		getEntrada();
 		mover();
 
 		juego.getCamara().Centrar(this);
 	}
+	
 	/**Devuelve la entrada
 	 */
 	public void getEntrada() {
@@ -403,6 +435,7 @@ public class Entidad {
 			enMovimiento = true;
 		}
 	}
+	
 	/**Mueve el personaje
 	 */
 	public void mover() {
@@ -451,6 +484,7 @@ public class Entidad {
 			}
 		}
 	}
+	
 	/**Grafica el frame del personaje
 	 */
 	public void graficar(final Graphics g) {
@@ -458,6 +492,7 @@ public class Entidad {
 	    drawY = (int) (y - juego.getCamara().getyOffset());
 	    g.drawImage(getFrameAnimacionActual(), drawX, drawY + 4, ancho, alto, null);
 	}
+	
 	/**Grafica el nombre
 	 */
 	public void graficarNombre(final Graphics g) {
@@ -465,9 +500,14 @@ public class Entidad {
 		g.setFont(new Font("Book Antiqua", Font.BOLD, 15));
 	    Pantalla.centerString(g, new java.awt.Rectangle(drawX + 32, drawY - 20, 0, 10), nombre);
 	}
+	
 	/**Obtiene el frameActual del personaje
 	 */
 	private BufferedImage getFrameAnimacionActual() {
+		if(this.movimientoHacia >= 0 && this.movimientoHacia < 8)
+			return this.mover[ this.movimientoHacia ].getFrameActual();
+		
+		/* Version anterior, variables reemplazadas por vector mover
 		if (movimientoHacia == horizontalIzq) {
 			return moverIzq.getFrameActual();
 		} else if (movimientoHacia == horizontalDer) {
@@ -485,18 +525,25 @@ public class Entidad {
 		} else if (movimientoHacia == diagonalSupDer) {
 			return moverArribaDer.getFrameActual();
 		}
+		*/
 
 		return Recursos.orco.get(6)[0];
 	}
+	
 	/**Pide la direccion donde va
 	 * @return devuelve el movimiento hacia donde va
 	 */
 	private int getDireccion() {
 		return movimientoHacia;
 	}
+	
 	/**Obtiene el frame donde esta el personaje
 	 */
 	private int getFrame() {
+		if(this.movimientoHacia >= 0 && this.movimientoHacia < 8)
+			return this.mover[ this.movimientoHacia ].getFrame();
+		
+		/* Version anterior, variables reemplazadas por vector mover
 		if (movimientoHacia == horizontalIzq) {
 			return moverIzq.getFrame();
 		} else if (movimientoHacia == horizontalDer) {
@@ -514,9 +561,11 @@ public class Entidad {
 		} else if (movimientoHacia == diagonalSupDer) {
 			return moverArribaDer.getFrame();
 		}
-
+		*/
+		
 		return 0;
 	}
+	
 	/**Envia la posicion del personaje
 	 */
 	private void enviarPosicion() {
@@ -531,6 +580,7 @@ public class Entidad {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
 		}
 	}
+	
 	/**Busca el camino más corto a recorrer para llegar a una posición
 	 * @param xInicial ubicacion en X inicial
 	 * @param yInicial ubicacion en Y inicial
@@ -614,6 +664,7 @@ public class Entidad {
 
 		return camino;
 	}
+	
 	/**Pregunta si los personajes estan en diagonal
 	 * @param nodoUno personaje 1
 	 * @param nodoDos personaje 2
@@ -628,66 +679,80 @@ public class Entidad {
 		return true;
 		*/
 	}
+	
 	/**Pide el valor de X 
 	 * @return devuelve la ubicacion en X
 	 */
 	public float getX() {
 		return x;
 	}
+	
 	/**Setea el valor de X
 	 * @param x valor nuevo de la ubicacion en X
 	 */
 	public void setX(final float x) {
 		this.x = x;
 	}
+	
 	/**Pide el valor de Y 
 	 * @return devuelve la ubicacion en Y
 	 */
 	public float getY() {
 		return y;
 	}
+	
 	/**Setea el valor de Y
 	 * @param y valor nuevo de la ubicacion en Y
 	 */
 	public void setY(final float y) {
 		this.y = y;
 	}
+	
 	/**Pide el ancho 
 	 * @return devuelve el ancho
 	 */
 	public int getAncho() {
 		return ancho;
 	}
+	
 	/**Setea el ancho
 	 * @param ancho nuevo ancho a setear
 	 */
 	public void setAncho(final int ancho) {
 		this.ancho = ancho;
 	}
+	
 	/**Pide el alto 
 	 * @return devuelve el alto
 	 */
 	public int getAlto() {
 		return alto;
 	}
+	
 	/**Setea el alto
 	 * @param alto nuevo alto a setear
 	 */
 	public void setAlto(final int alto) {
 		this.alto = alto;
 	}
+	
 	/**Pide el offset de X
 	 * @return devuelve el offset de X
 	 */
 	public int getxOffset() {
 		return xOffset;
 	}
+	
 	/**Pide el offset de Y 
 	 * @return devuelve el offset de Y
 	 */
 	public int getYOffset() {
 		return yOffset;
 	}
+	
+	/**
+	 * Chequear por NPCs cerca. Si hay alguno cerca, inicia pelea
+	 */
 	private void verSiNoEstaCercaDeUnNPC() {
 		if(juego.getNPCs() != null){
 			boolean esPelea = false;
@@ -719,7 +784,6 @@ public class Entidad {
 						juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
 						Estado.setEstado(juego.getEstadoBatallaNPC());
 						
-						
 						//mandarcomando INICIARPELEA al servidor asi los hace invisibles;
 												
 						//Cliente.log.append("Se Peleaaaaaaaaaaaaa" + actual.getPosX() + "," + actual.getPosY() + "       " + escuchaCliente.getPaqueteMovimiento().getPosX() + "," + escuchaCliente.getPaqueteMovimiento().getPosY() + System.lineSeparator());
@@ -729,7 +793,7 @@ public class Entidad {
 				}
 			}
 		}
-		}
+	}
 			
 			
 			
