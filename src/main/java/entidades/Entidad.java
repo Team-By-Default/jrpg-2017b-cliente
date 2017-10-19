@@ -620,9 +620,13 @@ public class Entidad {
 	 * @return true or false
 	 */
 	private boolean estanEnDiagonal(final Nodo nodoUno, final Nodo nodoDos) {
+		return !(nodoUno.obtenerX() == nodoDos.obtenerX() || nodoUno.obtenerY() == nodoDos.obtenerY());
+		
+		/*Version anterior
 		if (nodoUno.obtenerX() == nodoDos.obtenerX() || nodoUno.obtenerY() == nodoDos.obtenerY())
 			return false;
 		return true;
+		*/
 	}
 	/**Pide el valor de X 
 	 * @return devuelve la ubicacion en X
