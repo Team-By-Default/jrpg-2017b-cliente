@@ -45,7 +45,7 @@ public class Pantalla {
 	public static VentanaContactos ventContac;
 		
 	private final Gson gson = new Gson();
-
+	
 	public Pantalla(final String NOMBRE, final int ANCHO, final int ALTO, final Cliente cliente) {
 		pantalla = new JFrame(NOMBRE);
 		pantalla.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/frames/IconoWome.png"));
@@ -56,6 +56,7 @@ public class Pantalla {
 		pantalla.setSize(ANCHO, ALTO);
 		pantalla.setResizable(false);
 		pantalla.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		
 		pantalla.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent evt) {
@@ -74,15 +75,58 @@ public class Pantalla {
 				}
 			}
 		});
+		
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				//Si toca C, abro la ventana de contactos, no importa en qué estado esté
+				if (e.getKeyCode() == KeyEvent.VK_C) {
+					if (ventContac == null) {
+						ventContac = new VentanaContactos(cliente.getJuego());
+					}
+					ventContac.setVisible(true);
+				}
+				
+				if(Estado.getEstado().esEstadoDeJuego()) {
+					switch(e.getKeyCode()) {
+					//Si se toca I, abre el inventario
+					case KeyEvent.VK_I:
+						if (menuInventario == null) {
+							menuInventario = new MenuInventario(cliente);
+						}
+						menuInventario.setVisible(true);
+						break;
+					//Si se toca A, abre el menuAsignar
+					case KeyEvent.VK_A:
+						if (menuAsignar == null) {
+							menuAsignar = new MenuAsignarSkills(cliente);
+						}
+						menuAsignar.setVisible(true);
+						break;
+					//Si se toca S, abre el menu de stats
+					case KeyEvent.VK_S:
+						if (menuStats == null) {
+							menuStats = new MenuStats(cliente);
+						}
+						menuStats.setVisible(true);
+						break;
+					//Si se toca ESCAPE, abre el menu escape
+					case KeyEvent.VK_ESCAPE:
+						if (menuEscp == null) {
+							menuEscp = new MenuEscape(cliente);
+						}
+						menuEscp.setVisible(true);
+						break;
+					}
+				}
+				
+				/* Version anterior
 				if (e.getKeyCode() == KeyEvent.VK_I) {
 					if(Estado.getEstado().esEstadoDeJuego()) {
 						if (menuInventario == null) {
 							menuInventario = new MenuInventario(cliente);
-							menuInventario.setVisible(true);
 						}
+						menuInventario.setVisible(true);
 					}
 				} else if (e.getKeyCode() == KeyEvent.VK_A) {
 					if(Estado.getEstado().esEstadoDeJuego()) {
@@ -113,6 +157,7 @@ public class Pantalla {
 						}
 //					}
 				}
+				*/
 			}
 		});
 
