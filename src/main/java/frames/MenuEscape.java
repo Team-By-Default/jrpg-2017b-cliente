@@ -52,9 +52,9 @@ public class MenuEscape extends JFrame {
 				dispose();	
 				Pantalla.menuEscp = null;
 				if (Pantalla.menuStats == null) {
-					Pantalla.menuStats = new MenuStats(cliente);
-					Pantalla.menuStats.setVisible(true);					
+					Pantalla.menuStats = new MenuStats(cliente);				
 				}
+				Pantalla.menuStats.setVisible(true);	
 			}
 		});
 		contentPane.add(verStats);
@@ -69,8 +69,8 @@ public class MenuEscape extends JFrame {
 				Pantalla.menuEscp = null;
 				if (Pantalla.menuAsignar == null) {
 					Pantalla.menuAsignar = new MenuAsignarSkills(cliente);
-					Pantalla.menuAsignar.setVisible(true);
 				}
+				Pantalla.menuAsignar.setVisible(true);
 			}
 		});
 		contentPane.add(asignarSkills);
@@ -86,8 +86,8 @@ public class MenuEscape extends JFrame {
 				if(Estado.getEstado().esEstadoDeJuego()) {
 					if (Pantalla.menuInventario == null) {
 						Pantalla.menuInventario = new MenuInventario(cliente);
-						Pantalla.menuInventario.setVisible(true);
 					}
+					Pantalla.menuInventario.setVisible(true);
 				}
 			}
 		});
