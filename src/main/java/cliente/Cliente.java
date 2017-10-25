@@ -1,9 +1,12 @@
 package cliente;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -48,7 +51,7 @@ public class Cliente extends Thread {
 		
 	// Ip y puerto
 	private String ip;
-	private final int puerto = 55050;
+	private int puerto;
 	/**Pide la accion
 	 * @return Devuelve la accion
 	 */
@@ -68,8 +71,16 @@ public class Cliente extends Thread {
 	 */
 	public Cliente() {
 
-
-		
+		//Intenta leer el numero de puerto de conexion del archivo config.txt. Si no puede leerlo, o si bien el numero no es un puerto, utiliza el por defecto 55050
+		try { 
+			Scanner sc = new Scanner(new File("config.txt"));
+			this.puerto=sc.nextInt();
+			sc.close();
+			if(this.puerto>65535||this.puerto<0)
+				this.puerto=55050;
+		} catch (FileNotFoundException e1) {
+			this.puerto=55050;
+		}
 		ip = JOptionPane.showInputDialog("Ingrese IP del servidor: (default localhost)");
 		if(ip == null) {
 			ip = "localhost";
