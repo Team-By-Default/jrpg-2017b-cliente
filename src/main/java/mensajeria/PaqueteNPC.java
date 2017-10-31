@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import dominio.Item;
 
-public class PaqueteNPC {
+public class PaqueteNPC extends Paquete {
 	private int id;
 	private int idMapa;
 	private String nombre;
@@ -16,10 +16,9 @@ public class PaqueteNPC {
 	
 	
 	public PaqueteNPC(int id) {
-		super();
 		this.id = id;
 		idMapa = 1;
-		nombre = "enemigo";
+		nombre = "Enemigo";
 		saludTope = 100;
 		energiaTope = 20;
 		fuerza = 50;

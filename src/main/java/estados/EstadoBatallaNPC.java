@@ -99,7 +99,7 @@ public class EstadoBatallaNPC extends Estado {
 
 			if (juego.getHandlerMouse().getNuevoClick()) {
 				posMouse = juego.getHandlerMouse().getPosMouse();
-
+				
 				if (menuBatalla.clickEnMenu(posMouse[0], posMouse[1])) {
 
 					if (menuBatalla.getBotonClickeado(posMouse[0], posMouse[1]) == 1) {
@@ -154,45 +154,28 @@ public class EstadoBatallaNPC extends Estado {
 					if (!enemigo.estaVivo())  // EL NPC MUERE
 					{
 						juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuGanarBatalla);
-						if(personaje.ganarExperiencia(enemigo.getNivel() * 40))
-						{
+						if(personaje.ganarExperiencia(enemigo.getNivel() * 40)){
 							juego.getPersonaje().setNivel(personaje.getNivel());
-							//juego.getPersonaje().setPuntosSkill(personaje.getPuntosSkill() + 2);
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
 						}
-						
-						//juego.getNpcManager().despawnNpc(paqueteEnemigo.getId());
-
-
 						finalizarBatalla();
-						
 						
 						juego.getPersonaje().setEstado(Estado.estadoJuego);
 						Estado.setEstado(juego.getEstadoJuego());
 					}
-					else 
-					{
+					else {
 						// BATALLAR VS NPC
 						enemigo.atacar(personaje);
 						
 						if(!personaje.estaVivo()) // EL PERSONAJE MUERE
 						{
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuPerderBatalla);
-							
 							juego.getPersonaje().setEstado(Estado.estadoJuego);
-							
 							paqueteFinalizarBatalla.setGanadorBatalla( -1 );
-							
-							
-							//paqueteFinalizarBatalla.setGanadorBatalla( enemigo.getId() );
 							finalizarBatalla();
 						}
 						
 						setMiTurno(true);
-						/*paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
-						enviarAtaque(paqueteAtacar);
-						miTurno = false;
-						menuBatalla.setHabilitado(false);*/
 					}
 				} else if(haySpellSeleccionada && !seRealizoAccion){
 					JOptionPane.showMessageDialog(null, "No posees la energía suficiente para realizar esta habilidad.");
@@ -220,7 +203,7 @@ public class EstadoBatallaNPC extends Estado {
 		g.setColor(Color.GREEN);
 
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 25, 5, personaje, miniaturaPersonaje);
-		 EstadoNPC.dibujarEstadoDeNPC(g, 550, 5, enemigo,  miniaturaNPC);
+		EstadoNPC.dibujarEstadoDeNPC(g, 550, 5, enemigo,  miniaturaNPC);
 	}
 
 	private void crearPersonajes() 
@@ -275,16 +258,10 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setDestreza(personaje.getDestreza());
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
-			
-			//paquetePersonaje.setPuntosSkill(personaje.getPuntosSkill());
 			paquetePersonaje.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
-			
-			//estadoJuego = new EstadoJuego( );
-			//Estado.setEstado(estadoJuego);
-			//pantalla.mostrar();
 	
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor :C");
