@@ -766,30 +766,25 @@ public class Entidad {
 			int key;
 			PaqueteMovimiento actual;
 	
-			while (it.hasNext()) {
+			while (!esPelea && it.hasNext()) {
 				key = it.next();
 				actual = ubicacionNPCs.get(key);
-				if (actual != null) {
-					if( actual.getPosX() - x < 50 && x > -50 &&
-						actual.getPosY() - y < 50 && y > -50){
-						// iniciar pelea
-						
-						PaqueteBatalla pBatalla = new PaqueteBatalla();
-						
-						pBatalla.setId(juego.getPersonaje().getId());
-						pBatalla.setIdEnemigo(  key  );
-						
-						juego.getPersonaje().setEstado( Estado.estadoBatallaNPC );
-						Estado.setEstado(null);
-						juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
-						Estado.setEstado(juego.getEstadoBatallaNPC());
-						
-						//mandarcomando INICIARPELEA al servidor asi los hace invisibles;
-												
-						//Cliente.log.append("Se Peleaaaaaaaaaaaaa" + actual.getPosX() + "," + actual.getPosY() + "       " + escuchaCliente.getPaqueteMovimiento().getPosX() + "," + escuchaCliente.getPaqueteMovimiento().getPosY() + System.lineSeparator());
-						esPelea = true;
-						break;
-					}
+				if (actual != null && Math.abs(actual.getPosX() - x) < 50 && Math.abs(actual.getPosY() - y) < 50){
+					// iniciar pelea					
+					PaqueteBatalla pBatalla = new PaqueteBatalla();
+					
+					pBatalla.setId(juego.getPersonaje().getId());
+					pBatalla.setIdEnemigo(  key  );
+					
+					juego.getPersonaje().setEstado( Estado.estadoBatallaNPC );
+					Estado.setEstado(null);
+					juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
+					Estado.setEstado(juego.getEstadoBatallaNPC());
+					
+					//mandarcomando INICIARPELEA al servidor asi los hace invisibles;
+											
+					//Cliente.log.append("Se Peleaaaaaaaaaaaaa" + actual.getPosX() + "," + actual.getPosY() + "       " + escuchaCliente.getPaqueteMovimiento().getPosX() + "," + escuchaCliente.getPaqueteMovimiento().getPosY() + System.lineSeparator());
+					esPelea = true;
 				}
 			}
 		}
