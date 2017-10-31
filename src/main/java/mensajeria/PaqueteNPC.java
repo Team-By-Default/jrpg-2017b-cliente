@@ -13,6 +13,10 @@ public class PaqueteNPC extends Paquete {
 	private int fuerza;
 	private int nivel;
 	private ArrayList<Item> items = new ArrayList<Item>();
+	/**
+	 * Estado que indica si está en batalla o no
+	 */
+	private boolean peleando;
 	
 	
 	public PaqueteNPC(int id) {
@@ -23,6 +27,7 @@ public class PaqueteNPC extends Paquete {
 		energiaTope = 20;
 		fuerza = 50;
 		nivel = 1;
+		this.setPeleando(false);
 	}
 	
 	
@@ -73,6 +78,23 @@ public class PaqueteNPC extends Paquete {
 	}
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
+	}
+
+
+	/**
+	 * @return true si está en una pelea, false si está libre
+	 */
+	public boolean estaPeleando() {
+		return peleando;
+	}
+
+
+	/**
+	 * @param peleando: poner true si está en una pelea,
+	 * false si se libera de una pelea
+	 */
+	public void setPeleando(boolean peleando) {
+		this.peleando = peleando;
 	}
 
 	

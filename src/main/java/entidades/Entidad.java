@@ -23,6 +23,7 @@ import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import juego.Pantalla;
 import mensajeria.PaqueteBatalla;
+import mensajeria.PaqueteBatallaNPC;
 import mensajeria.PaqueteComerciar;
 import mensajeria.PaqueteNPC;
 import mensajeria.PaqueteMovimiento;
@@ -191,7 +192,8 @@ public class Entidad {
 			moverAbajoIzq.reset();
 		}
 		*/
-
+		
+		//Veo qué clickeó
 		getEntrada();
 		mover();
 
@@ -203,6 +205,8 @@ public class Entidad {
 	public void getEntrada() {
 		posMouseRecorrido = juego.getHandlerMouse().getPosMouseRecorrido();
 		posMouse = juego.getHandlerMouse().getPosMouse();
+		
+		//Veo si clickeó algún menú y lo abro
 		if(juego.getHandlerMouse().getNuevoClick() && posMouse[0] >= 738 && posMouse[0] <= 797  && posMouse[1] >= 545 && posMouse[1] <= 597) {
 			if (Pantalla.menuInventario == null) {
 				Pantalla.menuInventario = new MenuInventario(juego.getCliente());
@@ -224,29 +228,32 @@ public class Entidad {
 			}
 			juego.getHandlerMouse().setNuevoClick(false);				
 		}
-		// Tomo el click izquierdo 
+		
+		// Tomo el click izquierdo
+		//Si había clickeado en un menú, no entra al if
 		if (juego.getHandlerMouse().getNuevoClick()) {
+			//Si hay solicitud
 			if (juego.getEstadoJuego().getHaySolicitud()) {
 
 				if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
-					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], 
-							posMouse[1])) {
+					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
+						
 						// Pregunto si menuBatallar o menuComerciar, sino no me interesa hacer esto
-						if (juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuBatallar || 
-								juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuComerciar) {
+						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar || 
+								juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuComerciar) {
 							//Guardo las poss con el que quiero comerciar
 							xComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosX();
 							yComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosY();
 							comercio = Mundo.isoA2D(xComercio, yComercio);							
 						}
+						
 						// pregunto si el menu emergente es de tipo batalla
-						if (juego.getEstadoJuego().getTipoSolicitud() == 
-								MenuInfoPersonaje.menuBatallar) {
+						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar) {
 							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
+							//Si no se encuentra dentro de la zona de comercio, seteo paquete batalla y HaySolicitud
 							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && 
 									(int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
+								
 								juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 								PaqueteBatalla pBatalla = new PaqueteBatalla();
 								
@@ -267,6 +274,7 @@ public class Entidad {
 										+ "dentro de la zona de comercio");	
 							}				
 						} else {
+							
 							// PREGUNTO SI EL MENU EMERGENTE ES DE TIPO COMERCIO
 							if (juego.getEstadoJuego().getTipoSolicitud() == 
 									MenuInfoPersonaje.menuComerciar) {
@@ -304,25 +312,28 @@ public class Entidad {
 					juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 				}
 			} else {
-				Iterator<Integer> it = juego.getUbicacionPersonajes().
-						keySet().iterator();
+				//Si no hay solicitud
+				Iterator<Integer> it = juego.getUbicacionPersonajes().keySet().iterator();
 				int key;
-				int []tileMoverme = Mundo.mouseATile(posMouse[0] + juego.getCamara().getxOffset() - 
-						xOffset,posMouse[1] + juego.getCamara().getyOffset() - yOffset);
+				int []tileMoverme = Mundo.mouseATile(posMouse[0] + juego.getCamara().getxOffset() - xOffset,
+						posMouse[1] + juego.getCamara().getyOffset() - yOffset);
 				PaqueteMovimiento actual;
 
 				while (it.hasNext()) {
+					//Key es id personaje
 					key = it.next();
+					//Actual es ubicacion del personaje actual
 					actual = juego.getUbicacionPersonajes().get(key);
 					tilePersonajes = Mundo.mouseATile(actual.getPosX(), actual.getPosY());
+					
+					//Si actual no es nuestro personaje y está en estado juego
 					if (actual != null && actual.getIdPersonaje() != juego.getPersonaje().getId()
-							&& juego.getPersonajesConectados().get(actual.
-									getIdPersonaje()) != null
-							&& juego.getPersonajesConectados().get(actual.
-									getIdPersonaje()).getEstado() == Estado.estadoJuego) {
-
-						if (tileMoverme[0] == tilePersonajes[0] && tileMoverme[1] == 
-								tilePersonajes[1]) {
+							&& juego.getPersonajesConectados().get(actual.getIdPersonaje()) != null
+							&& juego.getPersonajesConectados().get(actual.getIdPersonaje()).getEstado() == Estado.estadoJuego) {
+						
+						//Si hice click sobre actual
+						if (tileMoverme[0] == tilePersonajes[0] && 
+								tileMoverme[1] == tilePersonajes[1]) {
 							idEnemigo = actual.getIdPersonaje();
 							float XY[] = Mundo.isoA2D(x,y);
 							// ESTA ESTE PARA NO MOVERME HASTA EL LUGAR.
@@ -335,9 +346,9 @@ public class Entidad {
 							} else {
 								// SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU
 								// DE BATALLA
-								juego.getEstadoJuego().setHaySolicitud(true,juego.
-										getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.
-										menuBatallar);		
+								juego.getEstadoJuego().setHaySolicitud(true,
+										juego.getPersonajesConectados().get(idEnemigo), 
+										MenuInfoPersonaje.menuBatallar);		
 							}
 							juego.getHandlerMouse().setNuevoClick(false);
 						}
@@ -769,21 +780,28 @@ public class Entidad {
 			while (!esPelea && it.hasNext()) {
 				key = it.next();
 				actual = ubicacionNPCs.get(key);
-				if (actual != null && Math.abs(actual.getPosX() - x) < 50 && Math.abs(actual.getPosY() - y) < 50){
-					// iniciar pelea					
-					PaqueteBatalla pBatalla = new PaqueteBatalla();
+				
+				//Si el actual no está peleando ya y está cerca, inicio pelea
+				if (actual != null && !NPCs.get(key).estaPeleando() && 
+						Math.abs(actual.getPosX() - x) < 50 && Math.abs(actual.getPosY() - y) < 50){
+					// iniciar pelea	
+					System.out.println(juego.getPersonaje().getId() + " pelea contra " + key + " que estaba peleando " + NPCs.get(key).estaPeleando());
 					
+					PaqueteBatallaNPC pBatalla = new PaqueteBatallaNPC();
 					pBatalla.setId(juego.getPersonaje().getId());
-					pBatalla.setIdEnemigo(  key  );
+					pBatalla.setIdEnemigo(key);
+					
+					try {
+						juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla, PaqueteBatallaNPC.class));
+					} catch (IOException e) {
+						JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+					}
 					
 					juego.getPersonaje().setEstado( Estado.estadoBatallaNPC );
 					Estado.setEstado(null);
 					juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
 					Estado.setEstado(juego.getEstadoBatallaNPC());
 					
-					//mandarcomando INICIARPELEA al servidor asi los hace invisibles;
-											
-					//Cliente.log.append("Se Peleaaaaaaaaaaaaa" + actual.getPosX() + "," + actual.getPosY() + "       " + escuchaCliente.getPaqueteMovimiento().getPosX() + "," + escuchaCliente.getPaqueteMovimiento().getPosY() + System.lineSeparator());
 					esPelea = true;
 				}
 			}

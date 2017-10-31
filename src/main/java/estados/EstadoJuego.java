@@ -125,15 +125,18 @@ public class EstadoJuego extends Estado {
 		if(juego.getNPCs() != null){
 			NPCs = new HashMap<Integer, PaqueteNPC>(juego.getNPCs());
 			ubicacionNPCs = new HashMap<Integer, PaqueteMovimiento>(juego.getUbicacionNPCs());
+			
 			Iterator<Integer> it = NPCs.keySet().iterator();
 			int key;
 			PaqueteMovimiento actual;
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
+			
 			while (it.hasNext()) {
 				key = it.next();
 				actual = ubicacionNPCs.get(key);
-				if (actual != null) {
+				//Si no está peleando, lo grafico
+				if (actual != null && !NPCs.get(key).estaPeleando()) {
 						Pantalla.centerString(g, new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), (int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ), 0, 10), NPCs.get(actual.getIdPersonaje()).getNombre());
 						g.drawImage( Recursos.monstruo, (int) (actual.getPosX() - juego.getCamara().getxOffset() ), (int) (actual.getPosY() - juego.getCamara().getyOffset()), 64, 64, null);
 				}
