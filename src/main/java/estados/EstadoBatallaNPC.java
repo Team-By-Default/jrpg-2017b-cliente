@@ -27,6 +27,7 @@ import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.PaqueteAtacar;
 import mensajeria.PaqueteBatalla;
+import mensajeria.PaqueteBatallaNPC;
 import mensajeria.PaqueteNPCs;
 import mensajeria.PaqueteFinalizarBatalla;
 import mensajeria.PaqueteNPC;
@@ -56,7 +57,7 @@ public class EstadoBatallaNPC extends Estado {
 
 	private MenuBatalla menuBatalla;
 
-	public EstadoBatallaNPC(Juego juego, PaqueteBatalla paqueteBatalla) 
+	public EstadoBatallaNPC(Juego juego, PaqueteBatallaNPC paqueteBatalla) 
 	{
 		// El paquete de batalla va a tener la id del jugador
 		
