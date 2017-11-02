@@ -35,7 +35,7 @@ public abstract class Comando {
 	public static final int TALK = 18;
  	public static final int MOVIMIENTONPCS = 19; //No está implementado en el servidor
  	public static final int ACTUALIZARNPCS = 20; //No está implementado en el servidor
- 	public static final int BATALLANPC = 21; //No está implementado en el servidor
+ 	public static final int BATALLANPC = 21;
  	public static final int FINALIZARBATALLANPC = 22;
 	
 	protected final Gson gson = new Gson();
