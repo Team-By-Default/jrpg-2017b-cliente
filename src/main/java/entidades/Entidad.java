@@ -784,9 +784,7 @@ public class Entidad {
 				//Si el actual no está peleando ya y está cerca, inicio pelea
 				if (actual != null && !NPCs.get(key).estaPeleando() && 
 						Math.abs(actual.getPosX() - x) < 50 && Math.abs(actual.getPosY() - y) < 50){
-					// iniciar pelea	
-					System.out.println(juego.getPersonaje().getId() + " pelea contra " + key + " que estaba peleando " + NPCs.get(key).estaPeleando());
-					
+					// iniciar pelea						
 					PaqueteBatallaNPC pBatalla = new PaqueteBatallaNPC();
 					pBatalla.setId(juego.getPersonaje().getId());
 					pBatalla.setIdEnemigo(key);
@@ -796,11 +794,6 @@ public class Entidad {
 					} catch (IOException e) {
 						JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
 					}
-					
-					juego.getPersonaje().setEstado( Estado.estadoBatallaNPC );
-					Estado.setEstado(null);
-					juego.setEstadoBatallaNPC(new EstadoBatallaNPC(juego, pBatalla));
-					Estado.setEstado(juego.getEstadoBatallaNPC());
 					
 					esPelea = true;
 				}
