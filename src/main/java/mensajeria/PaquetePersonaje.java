@@ -27,6 +27,36 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int experiencia;
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
+	//Para hibernate
+	private int inventario;
+	private int mochila;
+	private int alianza;
+	
+	public int getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(int inventario) {
+		this.inventario = inventario;
+	}
+
+	public int getMochila() {
+		return mochila;
+	}
+
+	public void setMochila(int mochila) {
+		this.mochila = mochila;
+	}
+
+	public int getAlianza() {
+		return alianza;
+	}
+
+	public void setAlianza(int alianza) {
+		this.alianza = alianza;
+	}
+	//
+	
 	public PaquetePersonaje() throws IOException {
 		estado = Estado.estadoOffline;
 	}
