@@ -73,7 +73,7 @@ public class Cliente extends Thread {
 
 		//Intenta leer el numero de puerto de conexion del archivo config.txt. Si no puede leerlo, o si bien el numero no es un puerto, utiliza el por defecto 55050
 		try { 
-			Scanner sc = new Scanner(new File("config.txt"));
+			Scanner sc = new Scanner(new File("config.txt"));//usar properties
 			this.puerto=sc.nextInt();
 			sc.close();
 			if(this.puerto>65535||this.puerto<0)

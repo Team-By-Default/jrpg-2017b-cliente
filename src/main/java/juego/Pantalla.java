@@ -87,7 +87,7 @@ public class Pantalla {
 					ventContac.setVisible(true);
 				}
 				
-				if(Estado.getEstado().esEstadoDeJuego()) {
+				if(Estado.getEstado().esEstadoDeJuego()) { // hacer con mapas, vale lpqtp
 					switch(e.getKeyCode()) {
 					//Si se toca I, abre el inventario
 					case KeyEvent.VK_I:
