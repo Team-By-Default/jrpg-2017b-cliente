@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -43,6 +44,12 @@ public class Pantalla {
 	public static MenuStats menuStats;
 	public static MenuEscape menuEscp;
 	public static VentanaContactos ventContac;
+	
+	/**
+	 * Mapa de menus con el codigo de tecla que los abre
+	 */
+	public static HashMap<Integer, JFrame> menus = new HashMap<Integer, JFrame>();
+	
 		
 	private final Gson gson = new Gson();
 	
@@ -56,6 +63,24 @@ public class Pantalla {
 		pantalla.setSize(ANCHO, ALTO);
 		pantalla.setResizable(false);
 		pantalla.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		
+		//Inicializo el mapa de menus
+		//this.menus = new HashMap<Integer, JFrame>();
+		
+		/*menus.put(KeyEvent.VK_C, new VentanaContactos(cliente.getJuego()));
+		menus.put(KeyEvent.VK_I, new MenuInventario(cliente));
+		menus.put(KeyEvent.VK_A, new MenuAsignarSkills(cliente));
+		menus.put(KeyEvent.VK_S, new MenuStats(cliente));
+		menus.put(KeyEvent.VK_ESCAPE, new MenuEscape(cliente));
+		*/
+		
+		
+		menus.put(KeyEvent.VK_C, ventContac);
+		menus.put(KeyEvent.VK_I, menuInventario);
+		menus.put(KeyEvent.VK_A, menuAsignar);
+		menus.put(KeyEvent.VK_S, menuStats);
+		menus.put(KeyEvent.VK_ESCAPE, menuEscp);
+		
 		
 		pantalla.addWindowListener(new WindowAdapter() {
 			@Override
@@ -79,6 +104,39 @@ public class Pantalla {
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_C) {
+					if (ventContac == null) {
+						ventContac = new VentanaContactos(cliente.getJuego());
+					}
+					ventContac.setVisible(true);
+					return;
+				}
+				
+				if(Estado.getEstado().esEstadoDeJuego()) {
+					if(menus.get(e.getKeyCode()) == null) {
+						//No logro deshacerme de este switch...
+						switch(e.getKeyCode()) {
+						case KeyEvent.VK_I:
+							menuInventario = new MenuInventario(cliente);
+							menus.put(KeyEvent.VK_I, menuInventario);
+							break;
+						case KeyEvent.VK_A:
+							menuAsignar = new MenuAsignarSkills(cliente);
+							menus.put(KeyEvent.VK_A, menuAsignar);
+							break;
+						case KeyEvent.VK_S:
+							menuStats = new MenuStats(cliente);
+							menus.put(KeyEvent.VK_S, menuStats);
+							break;
+						case KeyEvent.VK_ESCAPE:
+							menuEscp = new MenuEscape(cliente);
+							menus.put(KeyEvent.VK_ESCAPE, menuEscp);
+						}
+					}
+					menus.get(e.getKeyCode()).setVisible(true);
+				}
+				
+				/*Version 2 anterior
 				//Si toca C, abro la ventana de contactos, no importa en qué estado esté
 				if (e.getKeyCode() == KeyEvent.VK_C) {
 					if (ventContac == null) {
@@ -118,7 +176,7 @@ public class Pantalla {
 						menuEscp.setVisible(true);
 						break;
 					}
-				}
+				}*/
 				
 				/* Version anterior
 				if (e.getKeyCode() == KeyEvent.VK_I) {
