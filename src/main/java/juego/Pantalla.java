@@ -268,7 +268,7 @@ public class Pantalla {
 			//No logro deshacerme de este switch...
 			switch(menu) {
 			case ventContac:
-				menus.put(menuInventario, new VentanaContactos(cliente.getJuego()));
+				menus.put(ventContac, new VentanaContactos(cliente.getJuego()));
 				break;
 			case menuInventario:
 				menus.put(menuInventario, new MenuInventario(cliente));
