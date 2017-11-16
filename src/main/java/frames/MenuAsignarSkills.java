@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import dominio.Item;
 import juego.Pantalla;
 import mensajeria.Comando;
 import java.awt.event.WindowAdapter;
@@ -27,37 +28,68 @@ import java.awt.event.WindowEvent;
 public class MenuAsignarSkills extends JFrame {
 
 	private JPanel contentPane;
+	/*
+	 * Todo lo Inicial son los puntajes que tengo
+	 * al abrir la ventana
+	 */
 	private int puntosAsignarInicial = 10;
 	private int puntosFuerzaInicial = 0;
 	private int puntosDestrezaInicial = 0;
 	private int puntosInteligenciaInicial = 0;
+	/*
+	 * Todo lo Base son los puntajes que tendría si
+	 * nunca hubiera asignado ningún punto de Skill.
+	 * Es a lo que debe resetear cuando toco asignar.
+	 */
 	private int puntosFuerzaBase=10;
 	private int puntosDestrezaBase=10;
 	private int puntosInteligenciaBase=10;
 	private int puntosAsignarBase=0;
+	/*
+	 * Y estas son las variables que voy a ir modificando
+	 * mientras uso la pantalla y antes de confirmar.
+	 */
 	private int puntosAsignar = puntosAsignarInicial;
 	private int puntosFuerza = puntosFuerzaInicial;
 	private int puntosDestreza = puntosDestrezaInicial;
 	private int puntosInteligencia = puntosInteligenciaInicial;
+	
 	private final Gson gson = new Gson();
 
 	/**
-	 * Create the frame.
+	 * Genera el menu Asignar Skills
 	 */
 	public MenuAsignarSkills(final Cliente cliente) {
+		//Calculo cuanto tengo de cada habilidad actualmente. Esto incluye bonus por casta e items
 		puntosFuerzaInicial = cliente.getPaquetePersonaje().getFuerza();
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();
 		puntosInteligenciaInicial = cliente.getPaquetePersonaje().getInteligencia();
 		
+		/*
+		 * La base de una habilidad es lo que tendría sin sumarle ningún punto de skill,
+		 * a lo que debería resetear cuando toca Reiniciar.
+		 * Es la suma de los bonus de casta e items.
+		 */
 		if(cliente.getPaquetePersonaje().getCasta().equals("Asesino"))
 			puntosDestrezaBase+=5;
 		if(cliente.getPaquetePersonaje().getCasta().equals("Guerrero"))
 			puntosFuerzaBase+=5;
 		if(cliente.getPaquetePersonaje().getCasta().equals("Hechicero"))
 			puntosInteligenciaBase+=5;
+		for(Item item : cliente.getPaquetePersonaje().getItems()){
+			puntosDestrezaBase += item.getBonusDestreza();
+			puntosFuerzaBase += item.getBonusFuerza();
+			puntosInteligenciaBase += item.getBonusInteligencia();
+		}
 		
-		puntosAsignarBase=(cliente.getPaquetePersonaje().getNivel()-1)*3;
-		puntosAsignarInicial=puntosAsignarBase-(puntosFuerzaInicial-puntosFuerzaBase)-(puntosDestrezaInicial-puntosDestrezaBase)-(puntosInteligenciaInicial-puntosInteligenciaBase);
+		//La base de los puntos a asignar son los ganados por nivel
+		puntosAsignarBase = (cliente.getPaquetePersonaje().getNivel()-1)*3;
+		
+		//Los puntos a asignar inicial son los todavía no asignados a las habilidades
+		puntosAsignarInicial = puntosAsignarBase - 
+				(puntosFuerzaInicial - puntosFuerzaBase) - 
+				(puntosDestrezaInicial - puntosDestrezaBase) - 
+				(puntosInteligenciaInicial - puntosInteligenciaBase);
 		
 		puntosAsignar = puntosAsignarInicial;
 		puntosFuerza = puntosFuerzaInicial;
