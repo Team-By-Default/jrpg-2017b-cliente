@@ -208,24 +208,15 @@ public class Entidad {
 		
 		//Veo si clickeó algún menú y lo abro
 		if(juego.getHandlerMouse().getNuevoClick() && posMouse[0] >= 738 && posMouse[0] <= 797  && posMouse[1] >= 545 && posMouse[1] <= 597) {
-			if (Pantalla.menuInventario == null) {
-				Pantalla.menuInventario = new MenuInventario(juego.getCliente());
-				Pantalla.menuInventario.setVisible(true);
-			}
+			Pantalla.abrirMenu(Pantalla.menuInventario, juego.getCliente());
 			juego.getHandlerMouse().setNuevoClick(false);				
 		}
 		if(juego.getHandlerMouse().getNuevoClick() && posMouse[0] >= 3 && posMouse[0] <= 105 && posMouse[1] >= 562 && posMouse[1] <= 597) {
-			if (Pantalla.menuEscp == null) {
-				Pantalla.menuEscp = new MenuEscape(juego.getCliente());
-				Pantalla.menuEscp.setVisible(true);
-			}
+			Pantalla.abrirMenu(Pantalla.menuEscp, juego.getCliente());
 			juego.getHandlerMouse().setNuevoClick(false);				
 		}
 		if(juego.getHandlerMouse().getNuevoClick() && posMouse[0] >= 3 && posMouse[0] <= 105 && posMouse[1] >= 524 && posMouse[1] <= 559) {
-			if (Pantalla.ventContac == null) {
-				Pantalla.ventContac = new VentanaContactos(juego);
-				Pantalla.ventContac.setVisible(true);
-			}
+			Pantalla.abrirMenu(Pantalla.ventContac, juego.getCliente());
 			juego.getHandlerMouse().setNuevoClick(false);				
 		}
 		

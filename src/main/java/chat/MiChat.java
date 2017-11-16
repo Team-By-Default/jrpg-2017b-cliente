@@ -69,7 +69,7 @@ public class MiChat extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				if (getTitle() == "Sala") {
-					if (Pantalla.ventContac != null) {
+					if (Pantalla.getVentContac() != null) {
 						VentanaContactos.getBotonMc().setEnabled(true);						
 					}
 				}

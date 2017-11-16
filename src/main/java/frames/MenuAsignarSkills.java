@@ -116,7 +116,7 @@ public class MenuAsignarSkills extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				Pantalla.menuAsignar = null;
+				Pantalla.cerrarMenu(Pantalla.menuAsignar);
 				dispose();
 			}
 		});
@@ -191,7 +191,7 @@ public class MenuAsignarSkills extends JFrame {
 
 				}
 				JOptionPane.showMessageDialog(null,"Se han actualizado tus atributos.");
-				Pantalla.menuAsignar = null;
+				Pantalla.cerrarMenu(Pantalla.menuAsignar);
 				dispose();
 			}
 		});
@@ -247,7 +247,7 @@ public class MenuAsignarSkills extends JFrame {
 		buttonCancel.setIcon(icono_c);
 		buttonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Pantalla.menuAsignar = null;
+				Pantalla.cerrarMenu(Pantalla.menuAsignar);
 				dispose();
 			}
 		});

@@ -39,16 +39,28 @@ public class Pantalla {
 	private Canvas canvas;
 
 	// Menus
+	/**
+	 * Constantes con los codigos de teclas que abren
+	 * cada menu, y que sirven de key en el HashMap menus
+	 */
+	public static final int menuInventario = KeyEvent.VK_I;
+	public static final int menuAsignar = KeyEvent.VK_A;
+	public static final int menuStats = KeyEvent.VK_S;
+	public static final int menuEscp = KeyEvent.VK_ESCAPE;
+	public static final int ventContac = KeyEvent.VK_C;
+	
+	/*
 	public static MenuInventario menuInventario;
 	public static MenuAsignarSkills menuAsignar;
 	public static MenuStats menuStats;
 	public static MenuEscape menuEscp;
 	public static VentanaContactos ventContac;
+	*/
 	
 	/**
 	 * Mapa de menus con el codigo de tecla que los abre
 	 */
-	public static HashMap<Integer, JFrame> menus = new HashMap<Integer, JFrame>();
+	private static HashMap<Integer, JFrame> menus = new HashMap<Integer, JFrame>();
 	
 		
 	private final Gson gson = new Gson();
@@ -74,13 +86,19 @@ public class Pantalla {
 		menus.put(KeyEvent.VK_ESCAPE, new MenuEscape(cliente));
 		*/
 		
-		
+		/*
 		menus.put(KeyEvent.VK_C, ventContac);
 		menus.put(KeyEvent.VK_I, menuInventario);
 		menus.put(KeyEvent.VK_A, menuAsignar);
 		menus.put(KeyEvent.VK_S, menuStats);
 		menus.put(KeyEvent.VK_ESCAPE, menuEscp);
+		*/
 		
+		menus.put(ventContac, null);
+		menus.put(menuInventario, null);
+		menus.put(menuAsignar, null);
+		menus.put(menuStats, null);
+		menus.put(menuEscp, null);
 		
 		pantalla.addWindowListener(new WindowAdapter() {
 			@Override
@@ -104,36 +122,15 @@ public class Pantalla {
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_C) {
-					if (ventContac == null) {
-						ventContac = new VentanaContactos(cliente.getJuego());
-					}
-					ventContac.setVisible(true);
+				//La ventana de contactos tiene que mostrarse siempre, en cualquier estado
+				if (e.getKeyCode() == ventContac) {
+					abrirMenu(ventContac, cliente);
 					return;
 				}
 				
+				//Las otras ventanas se muestran solo en estado juego
 				if(Estado.getEstado().esEstadoDeJuego()) {
-					if(menus.get(e.getKeyCode()) == null) {
-						//No logro deshacerme de este switch...
-						switch(e.getKeyCode()) {
-						case KeyEvent.VK_I:
-							menuInventario = new MenuInventario(cliente);
-							menus.put(KeyEvent.VK_I, menuInventario);
-							break;
-						case KeyEvent.VK_A:
-							menuAsignar = new MenuAsignarSkills(cliente);
-							menus.put(KeyEvent.VK_A, menuAsignar);
-							break;
-						case KeyEvent.VK_S:
-							menuStats = new MenuStats(cliente);
-							menus.put(KeyEvent.VK_S, menuStats);
-							break;
-						case KeyEvent.VK_ESCAPE:
-							menuEscp = new MenuEscape(cliente);
-							menus.put(KeyEvent.VK_ESCAPE, menuEscp);
-						}
-					}
-					menus.get(e.getKeyCode()).setVisible(true);
+					abrirMenu(e.getKeyCode(), cliente);
 				}
 				
 				/*Version 2 anterior
@@ -258,5 +255,51 @@ public class Pantalla {
 	    int b = (r.height / 2) - (rHeight / 2) - rY;
 
 	    g.drawString(s, r.x + a, r.y + b);
+	}
+	
+	/**
+	 * Abre la ventana del menu que recibe por parametro
+	 * @param menu: codigo del menu a mostrar
+	 * @param cliente: Cliente del que se van a mostrar los datos
+	 */
+	public static void abrirMenu(final int menu, final Cliente cliente) {
+		if(menus.get(menu) == null) {
+			//Si la ventana no existia, la creo
+			//No logro deshacerme de este switch...
+			switch(menu) {
+			case ventContac:
+				menus.put(menuInventario, new VentanaContactos(cliente.getJuego()));
+				break;
+			case menuInventario:
+				menus.put(menuInventario, new MenuInventario(cliente));
+				break;
+			case menuAsignar:
+				menus.put(menuAsignar, new MenuAsignarSkills(cliente));
+				break;
+			case menuStats:
+				menus.put(menuStats, new MenuStats(cliente));
+				break;
+			case menuEscp:
+				menus.put(menuEscp, new MenuEscape(cliente));
+			}
+		}
+		menus.get(menu).setVisible(true);
+	}
+	
+	/**
+	 * Cierra la ventana del menu que recibe por parametro
+	 * @param menu: codigo del menu a cerrar
+	 */
+	public static void cerrarMenu(final int menu) {
+		menus.put(menu, null);
+	}
+	
+	/**
+	 * Devuelve la ventana de contactos para que pueda ser modificada
+	 * por Talk y MiChat.
+	 * @return Ventana de contactos
+	 */
+	public static VentanaContactos getVentContac() {
+		return (VentanaContactos) menus.get(ventContac);
 	}
 }
