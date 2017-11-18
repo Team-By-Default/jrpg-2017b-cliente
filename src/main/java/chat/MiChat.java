@@ -81,6 +81,11 @@ public class MiChat extends JFrame {
 		texto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!texto.getText().equals("")) {
+					
+					//if( el texto que escribio esta en una lista de comandos )
+					//	aplicar comando
+					//	return
+					
 					chat.append("Me: " + texto.getText() + "\n");
 					
 					juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
