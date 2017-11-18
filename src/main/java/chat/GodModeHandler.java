@@ -8,7 +8,7 @@ public class GodModeHandler extends TrickHandler {
 		super(sucesor);
 	}
 	public void ejecutar() {
-		
+		System.out.println("Modo dios");
 	}
 	@Override
 	public boolean puedoSoportarlo(String comando) {

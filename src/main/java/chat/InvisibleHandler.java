@@ -16,6 +16,6 @@ public class InvisibleHandler extends TrickHandler {
 	@Override
 	public void ejecutar() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("I cant see you");
 	}
 }

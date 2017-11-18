@@ -9,7 +9,7 @@ public class TinyDaddyHandler extends TrickHandler{
 	}
 
 	public void ejecutar() {
-		
+		System.out.println("Tiny daddy");
 	}
 	@Override
 	public boolean puedoSoportarlo(String comando) {

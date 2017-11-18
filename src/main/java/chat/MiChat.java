@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,7 +36,9 @@ public class MiChat extends JFrame {
 	private final Gson gson = new Gson();
 	private final JLabel background = new JLabel(new ImageIcon("recursos//background.jpg"));
 	private DefaultCaret caret;
-
+	private TreeSet<String> comandos;
+	private TrickHandler trucos;
+	
 	/**
 	 * Create the frame. 
 	 */
@@ -77,33 +81,29 @@ public class MiChat extends JFrame {
 			}
 		});
 		
+		this.comandos = new TreeSet<String>();
+		comandos.add(GodModeHandler.miComando);
+		comandos.add(BigDaddyHandler.miComando);
+		comandos.add(TinyDaddyHandler.miComando);
+		comandos.add(InvisibleHandler.miComando);
+		comandos.add(NoClipHandler.miComando);
+		
+		trucos = new GodModeHandler(
+				new BigDaddyHandler(
+						new TinyDaddyHandler(
+								new InvisibleHandler(
+										new NoClipHandler(null)))));
+		
 		//SI TOCO ENTER
 		texto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!texto.getText().equals("")) {
+					//Si es un truco, lo ejecuto y no lo envio, sino envio el mensaje
+					if(comandos.contains(texto.getText())) 
+						trucos.ejecutarComando(texto.getText());
+					else
+						enviarMensaje(juego);
 					
-					//if( el texto que escribio esta en una lista de comandos )
-					//	aplicar comando
-					//	return
-					
-					chat.append("Me: " + texto.getText() + "\n");
-					
-					juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
-					juego.getCliente().getPaqueteMensaje().setUserReceptor(getTitle());
-					juego.getCliente().getPaqueteMensaje().setMensaje(texto.getText());
-					
-					// MANDO EL COMANDO PARA QUE ENVIE EL MSJ
-					juego.getCliente().getPaqueteMensaje().setComando(Comando.TALK);
-					// El user receptor en espacio indica que es para todos
-					if(getTitle() == "Sala"){
-						juego.getCliente().getPaqueteMensaje().setUserReceptor(null);
-					}
-					
-					try {
-						juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaqueteMensaje()));
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(null, "Error al enviar mensaje");
-					}
 					texto.setText("");
 				}
 				texto.requestFocus();
@@ -116,25 +116,7 @@ public class MiChat extends JFrame {
 		enviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!texto.getText().equals("")) {
-					chat.append("Me: " + texto.getText() + "\n");
-					
-					juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
-					juego.getCliente().getPaqueteMensaje().setUserReceptor(getTitle());
-					juego.getCliente().getPaqueteMensaje().setMensaje(texto.getText());
-					
-					// MANDO EL COMANDO PARA QUE ENVIE EL MSJ
-					juego.getCliente().getPaqueteMensaje().setComando(Comando.TALK);
-					// El user receptor en espacio indica que es para todos
-					if(getTitle() == "Sala"){
-						juego.getCliente().getPaqueteMensaje().setUserReceptor(null);
-					}
-					
-					try {
-						juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaqueteMensaje()));
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(null, "Error al enviar mensaje");
-
-					}
+					enviarMensaje(juego);
 					texto.setText("");
 				}
 				texto.requestFocus();
@@ -156,5 +138,26 @@ public class MiChat extends JFrame {
 
 	public JTextField getTexto() {
 		return texto;
+	}
+
+	private void enviarMensaje(final Juego juego) {
+		chat.append("Me: " + texto.getText() + "\n");
+		
+		juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
+		juego.getCliente().getPaqueteMensaje().setUserReceptor(getTitle());
+		juego.getCliente().getPaqueteMensaje().setMensaje(texto.getText());
+		
+		// MANDO EL COMANDO PARA QUE ENVIE EL MSJ
+		juego.getCliente().getPaqueteMensaje().setComando(Comando.TALK);
+		// El user receptor en espacio indica que es para todos
+		if(getTitle() == "Sala"){
+			juego.getCliente().getPaqueteMensaje().setUserReceptor(null);
+		}
+		
+		try {
+			juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaqueteMensaje()));
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(null, "Error al enviar mensaje");
+		}
 	}
 }

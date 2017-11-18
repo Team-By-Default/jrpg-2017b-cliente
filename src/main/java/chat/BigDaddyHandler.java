@@ -7,7 +7,7 @@ public class BigDaddyHandler extends TrickHandler {
 		super(sucesor);
 	}
 	public void ejecutar() {
-		
+		System.out.println("Big daddy");
 	}
 	@Override
 	public boolean puedoSoportarlo(String comando) {
