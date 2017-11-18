@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 import dominio.Item;
+import dominio.Mochila;
 import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
@@ -27,6 +28,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int experiencia;
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
+	
 	public PaquetePersonaje() throws IOException {
 		estado = Estado.estadoOffline;
 	}
@@ -39,7 +41,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	  private int alianza;
 	 
-	  
+	  private Mochila backPack;
 	 
 	  public int getInventario() {
 	 
@@ -86,7 +88,14 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	    this.alianza = alianza;
 	 
 	  }
+	  
+	  public void setBackPack(Mochila mochila) {
+		  this.backPack=mochila;
+	  }
 	 
+	  public Mochila getBackPack() {
+		  return this.backPack;
+	  }
 	  //
 	 
 
