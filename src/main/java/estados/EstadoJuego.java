@@ -68,14 +68,19 @@ public class EstadoJuego extends Estado {
 		entidadPersonaje.actualizar();
 	}
 
+	/**
+	 * Grafica toda la pantalla. El mundo, personajes, NPCs, etc
+	 */
 	@Override
 	public void graficar(Graphics g) {
+		//Dibujar mapa
 		g.drawImage(Recursos.background, 0, 0, juego.getAncho(), juego.getAlto(), null);
 		mundo.graficar(g);
-		//entidadPersonaje.graficar(g);
+		mundo.graficarObstaculos(g);
+		//Dibujar personajes y NPCs
 		graficarPersonajes(g);
 		graficarNPCs(g);
-		mundo.graficarObstaculos(g);
+		//Dibujar botones, marco, etc
 		entidadPersonaje.graficarNombre(g);
 		g.drawImage(Recursos.marco, 0, 0, juego.getAncho(), juego.getAlto(), null);
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 5, 5, paquetePersonaje, miniaturaPersonaje);
@@ -84,9 +89,12 @@ public class EstadoJuego extends Estado {
 		g.drawImage(Recursos.chat, 3, 524, 102, 35, null);
 		if(haySolicitud)
 			menuEnemigo.graficar(g, tipoSolicitud);
-
 	}
 
+	/**
+	 * Grafica todos los personajes sobre el mapa
+	 * @param g
+	 */
 	public void graficarPersonajes(Graphics g) {
 
 		if(juego.getPersonajesConectados() != null){
@@ -94,32 +102,41 @@ public class EstadoJuego extends Estado {
 			ubicacionPersonajes = new HashMap<Integer, PaqueteMovimiento>(juego.getUbicacionPersonajes());
 			Iterator<Integer> it = personajesConectados.keySet().iterator();
 			int key;
-			PaqueteMovimiento actual;
+			PaqueteMovimiento actualMov;
+			
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
+			
 			while (it.hasNext()) {
 				key = it.next();
-				actual = ubicacionPersonajes.get(key);
-				if (actual != null && 
-						actual.getIdPersonaje() != juego.getPersonaje().getId() && 
-						personajesConectados.get(actual.getIdPersonaje()).getEstado() == Estado.estadoJuego) {
-					
+				actualMov = ubicacionPersonajes.get(key);
+				//Si el actual no es mi personaje y está en estadoJuego y no es invisible o yo soy invisible y veo a todos...
+				if (actualMov != null && 
+						actualMov.getIdPersonaje() != juego.getPersonaje().getId() && 
+						personajesConectados.get(actualMov.getIdPersonaje()).getEstado() == Estado.estadoJuego &&
+						(juego.getPersonaje().isInvisible() || !personajesConectados.get(actualMov.getIdPersonaje()).isInvisible())) {
+					//... lo dibujo
 					Pantalla.centerString(g, 
-							new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), 
-									(int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ),
+							new Rectangle((int) (actualMov.getPosX() - juego.getCamara().getxOffset() + 32), 
+									(int) (actualMov.getPosY() - juego.getCamara().getyOffset() - 20 ),
 									0, 10), 
-							personajesConectados.get(actual.getIdPersonaje()).getNombre());
+							personajesConectados.get(actualMov.getIdPersonaje()).getNombre());
 					
 					g.drawImage(Recursos.personaje.get(
-							personajesConectados.get(actual.getIdPersonaje()).getRaza()).get(actual.getDireccion())[actual.getFrame()],
-							(int) (actual.getPosX() - juego.getCamara().getxOffset() ), 
-							(int) (actual.getPosY() - juego.getCamara().getyOffset()), 
+							personajesConectados.get(actualMov.getIdPersonaje()).getRaza()
+							).get(actualMov.getDireccion())[actualMov.getFrame()],
+							(int) (actualMov.getPosX() - juego.getCamara().getxOffset() ), 
+							(int) (actualMov.getPosY() - juego.getCamara().getyOffset()), 
 							64, 64, null);
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Grafica todos los NPC sobre el mapa
+	 * @param g
+	 */
 	public void graficarNPCs(Graphics g) {
 		
 		if(juego.getNPCs() != null){
@@ -158,18 +175,6 @@ public class EstadoJuego extends Estado {
 		if(mundo > 0 && mundo <= nombres.length)
 			return nombres[mundo - 1];
 		return null;
-		
-		/* Version anterior
-		if (mundo == 1) {
-			return "Aubenor";
-		} else if (mundo == 2) {
-			return "Aris";
-		} else if (mundo == 3) {
-			return "Eodrim";
-		}
-
-		return null;
-		*/
 	}
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {

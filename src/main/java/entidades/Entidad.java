@@ -75,23 +75,11 @@ public class Entidad {
 	private int movimientoHacia = 6;
 	private boolean enMovimiento;
 
-	// Animaciones
 	/**
 	 * Vector de animaciones. Usar las constantes de
 	 * orientación del personaje como subíndices.
 	 */
 	private final Animacion[] mover;
-	
-	/* Variables reemplazadas por el vector mover
-	private final Animacion moverIzq;
-	private final Animacion moverArribaIzq;
-	private final Animacion moverArriba;
-	private final Animacion moverArribaDer;
-	private final Animacion moverDer;
-	private final Animacion moverAbajoDer;
-	private final Animacion moverAbajo;
-	private final Animacion moverAbajoIzq;
-	*/
 	
 	private final Gson gson = new Gson();
 	private int intervaloEnvio = 0;
@@ -139,17 +127,6 @@ public class Entidad {
 		this.mover = new Animacion [8];
 		for(int i = 0; i < 8; i++)
 			this.mover[i] = new Animacion(velAnimacion, animaciones.get(i));
-		
-		/* Variables reemplazadas por el vector mover
-		moverIzq = new Animacion(velAnimacion, animaciones.get(0));
-		moverArribaIzq = new Animacion(velAnimacion, animaciones.get(1));
-		moverArriba = new Animacion(velAnimacion, animaciones.get(2));
-		moverArribaDer = new Animacion(velAnimacion, animaciones.get(3));
-		moverDer = new Animacion(velAnimacion, animaciones.get(4));
-		moverAbajoDer = new Animacion(velAnimacion, animaciones.get(5));
-		moverAbajo = new Animacion(velAnimacion, animaciones.get(6));
-		moverAbajoIzq = new Animacion(velAnimacion, animaciones.get(7));
-		*/
 
 		// Informo mi posicion actual
 		juego.getUbicacionPersonaje().setPosX(x);
@@ -170,28 +147,6 @@ public class Entidad {
 			for(int i=0; i<8; i++)
 				this.mover[i].reset();
 		}
-		
-		/* Version anterior, variables reemplazadas por vector mover
-		if (enMovimiento) {
-			moverIzq.actualizar();
-			moverArribaIzq.actualizar();
-			moverArriba.actualizar();
-			moverArribaDer.actualizar();
-			moverDer.actualizar();
-			moverAbajoDer.actualizar();
-			moverAbajo.actualizar();
-			moverAbajoIzq.actualizar();
-		} else {
-			moverIzq.reset();
-			moverArribaIzq.reset();
-			moverArriba.reset();
-			moverArribaDer.reset();
-			moverDer.reset();
-			moverAbajoDer.reset();
-			moverAbajo.reset();
-			moverAbajoIzq.reset();
-		}
-		*/
 		
 		//Veo qué clickeó
 		getEntrada();
@@ -508,26 +463,6 @@ public class Entidad {
 	private BufferedImage getFrameAnimacionActual() {
 		if(this.movimientoHacia >= 0 && this.movimientoHacia < 8)
 			return this.mover[ this.movimientoHacia ].getFrameActual();
-		
-		/* Version anterior, variables reemplazadas por vector mover
-		if (movimientoHacia == horizontalIzq) {
-			return moverIzq.getFrameActual();
-		} else if (movimientoHacia == horizontalDer) {
-			return moverDer.getFrameActual();
-		} else if (movimientoHacia == verticalSup) {
-			return moverArriba.getFrameActual();
-		} else if (movimientoHacia == verticalInf) {
-			return moverAbajo.getFrameActual();
-		} else if (movimientoHacia == diagonalInfIzq) {
-			return moverAbajoIzq.getFrameActual();
-		} else if (movimientoHacia == diagonalInfDer) {
-			return moverAbajoDer.getFrameActual();
-		} else if (movimientoHacia == diagonalSupIzq) {
-			return moverArribaIzq.getFrameActual();
-		} else if (movimientoHacia == diagonalSupDer) {
-			return moverArribaDer.getFrameActual();
-		}
-		*/
 
 		return Recursos.orco.get(6)[0];
 	}
@@ -544,26 +479,6 @@ public class Entidad {
 	private int getFrame() {
 		if(this.movimientoHacia >= 0 && this.movimientoHacia < 8)
 			return this.mover[ this.movimientoHacia ].getFrame();
-		
-		/* Version anterior, variables reemplazadas por vector mover
-		if (movimientoHacia == horizontalIzq) {
-			return moverIzq.getFrame();
-		} else if (movimientoHacia == horizontalDer) {
-			return moverDer.getFrame();
-		} else if (movimientoHacia == verticalSup) {
-			return moverArriba.getFrame();
-		} else if (movimientoHacia == verticalInf) {
-			return moverAbajo.getFrame();
-		} else if (movimientoHacia == diagonalInfIzq) {
-			return moverAbajoIzq.getFrame();
-		} else if (movimientoHacia == diagonalInfDer) {
-			return moverAbajoDer.getFrame();
-		} else if (movimientoHacia == diagonalSupIzq) {
-			return moverArribaIzq.getFrame();
-		} else if (movimientoHacia == diagonalSupDer) {
-			return moverArribaDer.getFrame();
-		}
-		*/
 		
 		return 0;
 	}
@@ -674,12 +589,6 @@ public class Entidad {
 	 */
 	private boolean estanEnDiagonal(final Nodo nodoUno, final Nodo nodoDos) {
 		return !(nodoUno.obtenerX() == nodoDos.obtenerX() || nodoUno.obtenerY() == nodoDos.obtenerY());
-		
-		/*Version anterior
-		if (nodoUno.obtenerX() == nodoDos.obtenerX() || nodoUno.obtenerY() == nodoDos.obtenerY())
-			return false;
-		return true;
-		*/
 	}
 	
 	/**Pide el valor de X 

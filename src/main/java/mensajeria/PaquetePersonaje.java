@@ -27,11 +27,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int nivel = 1;
 	private int experiencia;
 	private ArrayList<Item> items = new ArrayList<Item>();
-	
-	
-	public PaquetePersonaje() throws IOException {
-		estado = Estado.estadoOffline;
-	}
+	/**
+	 * Indica si el usuario está usando el truco invisible
+	 */
+	private boolean invisible;
 	
 	//Para hibernate
 	 
@@ -42,6 +41,11 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	  private int alianza;
 	 
 	  private Mochila backPack;
+	
+	public PaquetePersonaje() throws IOException {
+		estado = Estado.estadoOffline;
+		this.invisible = false;
+	}
 	 
 	  public int getInventario() {
 	 
@@ -345,5 +349,24 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		for (Item item : items) {
 			this.items.add(item);
 		}
+	}
+
+
+
+	/**
+	 * @return true si es invisible invisible
+	 */
+	public boolean isInvisible() {
+		return invisible;
+	}
+
+
+
+	/**
+	 * @param invisible: true para hacerlo invisible, false
+	 * para desactivarlo
+	 */
+	public void setInvisible(boolean invisible) {
+		this.invisible = invisible;
 	}
 }

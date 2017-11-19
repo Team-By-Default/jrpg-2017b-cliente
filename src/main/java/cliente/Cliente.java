@@ -52,21 +52,10 @@ public class Cliente extends Thread {
 	// Ip y puerto
 	private String ip;
 	private int puerto;
-	/**Pide la accion
-	 * @return Devuelve la accion
-	 */
-	public int getAccion() {
-		return accion;
-	}
-	/**Setea la accion
-	 * @param accion accion a setear
-	 */
-	public void setAccion(final int accion) {
-		this.accion = accion;
-	}
-
+	
 	private Juego wome;
 	private MenuCarga menuCarga;
+	
 	/**Constructor del Cliente
 	 */
 	public Cliente() {
@@ -323,5 +312,18 @@ public class Cliente extends Thread {
 	
 	public void setPaqueteMensaje(PaqueteMensaje paqueteMensaje) {
 		this.paqueteMensaje = paqueteMensaje;
+	}
+	
+	/**Pide la accion
+	 * @return Devuelve la accion
+	 */
+	public int getAccion() {
+		return accion;
+	}
+	/**Setea la accion
+	 * @param accion accion a setear
+	 */
+	public void setAccion(final int accion) {
+		this.accion = accion;
 	}
 }

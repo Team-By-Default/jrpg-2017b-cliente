@@ -49,14 +49,6 @@ public class Pantalla {
 	public static final int menuEscp = KeyEvent.VK_ESCAPE;
 	public static final int ventContac = KeyEvent.VK_C;
 	
-	/*
-	public static MenuInventario menuInventario;
-	public static MenuAsignarSkills menuAsignar;
-	public static MenuStats menuStats;
-	public static MenuEscape menuEscp;
-	public static VentanaContactos ventContac;
-	*/
-	
 	/**
 	 * Mapa de menus con el codigo de tecla que los abre
 	 */
@@ -77,23 +69,6 @@ public class Pantalla {
 		pantalla.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
 		//Inicializo el mapa de menus
-		//this.menus = new HashMap<Integer, JFrame>();
-		
-		/*menus.put(KeyEvent.VK_C, new VentanaContactos(cliente.getJuego()));
-		menus.put(KeyEvent.VK_I, new MenuInventario(cliente));
-		menus.put(KeyEvent.VK_A, new MenuAsignarSkills(cliente));
-		menus.put(KeyEvent.VK_S, new MenuStats(cliente));
-		menus.put(KeyEvent.VK_ESCAPE, new MenuEscape(cliente));
-		*/
-		
-		/*
-		menus.put(KeyEvent.VK_C, ventContac);
-		menus.put(KeyEvent.VK_I, menuInventario);
-		menus.put(KeyEvent.VK_A, menuAsignar);
-		menus.put(KeyEvent.VK_S, menuStats);
-		menus.put(KeyEvent.VK_ESCAPE, menuEscp);
-		*/
-		
 		menus.put(ventContac, null);
 		menus.put(menuInventario, null);
 		menus.put(menuAsignar, null);
@@ -132,87 +107,6 @@ public class Pantalla {
 				if(Estado.getEstado().esEstadoDeJuego()) {
 					abrirMenu(e.getKeyCode(), cliente);
 				}
-				
-				/*Version 2 anterior
-				//Si toca C, abro la ventana de contactos, no importa en qué estado esté
-				if (e.getKeyCode() == KeyEvent.VK_C) {
-					if (ventContac == null) {
-						ventContac = new VentanaContactos(cliente.getJuego());
-					}
-					ventContac.setVisible(true);
-				}
-				
-				if(Estado.getEstado().esEstadoDeJuego()) { // hacer con mapas, vale lpqtp
-					switch(e.getKeyCode()) {
-					//Si se toca I, abre el inventario
-					case KeyEvent.VK_I:
-						if (menuInventario == null) {
-							menuInventario = new MenuInventario(cliente);
-						}
-						menuInventario.setVisible(true);
-						break;
-					//Si se toca A, abre el menuAsignar
-					case KeyEvent.VK_A:
-						if (menuAsignar == null) {
-							menuAsignar = new MenuAsignarSkills(cliente);
-						}
-						menuAsignar.setVisible(true);
-						break;
-					//Si se toca S, abre el menu de stats
-					case KeyEvent.VK_S:
-						if (menuStats == null) {
-							menuStats = new MenuStats(cliente);
-						}
-						menuStats.setVisible(true);
-						break;
-					//Si se toca ESCAPE, abre el menu escape
-					case KeyEvent.VK_ESCAPE:
-						if (menuEscp == null) {
-							menuEscp = new MenuEscape(cliente);
-						}
-						menuEscp.setVisible(true);
-						break;
-					}
-				}*/
-				
-				/* Version anterior
-				if (e.getKeyCode() == KeyEvent.VK_I) {
-					if(Estado.getEstado().esEstadoDeJuego()) {
-						if (menuInventario == null) {
-							menuInventario = new MenuInventario(cliente);
-						}
-						menuInventario.setVisible(true);
-					}
-				} else if (e.getKeyCode() == KeyEvent.VK_A) {
-					if(Estado.getEstado().esEstadoDeJuego()) {
-						if (menuAsignar == null) {
-							menuAsignar = new MenuAsignarSkills(cliente);
-							menuAsignar.setVisible(true);
-						}
-					} 
-				} else if (e.getKeyCode() == KeyEvent.VK_S) {
-					if(Estado.getEstado().esEstadoDeJuego()) {
-						if (menuStats == null) {
-							menuStats = new MenuStats(cliente);
-							menuStats.setVisible(true);
-						}
-					}
-				} else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					if(Estado.getEstado().esEstadoDeJuego()) {
-						if (menuEscp == null) {
-							menuEscp = new MenuEscape(cliente);
-							menuEscp.setVisible(true);
-						}
-					}
-				} else if (e.getKeyCode() == KeyEvent.VK_C) {
-//					if(Estado.getEstado().esEstadoDeJuego()) {
-						if (ventContac == null) {
-							ventContac = new VentanaContactos(cliente.getJuego());
-							ventContac.setVisible(true);
-						}
-//					}
-				}
-				*/
 			}
 		});
 
@@ -265,7 +159,6 @@ public class Pantalla {
 	public static void abrirMenu(final int menu, final Cliente cliente) {
 		if(menus.get(menu) == null) {
 			//Si la ventana no existia, la creo
-			//No logro deshacerme de este switch...
 			switch(menu) {
 			case ventContac:
 				menus.put(ventContac, new VentanaContactos(cliente.getJuego()));

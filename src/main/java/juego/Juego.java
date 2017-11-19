@@ -126,7 +126,7 @@ public class Juego implements Runnable {
 	@Override
 	public void run() { // Hilo principal del juego
 
-		int fps = 60; // Cantidad de actualizaciones por segundo que se desean
+		int fps = 70; // Cantidad de actualizaciones por segundo que se desean
 		double tiempoPorActualizacion = 1000000000 / fps; // Cantidad de nanosegundos en FPS deseados
 		double delta = 0;
 		long ahora;
