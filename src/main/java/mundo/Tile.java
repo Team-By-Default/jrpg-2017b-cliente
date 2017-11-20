@@ -18,7 +18,7 @@ public class Tile {
 	protected BufferedImage textura;
 	protected final int id;
 
-	private boolean esSolido;
+	private boolean esSolido ;
 
 
 	protected int ancho;

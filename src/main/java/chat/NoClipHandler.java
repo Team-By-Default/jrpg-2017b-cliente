@@ -1,6 +1,7 @@
 package chat;
-
 import juego.Juego;
+import mundo.Grafo;
+import entidades.Entidad;
 
 public class NoClipHandler extends TrickHandler{
 	public final static String miComando = "noclip";
@@ -17,8 +18,10 @@ public class NoClipHandler extends TrickHandler{
 
 	@Override
 	protected void ejecutar(Juego juego) {
-		// TODO Auto-generated method stub
 		System.out.println("Atravesar paredes");
+		Grafo g = entidades.Entidad.getMundo().getGrafoDeTilesNoSolidos();
+		entidades.Entidad.getMundo().setGrafoDeTilesNoSolidos(entidades.Entidad.getMundo().getGrafoCompleto());
+		entidades.Entidad.getMundo().setGrafoCompleto(g);
 	}
 
 }
