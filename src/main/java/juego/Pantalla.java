@@ -104,7 +104,7 @@ public class Pantalla {
 				}
 				
 				//Las otras ventanas se muestran solo en estado juego
-				if(Estado.getEstado().esEstadoDeJuego()) {
+				if(Estado.getEstado().esEstadoDeJuego() && menus.containsKey(e.getKeyCode())) {
 					abrirMenu(e.getKeyCode(), cliente);
 				}
 			}

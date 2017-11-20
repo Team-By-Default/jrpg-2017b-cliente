@@ -24,6 +24,7 @@ public class Mundo {
 	private int yMaximo;
 
 	private Grafo grafoDeTilesNoSolidos;
+	private Grafo grafoCompleto;
 
 	public Mundo(Juego juego, String pathMap, String pathObstac) {
 		this.juego = juego;
@@ -118,15 +119,14 @@ public class Mundo {
 
 		tiles = new int[ancho][alto];
 		tilesInv = new int[alto][ancho];
-
+		
+		
 		for (int y = 0; y < alto; y++) {
 			for (int x = 0; x < ancho; x++) {
-
 				tiles[x][y] = Utilitarias.parseInt(tokens[(x + y * ancho + 4)]);
 				tilesInv[y][x] = tiles[x][y];
 			}
 		}
-
 	}
 
 	private void mundoAGrafo() {
@@ -185,10 +185,61 @@ public class Mundo {
 		grafoDeTilesNoSolidos = new Grafo(ancho * alto);
 		indice = 0;
 		// Paso la matriz a un array
-		for (int i = 0; i < ancho; i++)
-			for (int j = 0; j < alto; j++)
+		for (int i = 0; i < ancho; i++) {
+			for (int j = 0; j < alto; j++) {
 				grafoDeTilesNoSolidos.agregarNodo(nodos[i][j]);
+			}
+		}
+///////////////////////////////////////////////////////////////////////
+		Nodo[][] nodos1 = new Nodo[ancho][alto];
+		indice = 0;
+		for (int y = 0; y < alto; y++)
+			for (int x = 0; x < ancho; x++)
+				nodos1[y][x] = new Nodo(indice++, x, y);
+		grafoCompleto = new Grafo(ancho * alto);
+		for (int x = 0; x < yFinal; x++) {
+			for (int y = 0; y < xFinal; y++) {
+				if (y < yFinal - 1) {
+					nodos1[x][y].agregarAdyacente(nodos1[x][y + 1]);
+					nodos1[x][y + 1].agregarAdyacente(nodos1[x][y]);
+				}
+				if (x < xFinal - 1) {
+					if (y > 0) {
+						nodos1[x][y].agregarAdyacente(nodos1[x + 1][y - 1]);
+						nodos1[x + 1][y - 1].agregarAdyacente(nodos1[x][y]);
+					}
+					if (y < yFinal - 1) {
+						nodos1[x][y].agregarAdyacente(nodos1[x + 1][y + 1]);
+						nodos1[x + 1][y + 1].agregarAdyacente(nodos1[x][y]);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < ancho; i++) {
+			for (int j = 0; j < alto; j++) {
+				grafoCompleto.agregarNodo(nodos1[i][j]);
+			}
+		}
+		
+///////////////////////////////////////////////////////////////////////
 	}
+///////////////////////////////////////////////////////////////////////
+	public Grafo getGrafoDeTilesNoSolidos() {
+		return grafoDeTilesNoSolidos;
+	}
+
+	public void setGrafoDeTilesNoSolidos(Grafo grafoDeTilesNoSolidos) {
+		this.grafoDeTilesNoSolidos = grafoDeTilesNoSolidos;
+	}
+
+	public Grafo getGrafoCompleto() {
+		return grafoCompleto;
+	}
+
+	public void setGrafoCompleto(Grafo grafoCompleto) {
+		this.grafoCompleto = grafoCompleto;
+	}
+///////////////////////////////////////////////////////////////////////
 
 	public Grafo obtenerGrafoDeTilesNoSolidos() {
 		return grafoDeTilesNoSolidos;

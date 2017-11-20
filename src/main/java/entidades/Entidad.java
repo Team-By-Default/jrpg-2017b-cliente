@@ -90,7 +90,9 @@ public class Entidad {
 	private int[] tileFinal;
 	private int[] tileMoverme;
 
-	private Mundo mundo;
+	private static Mundo mundo;
+	
+
 	private String nombre;
 	private int[] tilePersonajes;
 	private int idEnemigo;
@@ -701,6 +703,12 @@ public class Entidad {
 		}
 	}
 			
-			
+	public static Mundo getMundo() {
+		return mundo;
+	}
+
+	public void setMundo(Mundo mundo) {
+		this.mundo = mundo;
+	}
 			
 }

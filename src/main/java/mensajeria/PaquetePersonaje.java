@@ -48,9 +48,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 	 
 	  public int getInventario() {
-	 
 	    return inventario;
-	 
 	  }
 	 
 

@@ -48,7 +48,6 @@ public class Cliente extends Thread {
 
 	//MENU COMERCIAR
 	private MenuComerciar m1;
-		
 	// Ip y puerto
 	private String ip;
 	private int puerto;
