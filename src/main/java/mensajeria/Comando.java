@@ -8,11 +8,11 @@ public abstract class Comando {
 	public static final String[] CLASSNAMES = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesion", "MostrarMapas",
 			"Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl", 
 			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", 
-			"ActualizarNPCs", "BatallaNPC", "FinalizarBatallaNPC"  };
+			"ActualizarNPCs", "BatallaNPC", "FinalizarBatallaNPC", "Cheat" };
 	public static final String[] CLASSNAMESBIS = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesionSet", "MostrarMapas",
 			"Movimiento", "RegistroSet", "SalirSet", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl", 
 			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", 
-			"ActualizarNPCs", "BatallaNPC", "FinalizarBatallaNPC" };
+			"ActualizarNPCs", "BatallaNPC", "FinalizarBatallaNPC", "Cheat" };
 	
 	public static final int CONEXION = 0;
 	public static final int CREACIONPJ = 1;
@@ -37,6 +37,7 @@ public abstract class Comando {
  	public static final int ACTUALIZARNPCS = 20; //No está implementado en el servidor
  	public static final int BATALLANPC = 21;
  	public static final int FINALIZARBATALLANPC = 22;
+ 	public static final int CHEAT = 23; //No está implementado en el cliente
 	
 	protected final Gson gson = new Gson();
 	protected String cadenaLeida;

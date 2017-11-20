@@ -100,7 +100,7 @@ public class MiChat extends JFrame {
 				if(!texto.getText().equals("")) {
 					//Si es un truco, lo ejecuto y no lo envio, sino envio el mensaje
 					if(comandos.contains(texto.getText())) 
-						trucos.ejecutarComando(texto.getText());
+						trucos.ejecutarComando(texto.getText(), juego);
 					else
 						enviarMensaje(juego);
 					

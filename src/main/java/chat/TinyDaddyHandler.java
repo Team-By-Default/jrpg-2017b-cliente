@@ -1,5 +1,7 @@
 package chat;
 
+import juego.Juego;
+
 public class TinyDaddyHandler extends TrickHandler{
 	public final static String miComando = "tinydaddy";
 	
@@ -8,11 +10,14 @@ public class TinyDaddyHandler extends TrickHandler{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void ejecutar() {
-		System.out.println("Tiny daddy");
-	}
 	@Override
 	public boolean puedoSoportarlo(String comando) {
 		return this.miComando.equals(comando);
+	}
+
+	@Override
+	protected void ejecutar(Juego juego) {
+		// TODO Auto-generated method stub
+		
 	}
 }

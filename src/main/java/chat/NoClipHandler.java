@@ -1,5 +1,7 @@
 package chat;
 
+import juego.Juego;
+
 public class NoClipHandler extends TrickHandler{
 	public final static String miComando = "noclip";
 
@@ -14,7 +16,7 @@ public class NoClipHandler extends TrickHandler{
 	}
 
 	@Override
-	public void ejecutar() {
+	protected void ejecutar(Juego juego) {
 		// TODO Auto-generated method stub
 		System.out.println("Atravesar paredes");
 	}
