@@ -18,7 +18,6 @@ public class NoClipHandler extends TrickHandler{
 
 	@Override
 	protected void ejecutar(Juego juego) {
-		System.out.println("Atravesar paredes");
 		Grafo g = entidades.Entidad.getMundo().getGrafoDeTilesNoSolidos();
 		entidades.Entidad.getMundo().setGrafoDeTilesNoSolidos(entidades.Entidad.getMundo().getGrafoCompleto());
 		entidades.Entidad.getMundo().setGrafoCompleto(g);
