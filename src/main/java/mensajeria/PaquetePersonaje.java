@@ -31,6 +31,14 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * Indica si el usuario está usando el truco invisible
 	 */
 	private boolean invisible;
+	/**
+	 * Indica si el usuario está en modo Dios
+	 */
+	private boolean dios;
+	/**
+	 * Multiplicador que se aplica a la fuerza
+	 */
+	private double multiplicador;
 	
 	//Para hibernate
 	 
@@ -43,12 +51,18 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	  private Mochila backPack;
 	
 	public PaquetePersonaje() throws IOException {
+		
 		estado = Estado.estadoOffline;
 		this.invisible = false;
+		this.dios = false;
+		this.multiplicador = 1;
+		
 	}
 	 
 	  public int getInventario() {
+		  
 	    return inventario;
+	    
 	  }
 	 
 
@@ -92,11 +106,15 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	  }
 	  
 	  public void setBackPack(Mochila mochila) {
+		  
 		  this.backPack=mochila;
+		  
 	  }
 	 
 	  public Mochila getBackPack() {
+		  
 		  return this.backPack;
+		  
 	  }
 	  //
 	 
@@ -355,7 +373,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * @return true si es invisible invisible
 	 */
 	public boolean isInvisible() {
-		return invisible;
+		return this.invisible;
 	}
 
 
@@ -366,5 +384,50 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 */
 	public void setInvisible(boolean invisible) {
 		this.invisible = invisible;
+	}
+
+
+
+	/**
+	 * @return true si esta en estado Dios
+	 */
+	public boolean isDios() {
+		return this.dios;
+	}
+
+
+
+	/**
+	 * @param Dios: true para hacerlo inmune al danio, false
+	 * para desactivarlo
+	 */
+	public void setDios(boolean dios) {
+		this.dios = dios;
+	}
+
+
+
+	/**
+	 * @return valor multiplicador fuerza
+	 */
+	public double getMultiplicador() {
+		return this.multiplicador;
+	}
+
+
+
+	/**
+	 * @param multiplicador: afecta a la fuerza del personaje
+	 */
+	public void setMultiplicador(double multiplicador) {
+		
+		this.multiplicador *= multiplicador;
+		 
+	    if(this.multiplicador * this.fuerza < 1.0) {
+	 
+	    	this.multiplicador *= 2;
+	 
+	    }
+	 
 	}
 }

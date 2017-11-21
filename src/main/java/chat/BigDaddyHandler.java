@@ -14,7 +14,10 @@ public class BigDaddyHandler extends TrickHandler {
 	}
 	@Override
 	protected void ejecutar(Juego juego) {
-		// TODO Auto-generated method stub
+		
+		juego.getPersonaje().setMultiplicador(2);
+		System.out.println(juego.getPersonaje().getMultiplicador()); 
+		System.out.println(juego.getPersonaje().getMultiplicador() * juego.getPersonaje().getFuerza());
 		
 	}
 }

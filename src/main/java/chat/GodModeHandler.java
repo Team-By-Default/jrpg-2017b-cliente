@@ -16,7 +16,12 @@ public class GodModeHandler extends TrickHandler {
 	}
 	@Override
 	protected void ejecutar(Juego juego) {
-		// TODO Auto-generated method stub
-		System.out.println("Modo dios");
+		
+		if(juego.getPersonaje().isDios())
+			juego.getPersonaje().setDios(false);
+		else
+			juego.getPersonaje().setDios(true);
+		System.out.println(juego.getPersonaje().isDios()); 
+		
 	}
 }

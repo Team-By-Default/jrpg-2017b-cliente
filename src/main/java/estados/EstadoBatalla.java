@@ -41,6 +41,11 @@ public class EstadoBatalla extends Estado {
 	private PaqueteAtacar paqueteAtacar;
 	private PaqueteFinalizarBatalla paqueteFinalizarBatalla;
 	private boolean miTurno;
+	
+	/*
+	 * Multiplicador Personaje
+	 */
+	private double multiplicador;
 
 	private boolean haySpellSeleccionada;
 	private boolean seRealizoAccion;
@@ -60,6 +65,10 @@ public class EstadoBatalla extends Estado {
 		paquetePersonaje = juego.getPersonajesConectados().get(paqueteBatalla.getId());
 		paqueteEnemigo = juego.getPersonajesConectados().get(paqueteBatalla.getIdEnemigo());
 
+		/*
+		 * setMultiplicador
+		 */
+		this.multiplicador = paquetePersonaje.getMultiplicador();
 		crearPersonajes();
 
 		menuBatalla = new MenuBatalla(miTurno, personaje);
@@ -195,7 +204,10 @@ public class EstadoBatalla extends Estado {
 		String nombre = paquetePersonaje.getNombre();
 		int salud = paquetePersonaje.getSaludTope();
 		int energia = paquetePersonaje.getEnergiaTope();
-		int fuerza = paquetePersonaje.getFuerza();
+		/*
+		 * Multiplicador de Big y Tiny Daddy
+		 */
+		int fuerza = (int) (paquetePersonaje.getFuerza() * paquetePersonaje.getMultiplicador());
 		int destreza = paquetePersonaje.getDestreza();
 		int inteligencia = paquetePersonaje.getInteligencia();
 		int experiencia = paquetePersonaje.getExperiencia();
@@ -250,7 +262,7 @@ public class EstadoBatalla extends Estado {
 
 	public void enviarAtaque(PaqueteAtacar paqueteAtacar) {
 		try {
-			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteAtacar));
+				juego.getCliente().getSalida().writeObject(gson.toJson(paqueteAtacar));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor.");
 		}
@@ -267,6 +279,11 @@ public class EstadoBatalla extends Estado {
 			paquetePersonaje.setDestreza(personaje.getDestreza());
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
+			/*
+			 * Devolver multiplicador
+			 */
+			paquetePersonaje.setMultiplicador(this.multiplicador);
+			
 			paquetePersonaje.removerBonus();
 
 			paqueteEnemigo.setSaludTope(enemigo.getSaludTope());
