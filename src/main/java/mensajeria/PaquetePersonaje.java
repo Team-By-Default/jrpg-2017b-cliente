@@ -27,6 +27,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int nivel = 1;
 	private int experiencia;
 	private ArrayList<Item> items = new ArrayList<Item>();
+	
 	/**
 	 * Indica si el usuario está usando el truco invisible
 	 */
@@ -42,9 +43,9 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	
 	//Para hibernate
 	 
-	  private int inventario;
+	  private int idInventario;
 	 
-	  private int mochila;
+	  private int idMochila;
 	 
 	  private int alianza;
 	 
@@ -59,33 +60,46 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		
 	}
 	 
+	/**
+	 * Get del id de inventario
+	 * @return id inventario
+	 */
 	  public int getInventario() {
 		  
-	    return inventario;
+	    return idInventario;
 	    
 	  }
 	 
 
-	 
+	 /**
+	  * Setea el id de inventario
+	  * @param inventario: id
+	  */
 	  public void setInventario(int inventario) {
 	 
-	    this.inventario = inventario;
+	    this.idInventario = inventario;
 	 
 	  }
 	 
 
-	 
+	 /**
+	  * Devuelve el id de la mochila
+	  * @return
+	  */
 	  public int getMochila() {
 	 
-	    return mochila;
+	    return idMochila;
 	 
 	  }
 	 
 
-	 
+	 /**
+	  * Setea el id de la mochila
+	  * @param mochila
+	  */
 	  public void setMochila(int mochila) {
 	 
-	    this.mochila = mochila;
+	    this.idMochila = mochila;
 	 
 	  }
 	 
@@ -105,12 +119,20 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	  }
 	  
+	  /**
+	   * Setea la mochila como objeto
+	   * @param mochila
+	   */
 	  public void setBackPack(Mochila mochila) {
 		  
 		  this.backPack=mochila;
 		  
 	  }
 	 
+	  /**
+	   * Devuelve el objeto mochila
+	   * @return
+	   */
 	  public Mochila getBackPack() {
 		  
 		  return this.backPack;
@@ -327,8 +349,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public void removerUltimoItem() {
-		items.remove(items.size() -1);
-		
+		Item it = items.remove(items.size() -1);
 	}
 	
 	public boolean nuevoItem() {
