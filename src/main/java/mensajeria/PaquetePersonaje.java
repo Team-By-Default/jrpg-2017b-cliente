@@ -40,6 +40,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * Multiplicador que se aplica a la fuerza
 	 */
 	private double multiplicador;
+	/**
+	 * Indica si el personaje puede atravezar paredes
+	 */
+	private boolean clipper;
 	
 	//Para hibernate
 	 
@@ -57,6 +61,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		this.invisible = false;
 		this.dios = false;
 		this.multiplicador = 1;
+		this.clipper=false;
 		
 	}
 	 
@@ -456,5 +461,21 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	    }
 	 
+	}
+	
+	/**
+	 * Nos dice si puede atravesar paredes
+	 * @return True si puede atravesar, False si no puede
+	 */
+	public boolean isClipper() {
+		return clipper;
+	}
+
+	/**
+	 * Puedo cambiar esta propiedad de atravesar paredes
+	 * @param clipper en True si puede atravezar paredes, en False si no puede
+	 */
+	public void setClipper(boolean clipper) {
+		this.clipper = clipper;
 	}
 }

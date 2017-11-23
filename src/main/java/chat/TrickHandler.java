@@ -2,6 +2,8 @@ package chat;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
 import com.google.gson.Gson;
 import juego.Juego;
 import mensajeria.Comando;
@@ -15,9 +17,9 @@ public abstract class TrickHandler {
 		this.gson = new Gson();
 	}
 	
-	public void ejecutarComando(String comando, Juego juego) {
+	public void ejecutarComando(String comando, Juego juego,JTextArea chat) {
 		if(puedoSoportarlo(comando)) {
-			ejecutar(juego);
+			ejecutar(juego,chat);
 			juego.getCliente().getPaquetePersonaje().setComando(Comando.CHEAT);
 			try {
 				juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaquetePersonaje()));
@@ -26,9 +28,9 @@ public abstract class TrickHandler {
 			}
 		}
 		else
-			sucesor.ejecutarComando(comando, juego);
+			sucesor.ejecutarComando(comando, juego,chat);
 	}
 	
 	protected abstract boolean puedoSoportarlo(String comando);
-	protected abstract void ejecutar(Juego juego);
+	protected abstract void ejecutar(Juego juego,JTextArea chat);
 }

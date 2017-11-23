@@ -1,5 +1,7 @@
 package chat;
 
+import javax.swing.JTextArea;
+
 import juego.Juego;
 
 public class GodModeHandler extends TrickHandler {
@@ -12,10 +14,10 @@ public class GodModeHandler extends TrickHandler {
 	
 	@Override
 	public boolean puedoSoportarlo(String comando) {
-		return this.miComando.equals(comando);
+		return miComando.equals(comando);
 	}
 	@Override
-	protected void ejecutar(Juego juego) {
+	protected void ejecutar(Juego juego,JTextArea chat) {
 		
 		if(juego.getPersonaje().isDios())
 			juego.getPersonaje().setDios(false);

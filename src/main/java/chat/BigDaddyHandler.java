@@ -1,5 +1,7 @@
 package chat;
 
+import javax.swing.JTextArea;
+
 import juego.Juego;
 
 public class BigDaddyHandler extends TrickHandler {
@@ -10,10 +12,10 @@ public class BigDaddyHandler extends TrickHandler {
 	}
 	@Override
 	public boolean puedoSoportarlo(String comando) {
-		return this.miComando.equals(comando);
+		return miComando.equals(comando);
 	}
 	@Override
-	protected void ejecutar(Juego juego) {
+	protected void ejecutar(Juego juego,JTextArea chat) {
 		
 		juego.getPersonaje().setMultiplicador(2);
 		System.out.println(juego.getPersonaje().getMultiplicador()); 

@@ -100,7 +100,7 @@ public class MiChat extends JFrame {
 				if(!texto.getText().equals("")) {
 					//Si es un truco, lo ejecuto y no lo envio, sino envio el mensaje
 					if(comandos.contains(texto.getText())) 
-						trucos.ejecutarComando(texto.getText(), juego);
+						trucos.ejecutarComando(texto.getText(), juego,chat);
 					else
 						enviarMensaje(juego);
 					
@@ -141,7 +141,7 @@ public class MiChat extends JFrame {
 	}
 
 	private void enviarMensaje(final Juego juego) {
-		chat.append("Me: " + texto.getText() + "\n");
+		chat.append("Yo: " + texto.getText() + "\n"); //Ahora el mensaje dice que lo envié "yo" y no "me"
 		
 		juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
 		juego.getCliente().getPaqueteMensaje().setUserReceptor(getTitle());

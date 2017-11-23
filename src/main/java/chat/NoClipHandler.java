@@ -1,7 +1,8 @@
 package chat;
+import javax.swing.JTextArea;
+
 import juego.Juego;
 import mundo.Grafo;
-import entidades.Entidad;
 
 public class NoClipHandler extends TrickHandler{
 	public final static String miComando = "noclip";
@@ -13,14 +14,19 @@ public class NoClipHandler extends TrickHandler{
 
 	@Override
 	public boolean puedoSoportarlo(String comando) {
-		return this.miComando.equals(comando);
+		return miComando.equals(comando);
 	}
 
 	@Override
-	protected void ejecutar(Juego juego) {
+	protected void ejecutar(Juego juego,JTextArea chat) {
 		Grafo g = entidades.Entidad.getMundo().getGrafoDeTilesNoSolidos();
 		entidades.Entidad.getMundo().setGrafoDeTilesNoSolidos(entidades.Entidad.getMundo().getGrafoCompleto());
 		entidades.Entidad.getMundo().setGrafoCompleto(g);
+		juego.getPersonaje().setClipper(!juego.getPersonaje().isClipper());
+		if(juego.getPersonaje().isClipper())
+			chat.append("Truco activado. Ahora el personaje puede atravesar paredes.\n");
+		else
+			chat.append("Truco desactivado. Ahora el personaje no puede atravesar paredes.\n");
 	}
 
 }

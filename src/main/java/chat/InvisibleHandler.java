@@ -1,5 +1,7 @@
 package chat;
 
+import javax.swing.JTextArea;
+
 import juego.Juego;
 import mensajeria.PaquetePersonaje;
 
@@ -12,15 +14,18 @@ public class InvisibleHandler extends TrickHandler {
 
 	@Override
 	public boolean puedoSoportarlo(String comando) {
-		return this.miComando.equals(comando);
+		return miComando.equals(comando);
 	}
 	
 	@Override
-	protected void ejecutar(Juego juego) {
+	protected void ejecutar(Juego juego,JTextArea chat) {
 		PaquetePersonaje pj = juego.getCliente().getPaquetePersonaje();
 		pj.setInvisible(!pj.isInvisible());
 		juego.getCliente().setPaquetePersonaje(pj);
+		if(pj.isInvisible())
+			chat.append("Truco activado. Ahora el personaje es invisible.\n");
+		else
+			chat.append("Truco desactivado. Ahora el personaje vuelve a ser visible.\n");
 		
-		System.out.println("I cant see you");
 	}
 }
