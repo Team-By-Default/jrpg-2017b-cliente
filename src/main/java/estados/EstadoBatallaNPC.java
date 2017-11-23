@@ -219,6 +219,7 @@ public class EstadoBatallaNPC extends Estado {
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
 		double multiplicador = paquetePersonaje.getMultiplicador();
+		boolean god = paquetePersonaje.isDios();
 
 		Casta casta = null;
 		try {
@@ -229,6 +230,7 @@ public class EstadoBatallaNPC extends Estado {
 							experiencia, nivel, id);
 			personaje.setMultiDaddy(multiplicador);
 			personaje.setAtaque(personaje.calcularPuntosDeAtaque());
+			personaje.setGod(god);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
@@ -251,6 +253,8 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
+			paquetePersonaje.setDios(personaje.isGod()); //Actualizo el estado dios del paquete
+			
 			paquetePersonaje.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);

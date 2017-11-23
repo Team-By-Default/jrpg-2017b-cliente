@@ -212,6 +212,7 @@ public class EstadoBatalla extends Estado {
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
 		double multiplicador = paquetePersonaje.getMultiplicador();
+		boolean god = paquetePersonaje.isDios();
 
 		Casta casta = null;
 		try {
@@ -222,6 +223,7 @@ public class EstadoBatalla extends Estado {
 							experiencia, nivel, id);
 			personaje.setMultiDaddy(multiplicador);
 			personaje.setAtaque(personaje.calcularPuntosDeAtaque());
+			personaje.setGod(god);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
@@ -240,6 +242,7 @@ public class EstadoBatalla extends Estado {
 		nivel = paqueteEnemigo.getNivel();
 		id = paqueteEnemigo.getId();
 		multiplicador = paqueteEnemigo.getMultiplicador();
+		god = paqueteEnemigo.isDios();
 
 		casta = null;
 		if (paqueteEnemigo.getCasta().equals("Guerrero")) {
@@ -263,6 +266,7 @@ public class EstadoBatalla extends Estado {
 		
 		enemigo.setMultiDaddy(multiplicador);
 		enemigo.setAtaque(enemigo.calcularPuntosDeAtaque());
+		enemigo.setGod(god);
 	}
 
 	/**
@@ -289,6 +293,7 @@ public class EstadoBatalla extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
+			paquetePersonaje.setDios(personaje.isGod()); //Actualizo el estado dios del paquete
 			
 			paquetePersonaje.removerBonus();
 
@@ -300,12 +305,15 @@ public class EstadoBatalla extends Estado {
 			paqueteEnemigo.setFuerza(enemigo.getFuerza());
 			paqueteEnemigo.setInteligencia(enemigo.getInteligencia());
 			paqueteEnemigo.setMultiplicador(enemigo.getMultiDaddy()); //Actualizo el multiplicador del paquete
+			paqueteEnemigo.setDios(enemigo.isGod()); //Actualizo el estado dios del paquete
+			
 			paqueteEnemigo.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			paqueteEnemigo.setComando(Comando.ACTUALIZARPERSONAJE);
 			
-			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador());
+			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador()
+			+ " y Dios es: " + paquetePersonaje.isDios());
 
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
 			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteEnemigo));
