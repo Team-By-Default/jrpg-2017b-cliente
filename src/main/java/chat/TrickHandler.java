@@ -28,9 +28,10 @@ public abstract class TrickHandler {
 	public void ejecutarComando(String comando, Juego juego) {
 		if(puedoSoportarlo(comando)) {
 			ejecutar(juego);
-			juego.getCliente().getPaquetePersonaje().setComando(Comando.CHEAT);
+			juego.getPersonaje().setComando(Comando.CHEAT);
 			try {
-				juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaquetePersonaje()));
+				juego.getCliente().getSalida().writeObject(gson.toJson(juego.getPersonaje()));
+				System.out.println("Estoy enviando el personaje " + juego.getPersonaje().getId() + " con multi " + juego.getPersonaje().getMultiplicador());
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "Error al aplicar el truco... ¡Dejá de hacer trampa!");
 			}
