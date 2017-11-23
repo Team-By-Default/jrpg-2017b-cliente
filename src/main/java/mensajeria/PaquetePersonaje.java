@@ -57,6 +57,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		this.invisible = false;
 		this.dios = false;
 		this.multiplicador = 1;
+		backPack=new Mochila();
 		
 	}
 	 
