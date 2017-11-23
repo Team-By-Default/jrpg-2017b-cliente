@@ -204,4 +204,14 @@ public class EstadoJuego extends Estado {
 	public boolean esEstadoDeJuego() {
 		return true;
 	}
+
+	@Override
+	public boolean esEstadoBatalla() {
+		return false;
+	}
+
+	@Override
+	public boolean esEstadoBatallaNPC() {
+		return false;
+	}
 }

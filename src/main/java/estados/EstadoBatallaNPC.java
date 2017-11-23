@@ -228,6 +228,7 @@ public class EstadoBatallaNPC extends Estado {
 					newInstance(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 							experiencia, nivel, id);
 			personaje.setMultiDaddy(multiplicador);
+			personaje.setAtaque(personaje.calcularPuntosDeAtaque());
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
@@ -254,6 +255,9 @@ public class EstadoBatallaNPC extends Estado {
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
+			
+			System.out.println("FIN BATALLA El personaje tiene multi " + personaje.getMultiDaddy());
+			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador());
 	
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor :C");
@@ -285,5 +289,15 @@ public class EstadoBatallaNPC extends Estado {
 	@Override
 	public boolean esEstadoDeJuego() {
 		return false;
+	}
+
+	@Override
+	public boolean esEstadoBatalla() {
+		return false;
+	}
+
+	@Override
+	public boolean esEstadoBatallaNPC() {
+		return true;
 	}
 }

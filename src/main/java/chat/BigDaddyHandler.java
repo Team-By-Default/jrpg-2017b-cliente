@@ -16,16 +16,26 @@ public class BigDaddyHandler extends TrickHandler {
 	@Override
 	protected void ejecutar(Juego juego) {
 		
-		juego.getPersonaje().setMultiplicador(2);
+		juego.getCliente().getPaquetePersonaje().multiMultiply(2);
 		
-		if(juego.getPersonaje().getEstado() == Estado.estadoBatalla) {
-			juego.getEstadoBatalla().getPersonaje().setFuerza((int)
-					juego.getPersonaje().getFuerzaTrucada());
-			System.out.println("Personaje en batalla tiene fuerza " + juego.getPersonaje().getFuerzaTrucada());
+		//Si está en batalla...
+		if(Estado.getEstado().esEstadoBatalla()) {
+			//Seteo el multiplicador del personaje durante la batalla
+			juego.getEstadoBatalla().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			//Recalculo los puntos de ataque
+			juego.getEstadoBatalla().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
+			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatalla().getPersonaje().getAtaque());
+		}
+		else if(Estado.getEstado().esEstadoBatallaNPC()) {
+			//Seteo el multiplicador del personaje durante la batalla
+			juego.getEstadoBatallaNPC().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			//Recalculo los puntos de ataque
+			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
+			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatallaNPC().getPersonaje().getAtaque());
 		}
 		
-		System.out.println("Paquete personaje tiene multi " + juego.getPersonaje().getMultiplicador()); 
-		System.out.println("Paquete personaje tiene fuerza " + juego.getPersonaje().getFuerzaTrucada());
+		System.out.println("Paquete personaje tiene multi " + juego.getCliente().getPaquetePersonaje().getMultiplicador()); 
+		System.out.println("Paquete personaje tiene fuerza " + juego.getCliente().getPaquetePersonaje().getFuerzaTrucada());
 		
 		
 	}

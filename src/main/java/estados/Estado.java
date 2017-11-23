@@ -32,5 +32,19 @@ public abstract class Estado {
 		return estadoActual;
 	}
 	
+	/**
+	 * Devuelve si es estado de juego
+	 * @return
+	 */
 	public abstract boolean esEstadoDeJuego();
+	/**
+	 * Devuelve si es estado de batalla contra otro personaje
+	 * @return
+	 */
+	public abstract boolean esEstadoBatalla();
+	/**
+	 * Devuelve si es estado de batalla contra un NPC
+	 * @return
+	 */
+	public abstract boolean esEstadoBatallaNPC();
 }

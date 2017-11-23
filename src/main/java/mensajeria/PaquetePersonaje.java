@@ -456,14 +456,22 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return this.multiplicador;
 	}
 
-
+	/**
+	 * Sobrescribe el multiplicador de tinydaddy y bigdaddy con
+	 * el nuevo valor
+	 * @param multi
+	 */
+	public void setMultiplicador(double multi) {
+		this.multiplicador = multi;
+	}
 
 	/**
 	 * Multiplica el multiplicador anterior por el nuevo multiplicador,
-	 * para que quede actualizado para el get fuerza
+	 * para que quede actualizado para el get fuerza. Para los trucos
+	 * tinydaddy y bigdaddy.
 	 * @param multiplicador: afecta a la fuerza del personaje
 	 */
-	public void setMultiplicador(double multiplicador) {
+	public void multiMultiply(double multiplicador) {
 		if(this.multiplicador * multiplicador * this.fuerza >= 1.0)
 			this.multiplicador *= multiplicador;
 		System.out.println("Paquete dice que el nuevo multi es " + this.multiplicador);
