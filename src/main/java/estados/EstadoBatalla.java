@@ -41,11 +41,6 @@ public class EstadoBatalla extends Estado {
 	private PaqueteAtacar paqueteAtacar;
 	private PaqueteFinalizarBatalla paqueteFinalizarBatalla;
 	private boolean miTurno;
-	
-	/*
-	 * Multiplicador Personaje
-	 */
-	private double multiplicador;
 
 	private boolean haySpellSeleccionada;
 	private boolean seRealizoAccion;
@@ -57,6 +52,11 @@ public class EstadoBatalla extends Estado {
 
 	private MenuBatalla menuBatalla;
 
+	/**
+	 * Genera un estado batalla para el juego y el paquete batalla dados
+	 * @param juego
+	 * @param paqueteBatalla
+	 */
 	public EstadoBatalla(Juego juego, PaqueteBatalla paqueteBatalla) {
 		super(juego);
 		mundo = new Mundo(juego, "recursos/mundoBatalla.txt", "recursos/mundoBatallaCapaDos.txt");
@@ -65,10 +65,6 @@ public class EstadoBatalla extends Estado {
 		paquetePersonaje = juego.getPersonajesConectados().get(paqueteBatalla.getId());
 		paqueteEnemigo = juego.getPersonajesConectados().get(paqueteBatalla.getIdEnemigo());
 
-		/*
-		 * setMultiplicador
-		 */
-		this.multiplicador = paquetePersonaje.getMultiplicador();
 		crearPersonajes();
 
 		menuBatalla = new MenuBatalla(miTurno, personaje);
@@ -164,7 +160,9 @@ public class EstadoBatalla extends Estado {
 						Estado.setEstado(juego.getEstadoJuego());
 						
 					} else {
-						paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
+						paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), 
+								personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), 
+								personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
 						enviarAtaque(paqueteAtacar);
 						miTurno = false;
 						menuBatalla.setHabilitado(false);
@@ -200,19 +198,20 @@ public class EstadoBatalla extends Estado {
 
 	}
 
+	/**
+	 * Genera nuevas instancias del personaje y su enemigo
+	 */
 	private void crearPersonajes() {
 		String nombre = paquetePersonaje.getNombre();
 		int salud = paquetePersonaje.getSaludTope();
 		int energia = paquetePersonaje.getEnergiaTope();
-		/*
-		 * Multiplicador de Big y Tiny Daddy
-		 */
-		int fuerza = (int) (paquetePersonaje.getFuerza() * paquetePersonaje.getMultiplicador());
+		int fuerza = paquetePersonaje.getFuerza(); //Al personaje le paso la fuerza con bonus pero sin trucos
 		int destreza = paquetePersonaje.getDestreza();
 		int inteligencia = paquetePersonaje.getInteligencia();
 		int experiencia = paquetePersonaje.getExperiencia();
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
+		double multiplicador = paquetePersonaje.getMultiplicador();
 
 		Casta casta = null;
 		try {
@@ -221,6 +220,7 @@ public class EstadoBatalla extends Estado {
 					Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE, Casta.class, Integer.TYPE, Integer.TYPE, Integer.TYPE).
 					newInstance(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 							experiencia, nivel, id);
+			personaje.setMultiDaddy(multiplicador);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
@@ -232,12 +232,13 @@ public class EstadoBatalla extends Estado {
 		nombre = paqueteEnemigo.getNombre();
 		salud = paqueteEnemigo.getSaludTope();
 		energia = paqueteEnemigo.getEnergiaTope();
-		fuerza = paqueteEnemigo.getFuerza();
+		fuerza = paqueteEnemigo.getFuerza(); //Al enemigo le paso la fuerza con bonus pero sin trucos
 		destreza = paqueteEnemigo.getDestreza();
 		inteligencia = paqueteEnemigo.getInteligencia();
 		experiencia = paqueteEnemigo.getExperiencia();
 		nivel = paqueteEnemigo.getNivel();
 		id = paqueteEnemigo.getId();
+		multiplicador = paqueteEnemigo.getMultiplicador();
 
 		casta = null;
 		if (paqueteEnemigo.getCasta().equals("Guerrero")) {
@@ -258,8 +259,14 @@ public class EstadoBatalla extends Estado {
 			enemigo = new Elfo(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 					experiencia, nivel, id);
 		}
+		
+		enemigo.setMultiDaddy(multiplicador);
 	}
 
+	/**
+	 * Envia el paquete atacar al servidor
+	 * @param paqueteAtacar
+	 */
 	public void enviarAtaque(PaqueteAtacar paqueteAtacar) {
 		try {
 				juego.getCliente().getSalida().writeObject(gson.toJson(paqueteAtacar));
@@ -279,10 +286,7 @@ public class EstadoBatalla extends Estado {
 			paquetePersonaje.setDestreza(personaje.getDestreza());
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
-			/*
-			 * Devolver multiplicador
-			 */
-			paquetePersonaje.setMultiplicador(this.multiplicador);
+			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
 			
 			paquetePersonaje.removerBonus();
 
@@ -293,6 +297,7 @@ public class EstadoBatalla extends Estado {
 			paqueteEnemigo.setDestreza(enemigo.getDestreza());
 			paqueteEnemigo.setFuerza(enemigo.getFuerza());
 			paqueteEnemigo.setInteligencia(enemigo.getInteligencia());
+			paqueteEnemigo.setMultiplicador(enemigo.getMultiDaddy()); //Actualizo el multiplicador del paquete
 			paqueteEnemigo.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);

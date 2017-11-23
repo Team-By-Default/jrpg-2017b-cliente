@@ -218,6 +218,7 @@ public class EstadoBatallaNPC extends Estado {
 		int experiencia = paquetePersonaje.getExperiencia();
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
+		double multiplicador = paquetePersonaje.getMultiplicador();
 
 		Casta casta = null;
 		try {
@@ -226,22 +227,11 @@ public class EstadoBatallaNPC extends Estado {
 					Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE, Casta.class, Integer.TYPE, Integer.TYPE, Integer.TYPE).
 					newInstance(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 							experiencia, nivel, id);
+			personaje.setMultiDaddy(multiplicador);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
-		
-		/*nombre = paqueteEnemigo.getNombre();
-		salud = paqueteEnemigo.getSaludTope();
-		energia = paqueteEnemigo.getEnergiaTope();
-		fuerza = paqueteEnemigo.getFuerza();
-		destreza = paqueteEnemigo.getDestreza();
-		inteligencia = paqueteEnemigo.getInteligencia();
-		experiencia = paqueteEnemigo.getExperiencia();
-		nivel = paqueteEnemigo.getNivel();
-		id = paqueteEnemigo.getId();*/
-		
-		// Esto hay que modificarlo una vez tengamos más npcs...
-		// Pero por ahora, el npc más primitivo posible:
+
 		enemigo = new NonPlayableCharacter(paqueteEnemigo.getNombre(), paqueteEnemigo.getNivel(), paqueteEnemigo.getNivel());
 	}
 
@@ -259,6 +249,7 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setDestreza(personaje.getDestreza());
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
+			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
 			paquetePersonaje.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);

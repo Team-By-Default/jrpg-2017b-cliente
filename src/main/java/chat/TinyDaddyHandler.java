@@ -1,5 +1,6 @@
 package chat;
 
+import estados.Estado;
 import juego.Juego;
 
 public class TinyDaddyHandler extends TrickHandler{
@@ -19,8 +20,15 @@ public class TinyDaddyHandler extends TrickHandler{
 	protected void ejecutar(Juego juego) {
 		
 		juego.getPersonaje().setMultiplicador(0.5);
-		System.out.println(juego.getPersonaje().getMultiplicador()); 
-		System.out.println(juego.getPersonaje().getMultiplicador() * juego.getPersonaje().getFuerza()); 
+		
+		if(juego.getPersonaje().getEstado() == Estado.estadoBatalla) {
+			juego.getEstadoBatalla().getPersonaje().setFuerza((int)
+					juego.getPersonaje().getFuerzaTrucada());
+			System.out.println("Personaje en batalla tiene fuerza " + juego.getPersonaje().getFuerzaTrucada());
+		}
+		
+		System.out.println("Paquete personaje tiene multi " + juego.getPersonaje().getMultiplicador()); 
+		System.out.println("Paquete personaje tiene fuerza " + juego.getPersonaje().getFuerzaTrucada());
 		
 	}
 }
