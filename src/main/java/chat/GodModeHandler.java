@@ -22,7 +22,8 @@ public class GodModeHandler extends TrickHandler {
 	@Override
 	protected void ejecutar(Juego juego,JTextArea chat) {
 		
-		juego.getPersonaje().setDios( !juego.getPersonaje().isDios() );
+		juego.getCliente().getPaquetePersonaje().setDios(
+				!juego.getCliente().getPaquetePersonaje().isDios());
 		
 		//Si está en batalla...
 		if(Estado.getEstado().esEstadoBatalla()) {
@@ -35,7 +36,7 @@ public class GodModeHandler extends TrickHandler {
 			juego.getEstadoBatallaNPC().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
 		}
 		
-		System.out.println("I am a " + juego.getPersonaje().isDios() + " GOD"); 
+		System.out.println("I am a " + juego.getCliente().getPaquetePersonaje().isDios() + " GOD"); 
 		
 	}
 }
