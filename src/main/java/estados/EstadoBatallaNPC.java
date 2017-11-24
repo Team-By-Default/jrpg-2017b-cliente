@@ -166,7 +166,8 @@ public class EstadoBatallaNPC extends Estado {
 					}
 					else {
 						// BATALLAR VS NPC
-						enemigo.atacar(personaje);
+						if(!personaje.isGod())
+							enemigo.atacar(personaje);
 						
 						if(!personaje.estaVivo()) // EL PERSONAJE MUERE
 						{
