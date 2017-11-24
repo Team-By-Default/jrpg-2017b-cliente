@@ -218,6 +218,8 @@ public class EstadoBatallaNPC extends Estado {
 		int experiencia = paquetePersonaje.getExperiencia();
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
+		double multiplicador = paquetePersonaje.getMultiplicador();
+		boolean god = paquetePersonaje.isDios();
 
 		Casta casta = null;
 		try {
@@ -226,22 +228,13 @@ public class EstadoBatallaNPC extends Estado {
 					Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE, Casta.class, Integer.TYPE, Integer.TYPE, Integer.TYPE).
 					newInstance(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 							experiencia, nivel, id);
+			personaje.setMultiDaddy(multiplicador);
+			personaje.setAtaque(personaje.calcularPuntosDeAtaque());
+			personaje.setGod(god);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
-		
-		/*nombre = paqueteEnemigo.getNombre();
-		salud = paqueteEnemigo.getSaludTope();
-		energia = paqueteEnemigo.getEnergiaTope();
-		fuerza = paqueteEnemigo.getFuerza();
-		destreza = paqueteEnemigo.getDestreza();
-		inteligencia = paqueteEnemigo.getInteligencia();
-		experiencia = paqueteEnemigo.getExperiencia();
-		nivel = paqueteEnemigo.getNivel();
-		id = paqueteEnemigo.getId();*/
-		
-		// Esto hay que modificarlo una vez tengamos más npcs...
-		// Pero por ahora, el npc más primitivo posible:
+
 		enemigo = new NonPlayableCharacter(paqueteEnemigo.getNombre(), paqueteEnemigo.getNivel(), paqueteEnemigo.getNivel());
 	}
 
@@ -259,10 +252,16 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setDestreza(personaje.getDestreza());
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
+			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
+			paquetePersonaje.setDios(personaje.isGod()); //Actualizo el estado dios del paquete
+			
 			paquetePersonaje.removerBonus();
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
+			
+			System.out.println("FIN BATALLA El personaje tiene multi " + personaje.getMultiDaddy());
+			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador());
 	
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor :C");
@@ -294,5 +293,15 @@ public class EstadoBatallaNPC extends Estado {
 	@Override
 	public boolean esEstadoDeJuego() {
 		return false;
+	}
+
+	@Override
+	public boolean esEstadoBatalla() {
+		return false;
+	}
+
+	@Override
+	public boolean esEstadoBatallaNPC() {
+		return true;
 	}
 }

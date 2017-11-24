@@ -237,8 +237,22 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 
+	/**
+	 * Devuelve la fuerza ya con bonus y afectada por los trucos
+	 * tinydaddy y bigdaddy
+	 * @return
+	 */
+	public int getFuerzaTrucada() {
+		System.out.println("Paquete dice que la fuerza es " + this.fuerza + " y con el truco es " + this.fuerza * this.multiplicador);
+		return (int) (fuerza * this.multiplicador);
+	}
+	
+	/**
+	 * Devuelve la fuerza con bonus pero sin trucos
+	 * @return
+	 */
 	public int getFuerza() {
-		return fuerza;
+		return this.fuerza;
 	}
 
 
@@ -440,27 +454,32 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
 
 	/**
-	 * @return valor multiplicador fuerza
+	 * @return valor multiplicador de fuerza por trucos como
+	 * bigdaddy y tinydaddy
 	 */
 	public double getMultiplicador() {
 		return this.multiplicador;
 	}
 
-
+	/**
+	 * Sobrescribe el multiplicador de tinydaddy y bigdaddy con
+	 * el nuevo valor
+	 * @param multi
+	 */
+	public void setMultiplicador(double multi) {
+		this.multiplicador = multi;
+	}
 
 	/**
+	 * Multiplica el multiplicador anterior por el nuevo multiplicador,
+	 * para que quede actualizado para el get fuerza. Para los trucos
+	 * tinydaddy y bigdaddy.
 	 * @param multiplicador: afecta a la fuerza del personaje
 	 */
-	public void setMultiplicador(double multiplicador) {
-		
-		this.multiplicador *= multiplicador;
-		 
-	    if(this.multiplicador * this.fuerza < 1.0) {
-	 
-	    	this.multiplicador *= 2;
-	 
-	    }
-	 
+	public void multiMultiply(double multiplicador) {
+		if(this.multiplicador * multiplicador * this.fuerza >= 1.0)
+			this.multiplicador *= multiplicador;
+		System.out.println("Paquete dice que el nuevo multi es " + this.multiplicador);
 	}
 	
 	/**

@@ -87,6 +87,8 @@ public class MiChat extends JFrame {
 		comandos.add(TinyDaddyHandler.miComando);
 		comandos.add(InvisibleHandler.miComando);
 		comandos.add(NoClipHandler.miComando);
+		comandos.add(InvisibleHandler.miComando2);
+		comandos.add(GodModeHandler.miComando2);
 		
 		trucos = new GodModeHandler(
 				new BigDaddyHandler(

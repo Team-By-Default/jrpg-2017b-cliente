@@ -2,6 +2,7 @@ package chat;
 
 import javax.swing.JTextArea;
 
+import estados.Estado;
 import juego.Juego;
 
 public class TinyDaddyHandler extends TrickHandler{
@@ -19,10 +20,27 @@ public class TinyDaddyHandler extends TrickHandler{
 
 	@Override
 	protected void ejecutar(Juego juego,JTextArea chat) {
+		//Pongo el nuevo multiplicador
+		juego.getCliente().getPaquetePersonaje().multiMultiply(0.5);
 		
-		juego.getPersonaje().setMultiplicador(0.5);
-		System.out.println(juego.getPersonaje().getMultiplicador()); 
-		System.out.println(juego.getPersonaje().getMultiplicador() * juego.getPersonaje().getFuerza()); 
+		//Si está en batalla...
+		if(Estado.getEstado().esEstadoBatalla()) {
+			//Seteo el multiplicador del personaje durante la batalla
+			juego.getEstadoBatalla().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			//Recalculo los puntos de ataque
+			juego.getEstadoBatalla().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
+			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatalla().getPersonaje().getAtaque());
+		}
+		else if(Estado.getEstado().esEstadoBatallaNPC()) {
+			//Seteo el multiplicador del personaje durante la batalla
+			juego.getEstadoBatallaNPC().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			//Recalculo los puntos de ataque
+			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
+			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatallaNPC().getPersonaje().getAtaque());
+		}
+		
+		System.out.println("Paquete personaje tiene multi " + juego.getCliente().getPaquetePersonaje().getMultiplicador()); 
+		System.out.println("Paquete personaje tiene fuerza " + juego.getCliente().getPaquetePersonaje().getFuerzaTrucada());
 		
 	}
 }

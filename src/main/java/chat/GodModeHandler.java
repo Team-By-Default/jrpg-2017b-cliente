@@ -2,11 +2,13 @@ package chat;
 
 import javax.swing.JTextArea;
 
+import estados.Estado;
 import juego.Juego;
 
 public class GodModeHandler extends TrickHandler {
 	
 	public final static String miComando = "iddqd";
+	public final static String miComando2 = "manners maketh man";
 	
 	public GodModeHandler(TrickHandler sucesor) {
 		super(sucesor);
@@ -14,16 +16,26 @@ public class GodModeHandler extends TrickHandler {
 	
 	@Override
 	public boolean puedoSoportarlo(String comando) {
-		return miComando.equals(comando);
+		return this.miComando.equals(comando) || this.miComando2.equals(comando);
 	}
+	
 	@Override
 	protected void ejecutar(Juego juego,JTextArea chat) {
 		
-		if(juego.getPersonaje().isDios())
-			juego.getPersonaje().setDios(false);
-		else
-			juego.getPersonaje().setDios(true);
-		System.out.println(juego.getPersonaje().isDios()); 
+		juego.getPersonaje().setDios( !juego.getPersonaje().isDios() );
+		
+		//Si está en batalla...
+		if(Estado.getEstado().esEstadoBatalla()) {
+			//Seteo el estado Dios del personaje durante la batalla
+			juego.getEstadoBatalla().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
+			System.out.println("You know is " + juego.getEstadoBatalla().getPersonaje().isGod());
+		}
+		else if(Estado.getEstado().esEstadoBatallaNPC()) {
+			//Seteo el estado Dios del personaje durante la batalla
+			juego.getEstadoBatallaNPC().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
+		}
+		
+		System.out.println("I am a " + juego.getPersonaje().isDios() + " GOD"); 
 		
 	}
 }
