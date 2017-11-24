@@ -348,6 +348,10 @@ public class EstadoBatalla extends Estado {
 		return enemigo;
 	}
 	
+	public void setEnemigo(Personaje enemigo) {
+		this.enemigo = enemigo;
+	}
+	
 	@Override
 	public boolean esEstadoDeJuego() {
 		return false;

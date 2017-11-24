@@ -10,7 +10,7 @@ import mensajeria.Comando;
 
 public abstract class TrickHandler {
 	protected TrickHandler sucesor;
-	private final Gson gson;
+	protected final Gson gson;
 	
 	/**
 	 * Crea un nuevo trick handler seteando su sucesor de la ChainOfResponsabilty

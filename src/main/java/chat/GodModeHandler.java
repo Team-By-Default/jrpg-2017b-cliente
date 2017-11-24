@@ -1,9 +1,13 @@
 package chat;
 
+import java.io.IOException;
+
 import javax.swing.JTextArea;
 
 import estados.Estado;
 import juego.Juego;
+import mensajeria.Comando;
+import mensajeria.PaquetePersonajeDominio;
 
 public class GodModeHandler extends TrickHandler {
 	
@@ -30,6 +34,17 @@ public class GodModeHandler extends TrickHandler {
 			//Seteo el estado Dios del personaje durante la batalla
 			juego.getEstadoBatalla().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
 			System.out.println("You know is " + juego.getEstadoBatalla().getPersonaje().isDios());
+			
+			PaquetePersonajeDominio pj = new PaquetePersonajeDominio(juego.getCliente().getPaquetePersonaje().getId(), 
+					juego.getEstadoBatalla().getEnemigo().getIdPersonaje(), juego.getEstadoBatalla().getPersonaje());
+			pj.setComando(Comando.CHUCKNORRIS);
+			
+			try {
+				juego.getCliente().getSalida().writeObject(gson.toJson(pj));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(Estado.getEstado().esEstadoBatallaNPC()) {
 			//Seteo el estado Dios del personaje durante la batalla
