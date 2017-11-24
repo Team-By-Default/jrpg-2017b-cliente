@@ -25,8 +25,8 @@ public class InvisibleHandler extends TrickHandler {
 				!juego.getCliente().getPaquetePersonaje().isInvisible());
 		
 		if(juego.getCliente().getPaquetePersonaje().isInvisible())
-			chat.append("Truco activado. Ahora el personaje es invisible.\n");
+			chat.append("Truco activado. Ahora el personaje es invisible." + System.lineSeparator());
 		else
-			chat.append("Truco desactivado. Ahora el personaje vuelve a ser visible.\n");
+			chat.append("Truco desactivado. Ahora el personaje vuelve a ser visible."  + System.lineSeparator());
 	}
 }

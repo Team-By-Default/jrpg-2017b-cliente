@@ -166,7 +166,7 @@ public class EstadoBatallaNPC extends Estado {
 					}
 					else {
 						// BATALLAR VS NPC
-						if(!personaje.isGod())
+						if(!personaje.isDios())
 							enemigo.atacar(personaje);
 						
 						if(!personaje.estaVivo()) // EL PERSONAJE MUERE
@@ -254,7 +254,7 @@ public class EstadoBatallaNPC extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
-			paquetePersonaje.setDios(personaje.isGod()); //Actualizo el estado dios del paquete
+			paquetePersonaje.setDios(personaje.isDios()); //Actualizo el estado dios del paquete
 			
 			paquetePersonaje.removerBonus();
 

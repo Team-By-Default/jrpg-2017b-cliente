@@ -26,19 +26,13 @@ public class BigDaddyHandler extends TrickHandler {
 			juego.getEstadoBatalla().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
 			//Recalculo los puntos de ataque
 			juego.getEstadoBatalla().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
-			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatalla().getPersonaje().getAtaque());
 		}
 		else if(Estado.getEstado().esEstadoBatallaNPC()) {
 			//Seteo el multiplicador del personaje durante la batalla
 			juego.getEstadoBatallaNPC().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
 			//Recalculo los puntos de ataque
 			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatallaNPC().getPersonaje().calcularPuntosDeAtaque());
-			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatallaNPC().getPersonaje().getAtaque());
-		}
-		
-		System.out.println("Paquete personaje tiene multi " + juego.getCliente().getPaquetePersonaje().getMultiplicador()); 
-		System.out.println("Paquete personaje tiene fuerza " + juego.getCliente().getPaquetePersonaje().getFuerzaTrucada());
-		
-		
+		}		
+		chat.append("Fuerza aumentada a "+ juego.getCliente().getPaquetePersonaje().getFuerzaTrucada()+ "."+ System.lineSeparator());
 	}
 }

@@ -29,13 +29,14 @@ public class GodModeHandler extends TrickHandler {
 		if(Estado.getEstado().esEstadoBatalla()) {
 			//Seteo el estado Dios del personaje durante la batalla
 			juego.getEstadoBatalla().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
-			System.out.println("You know is " + juego.getEstadoBatalla().getPersonaje().isGod());
+			System.out.println("You know is " + juego.getEstadoBatalla().getPersonaje().isDios());
 		}
 		else if(Estado.getEstado().esEstadoBatallaNPC()) {
 			//Seteo el estado Dios del personaje durante la batalla
 			juego.getEstadoBatallaNPC().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
 		}
 		
+		chat.append("I am a " + juego.getCliente().getPaquetePersonaje().isDios() + " GOD."+ System.lineSeparator());
 		System.out.println("I am a " + juego.getCliente().getPaquetePersonaje().isDios() + " GOD"); 
 		
 	}

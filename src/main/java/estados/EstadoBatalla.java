@@ -160,12 +160,12 @@ public class EstadoBatalla extends Estado {
 						Estado.setEstado(juego.getEstadoJuego());
 						
 					} else {
-						double evitarDanioPersonaje = (personaje.isGod() && !enemigo.isGod()  ? 1 : personaje.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado  y el de mi enemigo
-						double evitarDanioEnemigo = (enemigo.isGod() && !personaje.isGod()  ? 1 : enemigo.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado y el de mi enemigo
+						//double evitarDanioPersonaje = (personaje.isDios() && !enemigo.isDios()  ? 1 : personaje.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado  y el de mi enemigo
+						//double evitarDanioEnemigo = (enemigo.isDios() && !personaje.isDios()  ? 1 : enemigo.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado y el de mi enemigo
 							
 						paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), 
 								personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), 
-								evitarDanioPersonaje, evitarDanioEnemigo);
+								personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
 						enviarAtaque(paqueteAtacar);
 						miTurno = false;
 						menuBatalla.setHabilitado(false);
@@ -296,7 +296,7 @@ public class EstadoBatalla extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.setMultiplicador(personaje.getMultiDaddy()); //Actualizo el multiplicador del paquete
-			paquetePersonaje.setDios(personaje.isGod()); //Actualizo el estado dios del paquete
+			paquetePersonaje.setDios(personaje.isDios()); //Actualizo el estado dios del paquete
 			
 			paquetePersonaje.removerBonus();
 
@@ -308,7 +308,7 @@ public class EstadoBatalla extends Estado {
 			paqueteEnemigo.setFuerza(enemigo.getFuerza());
 			paqueteEnemigo.setInteligencia(enemigo.getInteligencia());
 			paqueteEnemigo.setMultiplicador(enemigo.getMultiDaddy()); //Actualizo el multiplicador del paquete
-			paqueteEnemigo.setDios(enemigo.isGod()); //Actualizo el estado dios del paquete
+			paqueteEnemigo.setDios(enemigo.isDios()); //Actualizo el estado dios del paquete
 			
 			paqueteEnemigo.removerBonus();
 
