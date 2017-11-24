@@ -477,7 +477,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * @param multiplicador: afecta a la fuerza del personaje
 	 */
 	public void multiMultiply(double multiplicador) {
-		if(this.multiplicador * multiplicador * this.fuerza >= 1.0)
+		if(multiplicador>1 || this.multiplicador * multiplicador * this.fuerza >= 1.0)
 			this.multiplicador *= multiplicador;
 		System.out.println("Paquete dice que el nuevo multi es " + this.multiplicador);
 	}

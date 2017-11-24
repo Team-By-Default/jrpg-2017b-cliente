@@ -35,7 +35,7 @@ public class TinyDaddyHandler extends TrickHandler{
 			//Seteo el multiplicador del personaje durante la batalla
 			juego.getEstadoBatallaNPC().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
 			//Recalculo los puntos de ataque
-			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
+			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatallaNPC().getPersonaje().calcularPuntosDeAtaque());
 			System.out.println("Personaje en BATALLA tiene ataque " + juego.getEstadoBatallaNPC().getPersonaje().getAtaque());
 		}
 		
