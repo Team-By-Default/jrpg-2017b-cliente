@@ -161,7 +161,7 @@ public class EstadoBatalla extends Estado {
 						
 					} else {
 						double evitarDanioPersonaje = (personaje.isGod() && !enemigo.isGod()  ? 1 : personaje.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado  y el de mi enemigo
-						double evitarDanioEnemigo = (enemigo.isGod() && !personaje.isGod()  ? 1 : personaje.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado y el de mi enemigo
+						double evitarDanioEnemigo = (enemigo.isGod() && !personaje.isGod()  ? 1 : enemigo.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado y el de mi enemigo
 							
 						paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), 
 								personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), 
