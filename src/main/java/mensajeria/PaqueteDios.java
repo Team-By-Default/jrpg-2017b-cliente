@@ -4,15 +4,19 @@ import java.io.Serializable;
 
 import dominio.Personaje;
 
-public class PaquetePersonajeDominio extends Paquete implements Serializable, Cloneable{
+public class PaqueteDios extends Paquete implements Serializable, Cloneable{
 	int idPersonaje;
 	int idEnemigo;
-	Personaje personaje;
+	boolean god;
+
+	public PaqueteDios() {
+		
+	}
 	
-	public PaquetePersonajeDominio(int idPj, int idEnem, Personaje pj) {
+	public PaqueteDios(int idPj, int idEnem, boolean diosExiste) {
 		this.idEnemigo = idEnem;
 		this.idPersonaje = idPj;
-		this.personaje = pj;
+		this.god = diosExiste;
 	}
 	
 	public int getIdPersonaje() {
@@ -27,10 +31,13 @@ public class PaquetePersonajeDominio extends Paquete implements Serializable, Cl
 	public void setIdEnemigo(int idEnemigo) {
 		this.idEnemigo = idEnemigo;
 	}
-	public Personaje getPersonaje() {
-		return personaje;
+
+
+	public boolean isGod() {
+		return god;
 	}
-	public void setPersonaje(Personaje personaje) {
-		this.personaje = personaje;
+
+	public void setGod(boolean god) {
+		this.god = god;
 	}
 }
