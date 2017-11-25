@@ -2,6 +2,7 @@ package chat;
 import javax.swing.JTextArea;
 
 import juego.Juego;
+import mensajeria.PaquetePersonaje;
 import mundo.Grafo;
 
 public class NoClipHandler extends TrickHandler{
