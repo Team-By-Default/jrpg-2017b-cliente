@@ -22,7 +22,7 @@ public class PaqueteNPC extends Paquete {
 	public PaqueteNPC(int id) {
 		this.id = id;
 		idMapa = 1;
-		nombre = "Enemigo";
+		nombre = "Shadow";
 		saludTope = 100;
 		energiaTope = 20;
 		fuerza = 50;
