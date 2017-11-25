@@ -36,7 +36,6 @@ public class Trueque extends ComandosEscucha {
 
 		Casta casta = null;
 
-		
 		try {
 			casta = (Casta) Class.forName("dominio" + "." + juego.getCliente().getPaquetePersonaje().getCasta()).newInstance();
 			pj = (Personaje) Class.forName("dominio" + "." + juego.getCliente().getPaquetePersonaje().getRaza()).getConstructor(String.class, Integer.TYPE, 
@@ -46,6 +45,7 @@ public class Trueque extends ComandosEscucha {
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
+		
 		// Si soy yo mismo, tengo que cambiar los items a darme, y despues trueque
 		if(id == paqueteComerciar.getId()){
 			paqueteComerciar.getItemsADar().removeAll(paqueteComerciar.getItemsADar());
@@ -66,6 +66,7 @@ public class Trueque extends ComandosEscucha {
 			}
 			pj.trueque(juego.getCliente().getPaquetePersonaje().getItems(),paqueteComerciar.getItemsADar(),juego.getCliente().getM1().getDar());
 		} else {
+			
 			// sino soy yo esta todo ok y trueque
 			pj.trueque(juego.getCliente().getPaquetePersonaje().getItems(),paqueteComerciar.getItemsADar(),juego.getCliente().getM1().getDar());						
 		}

@@ -71,11 +71,13 @@ public class VentanaContactos extends JFrame {
 				}
 			}
 		});
+		
 		botonMc.setBounds(119, 208, 89, 23);
 		contentPane.add(botonMc);
 		
 		// Cargo la lista de contactos
 		actualizarLista(juego);
+		
 		// Pregunto si la ventana sala esta abierta y cancelo el boton multichat
 		if (juego.getChatsActivos().containsKey("Sala")) {
 			botonMc.setEnabled(false);

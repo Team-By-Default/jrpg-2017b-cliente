@@ -173,8 +173,7 @@ public class Entidad {
 			juego.getHandlerMouse().setNuevoClick(false);				
 		}
 		
-		// Tomo el click izquierdo
-		//Si había clickeado en un menú, no entra al if
+		// Tomo el click izquierdo. Si había clickeado en un menú, no entra al if
 		if (juego.getHandlerMouse().getNuevoClick()) {
 			
 			//Si hay solicitud
@@ -289,15 +288,13 @@ public class Entidad {
 							// ESTA ESTE PARA NO MOVERME HASTA EL LUGAR.
 							if(XY[0] >= 44 && XY[0] <= 71 && XY[1] >= 0 && XY[1] <= 29) {
 								
-								// SI ESTOY DENTRO DE LA ZONA DE COMERCIO SETEO QUE SE ABRA EL MENU
-								// DE COMERCIO
+								// SI ESTOY DENTRO DE LA ZONA DE COMERCIO SETEO QUE SE ABRA EL MENU DE COMERCIO
 								juego.getEstadoJuego().setHaySolicitud(true, juego.
 										getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.
 										menuComerciar);
 							} else {
 								
-								// SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU
-								// DE BATALLA
+								// SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU DE BATALLA
 								juego.getEstadoJuego().setHaySolicitud(true,
 										juego.getPersonajesConectados().get(idEnemigo), 
 										MenuInfoPersonaje.menuBatallar);		
@@ -551,6 +548,7 @@ public class Entidad {
 		
 		// Aplico Dijkstra
 		while (cantSolucion < grafoLibres.obtenerCantidadDeNodosTotal()) {
+			
 			/*Elijo W perteneciente al conjunto restante tal que el costo de W
 			 * sea minimo
 			 */

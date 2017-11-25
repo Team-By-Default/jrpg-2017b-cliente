@@ -30,10 +30,11 @@ public class TestCliente {
 	private Gson gson = new Gson();
 	ObjectOutputStream salida;
 	ObjectInputStream entrada;
-	// Si quiero probar la conexión del cliente si o si necesito un servidor stub (lamentablemente)
-	// Y para no complicarme la existencia con que el server se quede esperando por nuevos paquetes bla bla bla
-	// Paso una cola con todos los paquetes que le tengo que enviar, ya que no hay forma de que recibiendo un
-	// Paquete tipo "Paquete", el test de PjTest me de bien..
+	/* Si quiero probar la conexión del cliente si o si necesito un servidor stub (lamentablemente)
+	 * Y para no complicarme la existencia con que el server se quede esperando por nuevos paquetes bla bla bla
+	 * Paso una cola con todos los paquetes que le tengo que enviar, ya que no hay forma de que recibiendo un
+	 * Paquete tipo "Paquete", el test de PjTest me de bien..
+	 */
 	public void testServer(final Queue<Paquete> cantPaquetes) {
 		myThread = new Thread(new Runnable(){
 		
@@ -49,13 +50,11 @@ public class TestCliente {
 						//Lo recibo pero no importa
 						entrada.readObject();
 						Paquete paq = cantPaquetes.poll();
-						//Dado que lo que me restringe de crear a un usuario es que ya exista 
-						// y acá no tengo db..
+						//Dado que lo que me restringe de crear a un usuario es que ya exista y acá no tengo db..
 						if (paq.getMensaje() != "0") {
 							paq.setMensaje("1");
 						}
 						salida.writeObject(gson.toJson(paq));
-						
 						
 					}
 					cliente.close();
@@ -66,7 +65,6 @@ public class TestCliente {
 					try {
 						server.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, "Falló");
 
 					}
@@ -110,6 +108,7 @@ public class TestCliente {
 	public void testRegistro() {
 		
 		Queue<Paquete> queue = new LinkedList<Paquete>();
+		
 		// Registro el usuario
 		PaqueteUsuario pu = new PaqueteUsuario();
 		pu.setComando(Comando.REGISTRO);
@@ -167,6 +166,7 @@ public class TestCliente {
 
 			// Envio el paquete para registrarme
 			cliente.getSalida().writeObject(gson.toJson(pu));
+			
 			// Recibo la respuesta del servidor
 			Paquete resultado = (Paquete) gson.fromJson((String) cliente.getEntrada().readObject(), Paquete.class);
 
@@ -188,7 +188,6 @@ public class TestCliente {
 	@Test
 	public void testRegistrarPersonaje() throws IOException {
 		Queue<Paquete> queue = new LinkedList<Paquete>();
-
 
 		// Registro de usuario
 		PaqueteUsuario pu = new PaqueteUsuario();
@@ -236,6 +235,7 @@ public class TestCliente {
 			cliente.getSalida().close();
 			cliente.getEntrada().close();
 			cliente.getSocket().close();
+			
 			// Lo fuerzo porque la verdad que de esta manera está compliqueti
 			pp.setNombre("PjTest");
 			Assert.assertEquals("PjTest", pp.getNombre());

@@ -58,8 +58,6 @@ public class EstadoDePersonaje {
 		g.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		g.setColor(Color.GREEN);
 		g.drawString(String.valueOf(personaje.getNivel()), x + 59, y + 70);
-
-
 	}
 
 	public static void dibujarEstadoDePersonaje(Graphics g, int x, int y, PaquetePersonaje personaje, BufferedImage miniaturaPersonaje){

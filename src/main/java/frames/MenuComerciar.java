@@ -401,11 +401,14 @@ public class MenuComerciar extends JFrame {
 		chckbxListo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(chckbxListo.isSelected()){
+					
 					// Si ya la persona con la que voy a comerciar esta en LISTO
 						if(cantListos == 1) {
 							cantListos++;
+							
 							// Primero actualizo el label de cant Listos
 							cantListo.setText(cantListos + "/2");
+							
 							// Le envio al otro que toque listo y esta 2/2 listo para trueque
 							cliente.getPaqueteComercio().aumentarListo();
 							cliente.getPaqueteComercio().setComando(Comando.ACTUALIZARCOMERCIO);
@@ -414,9 +417,10 @@ public class MenuComerciar extends JFrame {
 							} catch (IOException e) {
 								JOptionPane.showMessageDialog(null, "No se pudo actualizar comercio");
 							}
-							////////
+							
 							// Ahora le digo que haga el trueque
 							cliente.getPaqueteComercio().setComando(Comando.TRUEQUE);
+							
 							// Le informo al otro que vamos a hacer el trueque
 							try {
 								cliente.getSalida().writeObject(gson.toJson(cliente.getPaqueteComercio()));
@@ -426,13 +430,16 @@ public class MenuComerciar extends JFrame {
 							JOptionPane.showMessageDialog(cliente.getM1(), "Se ha realizado con exito el comercio");
 							dispose();
 						} else {
+							
 							// Si todavía LISTO = 0, le informo al otro
 							cantListos++;
+							
 							// Deshabilito los botones para que no pueda agregar nada
 							btnAgregar.setEnabled(false);
 							btnSacar.setEnabled(false);
 							cliente.getPaqueteComercio().aumentarListo();
 							cliente.getPaqueteComercio().setComando(Comando.ACTUALIZARCOMERCIO);
+							
 							//Tambien le tiene que avisar el LISTO al otro jugador
 							try {
 								cliente.getSalida().writeObject(gson.toJson(cliente.getPaqueteComercio()));
@@ -442,16 +449,17 @@ public class MenuComerciar extends JFrame {
 							cantListo.setText(cantListos + "/2");
 						}
 				} else {
-					// Si habia clickeado LISTO, pero lo desclickie entonces le digo 
-					// que disminuya en el otro cliente
+					
+					// Si habia clickeado LISTO, pero lo desclickie entonces le digo que disminuya en el otro cliente
 					if(cantListos != 2) {
-						// Si no tenia nada en la lista no tengo que disminuir la cant
-						// de listos
+						
+						// Si no tenia nada en la lista no tengo que disminuir la cant de listos
 						cantListos--;
 						cliente.getPaqueteComercio().disminuirListo();							
 						btnAgregar.setEnabled(true);
 						btnSacar.setEnabled(true);
 						cliente.getPaqueteComercio().setComando(Comando.ACTUALIZARCOMERCIO);
+						
 						//Tambien le tiene que avisar el NO LISTO al otro jugador
 						try {
 							cliente.getSalida().writeObject(gson.toJson(cliente.getPaqueteComercio()));

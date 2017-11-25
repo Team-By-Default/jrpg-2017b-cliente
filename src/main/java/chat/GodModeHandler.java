@@ -31,8 +31,9 @@ public class GodModeHandler extends TrickHandler {
 		
 		//Si está en batalla...
 		if(Estado.getEstado().esEstadoBatalla()) {
+			
 			//Seteo el estado Dios del personaje durante la batalla
-			juego.getEstadoBatalla().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
+			juego.getEstadoBatalla().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());
 			
 			PaqueteDios pj = new PaqueteDios(juego.getCliente().getPaquetePersonaje().getId(), 
 					juego.getEstadoBatalla().getEnemigo().getIdPersonaje(), juego.getEstadoBatalla().getPersonaje().isDios());
@@ -45,8 +46,9 @@ public class GodModeHandler extends TrickHandler {
 			}
 		}
 		else if(Estado.getEstado().esEstadoBatallaNPC()) {
+			
 			//Seteo el estado Dios del personaje durante la batalla
-			juego.getEstadoBatallaNPC().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());//ver si funciona
+			juego.getEstadoBatallaNPC().getPersonaje().setGod(juego.getCliente().getPaquetePersonaje().isDios());
 		}
 		
 		chat.append("I am a " + juego.getCliente().getPaquetePersonaje().isDios() + " GOD."+ System.lineSeparator());

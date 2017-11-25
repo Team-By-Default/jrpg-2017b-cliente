@@ -20,12 +20,13 @@ public class PaqueteNPC extends Paquete {
 	 */
 	private boolean peleando;
 	
-	private String[] nombres = {"Shadow", "The Shadow", "El Sombra", "Heartless", "Enemigo generico", "The hedgehog", "Un campeon generico de Age of Empires",
+	private String[] nombres = {"Shadow", "The Shadow", "El Sombra", "Heartless", "Enemigo generico", "El Generico", "The hedgehog", "Un campeon generico de Age of Empires",
 			"Mr. Tinkertrain", "KnightOfCydonia", "El Keevin", "Warrior of the dark"};
 	
 	public PaqueteNPC(int id) {
 		this.id = id;
 		idMapa = 1;
+		
 		//Seteo un nombre random entre las opciones
 		nombre = this.nombres[new Random().nextInt(this.nombres.length)];
 		saludTope = 100;

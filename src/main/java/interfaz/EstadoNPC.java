@@ -58,8 +58,6 @@ public class EstadoNPC {
 		g.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		g.setColor(Color.GREEN);
 		g.drawString(String.valueOf(personaje.getNivel()), x + 59, y + 70);
-
-
 	}
 
 	public static void dibujarEstadoDeNPC(Graphics g, int x, int y, NonPlayableCharacter npc, BufferedImage miniaturaNPC){

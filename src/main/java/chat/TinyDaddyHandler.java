@@ -24,14 +24,18 @@ public class TinyDaddyHandler extends TrickHandler{
 		
 		//Si está en batalla...
 		if(Estado.getEstado().esEstadoBatalla()) {
+			
 			//Seteo el multiplicador del personaje durante la batalla
 			juego.getEstadoBatalla().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			
 			//Recalculo los puntos de ataque
 			juego.getEstadoBatalla().getPersonaje().setAtaque(juego.getEstadoBatalla().getPersonaje().calcularPuntosDeAtaque());
 		}
 		else if(Estado.getEstado().esEstadoBatallaNPC()) {
+			
 			//Seteo el multiplicador del personaje durante la batalla
 			juego.getEstadoBatallaNPC().getPersonaje().setMultiDaddy(juego.getCliente().getPaquetePersonaje().getMultiplicador());
+			
 			//Recalculo los puntos de ataque
 			juego.getEstadoBatallaNPC().getPersonaje().setAtaque(juego.getEstadoBatallaNPC().getPersonaje().calcularPuntosDeAtaque());
 		}

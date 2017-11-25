@@ -9,7 +9,6 @@ public class PaqueteNPCs extends Paquete implements Serializable, Cloneable {
 	private Map<Integer, PaqueteNPC> NPCs;
 
 	public PaqueteNPCs(){
-
 	}
 
 	public PaqueteNPCs(Map<Integer, PaqueteNPC> NPCs){

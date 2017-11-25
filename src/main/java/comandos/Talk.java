@@ -25,8 +25,7 @@ public class Talk extends ComandosEscucha {
 			destino = juego.getCliente().getPaqueteMensaje().getUserEmisor();
 			
 		} else {
-			
-			//ALL						
+								
 			if(!juego.getChatsActivos().containsKey("Sala")) {	
 				chat = new MiChat(juego);
 				chat.setTitle("Sala");

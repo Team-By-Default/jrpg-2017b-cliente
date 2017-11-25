@@ -20,8 +20,9 @@ public class Recursos {
 	private static int ANCHO; // Ancho del frame a obtener
 	private static int ALTO; // Alto del frame a obtener
 
-	// Inicio Personajes
-	// Hash de imagenes para los personajes (humano, ogro, elfo)
+	/*Inicio Personajes
+	 * Hash de imagenes para los personajes (humano, ogro, elfo)
+	 */
 	public static Map<String, LinkedList<BufferedImage[]>> personaje = new HashMap<>();
 
 	private static SpriteSheet spriteHumano;
@@ -91,7 +92,6 @@ public class Recursos {
 	
 
 	// Se cargan todos los recursos del juego una sola vez al inicio
-
 	public static void cargar(MenuCarga menuCarga) throws NumberFormatException, IOException {
 		
 		int elementosCargados = 0;
@@ -99,8 +99,6 @@ public class Recursos {
 		ANCHO = 256;
 		ALTO = 256;
 		//Items
-		
-		
 		
 		noItem = ImageIO.read(new File("recursos//noItem.png"));
 		mochila = ImageIO.read(new File("recursos//mochila.png"));
@@ -252,7 +250,6 @@ public class Recursos {
 		orco.add(orcoAbajoDer);
 		orco.add(orcoAbajo);
 		orco.add(orcoAbajoIzq);
-
 		// Fin Ogro
 
 		// Inicio Elfo
@@ -325,7 +322,6 @@ public class Recursos {
 		elfo.add(elfoAbajoDer);
 		elfo.add(elfoAbajo);
 		elfo.add(elfoAbajoIzq);
-
 		// Fin Elfo
 
 		// Agrego los pj al hash
@@ -389,7 +385,6 @@ public class Recursos {
 				}
 			}
 		}
-		
 		// Fin Entorno
 
 		// Inicio Batalla

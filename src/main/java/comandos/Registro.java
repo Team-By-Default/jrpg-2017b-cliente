@@ -15,18 +15,9 @@ public class Registro extends ComandosCliente {
 			Paquete paquete = (Paquete) gson.fromJson(cadenaLeida, Paquete.class);
 			if (paquete.getMensaje().equals(Paquete.msjExito)) {
 
-				// Abro el menu para la creaci�n del personaje
+				// Abro el menu para la creación del personaje
 				MenuCreacionPj menuCreacionPJ = new MenuCreacionPj(cliente, cliente.getPaquetePersonaje(),gson);
 				menuCreacionPJ.setVisible(true);
-
-				// Espero a que el usuario cree el personaje
-
-				// Recibo el paquete personaje con los datos (la id incluida)
-
-				
-
-				// Indico que el usuario ya inicio sesion
-				
 
 			} else {
 				if (paquete.getMensaje().equals(Paquete.msjFracaso)) {

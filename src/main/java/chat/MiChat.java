@@ -150,6 +150,7 @@ public class MiChat extends JFrame {
 		
 		// MANDO EL COMANDO PARA QUE ENVIE EL MSJ
 		juego.getCliente().getPaqueteMensaje().setComando(Comando.TALK);
+		
 		// El user receptor en espacio indica que es para todos
 		if(getTitle() == "Sala"){
 			juego.getCliente().getPaqueteMensaje().setUserReceptor(null);

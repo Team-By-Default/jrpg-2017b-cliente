@@ -60,6 +60,7 @@ public class MenuAsignarSkills extends JFrame {
 	 * Genera el menu Asignar Skills
 	 */
 	public MenuAsignarSkills(final Cliente cliente) {
+		
 		//Calculo cuanto tengo de cada habilidad actualmente. Esto incluye bonus por casta e items
 		puntosFuerzaInicial = cliente.getPaquetePersonaje().getFuerza();
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();

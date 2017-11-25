@@ -47,6 +47,7 @@ public abstract class TrickHandler {
 	 * @return
 	 */
 	protected abstract boolean puedoSoportarlo(String comando);
+	
 	/**
 	 * Tiene la logica del comando que soporta
 	 * @param juego: para afectar a los recursos del juego

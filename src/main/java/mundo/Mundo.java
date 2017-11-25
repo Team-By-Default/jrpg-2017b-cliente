@@ -72,6 +72,7 @@ public class Mundo {
 		for (int i = 0; i < alto; i++) {
 			for (int j = 0; j < ancho; j++) {
 				iso = dosDaIso(j, i);
+				
 				// Grafico al personaje
 				if(Estado.getEstado() == juego.getEstadoJuego())
 					if (Mundo.mouseATile(juego.getUbicacionPersonaje().getPosX(),
@@ -128,47 +129,55 @@ public class Mundo {
 	}
 
 	private void mundoAGrafo() {
+		
 		// Creo una matriz de nodos
 		Nodo[][] nodos = new Nodo[ancho][alto];
 		int indice = 0;
+		
 		// Lleno la matriz con los nodos
 		for (int y = 0; y < alto; y++)
 			for (int x = 0; x < ancho; x++)
 				nodos[y][x] = new Nodo(indice++, x, y);
+		
 		// Variables finales
 		int xFinal = ancho;
 		int yFinal = alto;
+		
 		// Uno cada nodo con sus adyacentes
 		for (int x = 0; x < yFinal; x++) {
 			for (int y = 0; y < xFinal; y++) {
 				if (!Tile.tiles[tilesInv[x][y]].esSolido()) {
-					// Si no es la ultima fila y el tile de abajo es no solido,
-					// lo uno
+					
+					// Si no es la ultima fila y el tile de abajo es no solido, lo uno
 					if (y < yFinal - 1 && !Tile.tiles[tilesInv[x][y + 1]].esSolido()) {
 						nodos[x][y].agregarAdyacente(nodos[x][y + 1]);
 						nodos[x][y + 1].agregarAdyacente(nodos[x][y]);
 					}
+					
 					// Si no es la ultima columna
 					if (x < xFinal - 1) {
-						// Si el de arriba a la derecha no es un tile solido
-						// Y ademas el de arriba ni el de la derecha lo son, lo
-						// uno
-						// Tiene que ser a partir de la segunda fila
+						
+						/* Si el de arriba a la derecha no es un tile solido
+						 * Y ademas el de arriba ni el de la derecha lo son, lo uno
+						 * Tiene que ser a partir de la segunda fila
+						 */
 						if (y > 0 && !Tile.tiles[tilesInv[x + 1][y - 1]].esSolido()
 								&& !Tile.tiles[tilesInv[x + 1][y]].esSolido()
 								&& !Tile.tiles[tilesInv[x][y - 1]].esSolido()) {
 							nodos[x][y].agregarAdyacente(nodos[x + 1][y - 1]);
 							nodos[x + 1][y - 1].agregarAdyacente(nodos[x][y]);
 						}
+						
 						// Si el de la derecha no es un tile solido lo uno
 						if (!Tile.tiles[tilesInv[x + 1][y]].esSolido()) {
 							nodos[x][y].agregarAdyacente(nodos[x + 1][y]);
 							nodos[x + 1][y].agregarAdyacente(nodos[x][y]);
 						}
-						// Si el de abajo a la derecha no es un tile solido
-						// Y ademas el de abajo ni el de la derecha lo son, lo
-						// uno
-						// Debe ser antes de la ultima fila
+						
+						/* Si el de abajo a la derecha no es un tile solido
+						 * Y ademas el de abajo ni el de la derecha lo son, lo uno
+						 * Debe ser antes de la ultima fila
+						 */
 						if (y < yFinal - 1 && !Tile.tiles[tilesInv[x + 1][y + 1]].esSolido()
 								&& !Tile.tiles[tilesInv[x + 1][y]].esSolido()
 								&& !Tile.tiles[tilesInv[x][y + 1]].esSolido()) {
@@ -179,9 +188,11 @@ public class Mundo {
 				}
 			}
 		}
+		
 		// Creo un grafo para almacenar solo los tiles no solidos
 		grafoDeTilesNoSolidos = new Grafo(ancho * alto);
 		indice = 0;
+		
 		// Paso la matriz a un array
 		for (int i = 0; i < ancho; i++) {
 			for (int j = 0; j < alto; j++) {

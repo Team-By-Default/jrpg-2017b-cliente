@@ -60,7 +60,9 @@ public class Cliente extends Thread {
 	 */
 	public Cliente() {
 
-		//Intenta leer el numero de puerto de conexion del archivo config.txt. Si no puede leerlo, o si bien el numero no es un puerto, utiliza el por defecto 55050
+		/*Intenta leer el numero de puerto de conexion del archivo config.txt. 
+		 * Si no puede leerlo, o si bien el numero no es un puerto, utiliza el por defecto 55050
+		 */
 		try { 
 			Scanner sc = new Scanner(new File("config.txt"));
 			this.puerto=sc.nextInt();
@@ -130,6 +132,7 @@ public class Cliente extends Thread {
 					// Le envio el paquete al servidor
 						salida.writeObject(gson.toJson(paqueteUsuario));
 					}
+					
 					// Recibo el paquete desde el servidor
 					String cadenaLeida = (String) entrada.readObject();
 					Paquete paquete = gson.fromJson(cadenaLeida, Paquete.class);
@@ -156,6 +159,7 @@ public class Cliente extends Thread {
 					paquetePersonaje.setComando(Comando.DESCONECTAR);
 					salida.writeObject(gson.toJson(paquetePersonaje));
 				} else {
+					
 					// Establezco el mapa en el paquete personaje
 					paquetePersonaje.setIp(miIp);
 	
