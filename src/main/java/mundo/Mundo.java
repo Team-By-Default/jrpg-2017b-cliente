@@ -9,8 +9,6 @@ public class Mundo {
 	private Juego juego;
 	private int ancho;
 	private int alto;
-	private int spawnX;
-	private int spawnY;
 	private int xOffset;
 	private int yOffset;
 
@@ -114,8 +112,8 @@ public class Mundo {
 		String[] tokens = archivo.split("\\s+");
 		ancho = Utilitarias.parseInt(tokens[0]);
 		alto = Utilitarias.parseInt(tokens[1]);
-		spawnX = Utilitarias.parseInt(tokens[2]);
-		spawnY = Utilitarias.parseInt(tokens[3]);
+		Utilitarias.parseInt(tokens[2]);
+		Utilitarias.parseInt(tokens[3]);
 
 		tiles = new int[ancho][alto];
 		tilesInv = new int[alto][ancho];
