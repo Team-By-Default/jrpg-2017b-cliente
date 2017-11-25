@@ -1,6 +1,7 @@
 package mensajeria;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import dominio.Item;
 
@@ -18,11 +19,14 @@ public class PaqueteNPC extends Paquete {
 	 */
 	private boolean peleando;
 	
+	private String[] nombres = {"Shadow", "The Shadow", "El Sombra", "Heartless", "Enemigo generico", "The hedgehog", "Un campeon generico de Age of Empires",
+			"Mr. Tinkertrain", "KnightOfCydonia", "El Keevin", "Warrior of the dark"};
 	
 	public PaqueteNPC(int id) {
 		this.id = id;
 		idMapa = 1;
-		nombre = "Shadow";
+		//Seteo un nombre random entre las opciones
+		nombre = this.nombres[new Random().nextInt(this.nombres.length)];
 		saludTope = 100;
 		energiaTope = 20;
 		fuerza = 50;
