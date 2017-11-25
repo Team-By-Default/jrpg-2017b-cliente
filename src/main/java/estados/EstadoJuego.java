@@ -73,13 +73,12 @@ public class EstadoJuego extends Estado {
 	 */
 	@Override
 	public void graficar(Graphics g) {
-		//Dibujar mapa
+		//Dibujar mapa, NPCs, obstaculos y personajes, en ese orden (importante para que no aparezcan NPCs sobre un muro o cosas asi)
 		g.drawImage(Recursos.background, 0, 0, juego.getAncho(), juego.getAlto(), null);
 		mundo.graficar(g);
-		mundo.graficarObstaculos(g);
-		//Dibujar personajes y NPCs
-		graficarPersonajes(g);
 		graficarNPCs(g);
+		mundo.graficarObstaculos(g);
+		graficarPersonajes(g);
 		//Dibujar botones, marco, etc
 		entidadPersonaje.graficarNombre(g);
 		g.drawImage(Recursos.marco, 0, 0, juego.getAncho(), juego.getAlto(), null);
