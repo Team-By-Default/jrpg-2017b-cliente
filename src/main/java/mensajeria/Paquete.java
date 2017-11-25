@@ -47,7 +47,6 @@ public class Paquete implements Serializable, Cloneable {
 		return mensaje;
 	}
 
-
 	public String getIp() {
 		return ip;
 	}
@@ -78,19 +77,7 @@ public class Paquete implements Serializable, Cloneable {
 	 * @throws ClassNotFoundException
 	 */
 	public Comando getObjeto(String nombrePaquete) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		//Prefiero tirar excepciones y que lo resuelva el llamador a devolver null y que el llamador no se lo espere
 		return (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMES[comando]).newInstance();
-		
-		/* Version anterior
-		try {
-			Comando c;
-			c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMES[comando]).newInstance();
-			return c;
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			return null;
-		}
-		*/
-
 	}
 	
 	/**
@@ -104,19 +91,7 @@ public class Paquete implements Serializable, Cloneable {
 	 * @throws ClassNotFoundException
 	 */
 	public static Comando getObjetoSet(String nombrePaquete, int accion) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		//Prefiero tirar excepciones y que lo resuelva el llamador a devolver null y que el llamador no se lo espere
 		return (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMESBIS[accion]).newInstance();
-		
-		/*Version anterior
-		try {
-			Comando c;
-			c = (Comando) Class.forName(nombrePaquete + "." + Comando.CLASSNAMESBIS[accion]).newInstance();
-			return c;
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			return null;
-		}
-		*/
 	}
-
 
 }

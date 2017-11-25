@@ -2,15 +2,12 @@ package mensajeria;
 
 import java.io.Serializable;
 
-import dominio.Personaje;
-
 public class PaqueteDios extends Paquete implements Serializable, Cloneable{
 	int idPersonaje;
 	int idEnemigo;
 	boolean god;
 
 	public PaqueteDios() {
-		
 	}
 	
 	public PaqueteDios(int idPj, int idEnem, boolean diosExiste) {
@@ -22,16 +19,18 @@ public class PaqueteDios extends Paquete implements Serializable, Cloneable{
 	public int getIdPersonaje() {
 		return idPersonaje;
 	}
+	
 	public void setIdPersonaje(int idPersonaje) {
 		this.idPersonaje = idPersonaje;
 	}
+	
 	public int getIdEnemigo() {
 		return idEnemigo;
 	}
+	
 	public void setIdEnemigo(int idEnemigo) {
 		this.idEnemigo = idEnemigo;
 	}
-
 
 	public boolean isGod() {
 		return god;

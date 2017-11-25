@@ -97,6 +97,7 @@ public class Pantalla {
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				
 				//La ventana de contactos tiene que mostrarse siempre, en cualquier estado
 				if (e.getKeyCode() == ventContac) {
 					abrirMenu(ventContac, cliente);

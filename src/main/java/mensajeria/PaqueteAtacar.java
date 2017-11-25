@@ -87,9 +87,5 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 	public HashMap<String, Number> getMapEnemigo() {
 		return mapEnemigo;
 	}
-
-
-
-
-
+	
 }

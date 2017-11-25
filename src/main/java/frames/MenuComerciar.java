@@ -238,6 +238,7 @@ public class MenuComerciar extends JFrame {
 		chckbxListo = new JCheckBox("Listo");
 		chckbxListo.setForeground(Color.WHITE);
 		chckbxListo.setBackground(Color.BLACK);
+		
 		// Arranca deshabilitada
 		chckbxListo.setEnabled(false);
 		
@@ -259,9 +260,11 @@ public class MenuComerciar extends JFrame {
 							leyenda.setVisible(false);
 						}						
 					}
-					// Pongo el primer item y pregunto si es igual al seleccionado
-					// Entonces mientras que sean distinto lo busca
-					// Cuando sea igual sale del while y lo agrega en la lista 
+					
+					/* Pongo el primer item y pregunto si es igual al seleccionado
+					 * Entonces mientras que sean distinto lo busca
+					 * Cuando sea igual sale del while y lo agrega en la lista
+					 */ 
 					item1 = cliente.getPaquetePersonaje().getItems().get(count);
 					while(!item1.getNombre().equals(listMisItems.getSelectedValue())) {
 						count++;

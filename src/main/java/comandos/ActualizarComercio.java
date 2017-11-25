@@ -38,8 +38,9 @@ public class ActualizarComercio extends ComandosEscucha {
 				}
 				juego.getCliente().getPaqueteComercio().setItemsAObtener(paqueteComerciar.getItemsADar());
 		} else {
-			// se modifico el listo
-			// me fijo si puso listo o lo saco
+			/* se modifico el listo
+			 * me fijo si puso listo o lo saco
+			 */
 			if(juego.getCliente().getPaqueteComercio().getListo() < paqueteComerciar.getListo()) {
 				juego.getCliente().getPaqueteComercio().aumentarListo();
 			} else {

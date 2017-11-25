@@ -246,7 +246,6 @@ public class MenuCreacionPj extends JFrame {
 			personaje.setInteligencia(Integer.parseInt(vecInteligencia[cbxCasta.getSelectedIndex()]));
 			try {
 				
-
 				// Le envio los datos al servidor
 				cliente.getPaquetePersonaje().setComando(Comando.CREACIONPJ);
 				cliente.getSalida().writeObject(gson.toJson(cliente.getPaquetePersonaje()));

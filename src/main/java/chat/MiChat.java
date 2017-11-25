@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
@@ -143,7 +142,7 @@ public class MiChat extends JFrame {
 	}
 
 	private void enviarMensaje(final Juego juego) {
-		chat.append("Yo: " + texto.getText() + "\n"); //Ahora el mensaje dice que lo envié "yo" y no "me"
+		chat.append("Yo: " + texto.getText() + "\n");
 		
 		juego.getCliente().getPaqueteMensaje().setUserEmisor(juego.getPersonaje().getNombre());
 		juego.getCliente().getPaqueteMensaje().setUserReceptor(getTitle());

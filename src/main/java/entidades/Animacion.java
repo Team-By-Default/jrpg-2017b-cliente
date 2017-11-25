@@ -10,6 +10,7 @@ public class Animacion {
 	private int indice;
 	private long ultimoTiempo, timer;
 	private BufferedImage[] frames;
+	
 	/**Constructor de la clase
 	 * @param velocidad velocidad con la cual se actualiza
 	 * @param frames imagen de frame
@@ -21,6 +22,7 @@ public class Animacion {
 		timer = 0;
 		ultimoTiempo = System.currentTimeMillis();
 	}
+	
 	/**Actualiza los frames
 	 */
 	public void actualizar() {
@@ -35,17 +37,20 @@ public class Animacion {
 			}
 		}
 	}
+	
 	/**Resetea el indice
 	 */
 	public void reset() {
 		indice = 0;
 	}
+	
 	/**Pide el frame actual 
 	 * @return devuelve el valor del frame en un indice
 	 */
 	public BufferedImage getFrameActual() {
 		return frames[indice];
 	}
+	
 	/**Pide el frame  
 	 * @return devuelve el indice del frame
 	 */

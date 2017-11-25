@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 
 import dominio.NonPlayableCharacter;
 import dominio.Personaje;
-import mensajeria.PaqueteNPC;
-import mensajeria.PaquetePersonaje;
 import recursos.Recursos;
 
 public class EstadoNPC {

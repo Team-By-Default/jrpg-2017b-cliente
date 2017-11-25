@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
-import estados.Estado;
 import juego.Pantalla;
 import mensajeria.Comando;
 import mensajeria.Paquete;

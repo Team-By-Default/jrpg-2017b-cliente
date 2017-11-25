@@ -6,11 +6,13 @@ package entidades;
 public class PilaDeTiles {
 
 	NodoDePila ptrPila;
+	
 	/**Constructor de la Clase Nodo de Tiles
 	 */
 	public PilaDeTiles() {
 		ptrPila = null;
 	}
+	
 	/**Establece el nuevo siguiente
 	 * @param nodo nuevo nodo siguiente
 	 */
@@ -18,6 +20,7 @@ public class PilaDeTiles {
 		nodo.establecerSiguiente(ptrPila);
 		ptrPila = nodo;
 	}
+	
 	/**Pide el tope 
 	 * @return un nodo de pila con el tope de la pila
 	 */
@@ -29,6 +32,7 @@ public class PilaDeTiles {
 		ptrPila = ptrPila.obtenerSiguiente();
 		return tope;
 	}
+	
 	/**Pregunta si esta vacia la pila de tiles 
 	 * @return true or false
 	 */

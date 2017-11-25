@@ -28,16 +28,16 @@ import java.awt.event.WindowEvent;
 public class MenuAsignarSkills extends JFrame {
 
 	private JPanel contentPane;
-	/*
-	 * Todo lo Inicial son los puntajes que tengo
+	
+	/* Todo lo Inicial son los puntajes que tengo
 	 * al abrir la ventana
 	 */
 	private int puntosAsignarInicial = 10;
 	private int puntosFuerzaInicial = 0;
 	private int puntosDestrezaInicial = 0;
 	private int puntosInteligenciaInicial = 0;
-	/*
-	 * Todo lo Base son los puntajes que tendría si
+	
+	/* Todo lo Base son los puntajes que tendría si
 	 * nunca hubiera asignado ningún punto de Skill.
 	 * Es a lo que debe resetear cuando toco asignar.
 	 */
@@ -45,8 +45,8 @@ public class MenuAsignarSkills extends JFrame {
 	private int puntosDestrezaBase=10;
 	private int puntosInteligenciaBase=10;
 	private int puntosAsignarBase=0;
-	/*
-	 * Y estas son las variables que voy a ir modificando
+	
+	/* Y estas son las variables que voy a ir modificando
 	 * mientras uso la pantalla y antes de confirmar.
 	 */
 	private int puntosAsignar = puntosAsignarInicial;
@@ -65,8 +65,7 @@ public class MenuAsignarSkills extends JFrame {
 		puntosDestrezaInicial = cliente.getPaquetePersonaje().getDestreza();
 		puntosInteligenciaInicial = cliente.getPaquetePersonaje().getInteligencia();
 		
-		/*
-		 * La base de una habilidad es lo que tendría sin sumarle ningún punto de skill,
+		/* La base de una habilidad es lo que tendría sin sumarle ningún punto de skill,
 		 * a lo que debería resetear cuando toca Reiniciar.
 		 * Es la suma de los bonus de casta e items.
 		 */

@@ -59,5 +59,4 @@ public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
 		return obj;
 	}
 
-
 }

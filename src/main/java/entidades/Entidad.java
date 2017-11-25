@@ -14,11 +14,7 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
-import chat.VentanaContactos;
 import estados.Estado;
-import estados.EstadoBatallaNPC;
-import frames.MenuEscape;
-import frames.MenuInventario;
 import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import juego.Pantalla;
@@ -180,6 +176,7 @@ public class Entidad {
 		// Tomo el click izquierdo
 		//Si había clickeado en un menú, no entra al if
 		if (juego.getHandlerMouse().getNuevoClick()) {
+			
 			//Si hay solicitud
 			if (juego.getEstadoJuego().getHaySolicitud()) {
 
@@ -189,6 +186,7 @@ public class Entidad {
 						// Pregunto si menuBatallar o menuComerciar, sino no me interesa hacer esto
 						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar || 
 								juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuComerciar) {
+							
 							//Guardo las poss con el que quiero comerciar
 							xComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosX();
 							yComercio = juego.getUbicacionPersonajes().get(idEnemigo).getPosY();
@@ -197,8 +195,10 @@ public class Entidad {
 						
 						// pregunto si el menu emergente es de tipo batalla
 						if (juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar) {
-							//ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
-							//Si no se encuentra dentro de la zona de comercio, seteo paquete batalla y HaySolicitud
+							
+							/*ME FIJO SI CON EL QUE QUIERO BATALLAR ESTA EN LA ZONA DE COMERCIO
+							 * Si no se encuentra dentro de la zona de comercio, seteo paquete batalla y HaySolicitud
+							 */
 							if (!((int)comercio[0] >= 44 && (int)comercio[0] <= 71 && 
 									(int)comercio[1] >= 0 && (int)comercio[1] <= 29)) {
 								
@@ -260,6 +260,7 @@ public class Entidad {
 					juego.getEstadoJuego().setHaySolicitud(false, null, MenuInfoPersonaje.menuBatallar);
 				}
 			} else {
+				
 				//Si no hay solicitud
 				Iterator<Integer> it = juego.getUbicacionPersonajes().keySet().iterator();
 				int key;
@@ -284,14 +285,17 @@ public class Entidad {
 								tileMoverme[1] == tilePersonajes[1]) {
 							idEnemigo = actual.getIdPersonaje();
 							float XY[] = Mundo.isoA2D(x,y);
+							
 							// ESTA ESTE PARA NO MOVERME HASTA EL LUGAR.
 							if(XY[0] >= 44 && XY[0] <= 71 && XY[1] >= 0 && XY[1] <= 29) {
+								
 								// SI ESTOY DENTRO DE LA ZONA DE COMERCIO SETEO QUE SE ABRA EL MENU
 								// DE COMERCIO
 								juego.getEstadoJuego().setHaySolicitud(true, juego.
 										getPersonajesConectados().get(idEnemigo), MenuInfoPersonaje.
 										menuComerciar);
 							} else {
+								
 								// SI ESTOY DENTRO DE LA ZONA DE BATALLA SETEO QUE SE ABRA EL MENU
 								// DE BATALLA
 								juego.getEstadoJuego().setHaySolicitud(true,
@@ -509,6 +513,7 @@ public class Entidad {
 	 */
 	private PilaDeTiles caminoMasCorto(final int xInicial, final int yInicial, final int xFinal, final int yFinal) {
 		Grafo grafoLibres = mundo.obtenerGrafoDeTilesNoSolidos();
+		
 		// Transformo las coordenadas iniciales y finales en indices
 		int nodoInicial = (yInicial - grafoLibres.obtenerNodos()[0].obtenerY())
 				* (int) Math.sqrt(grafoLibres.obtenerCantidadDeNodosTotal()) + xInicial
@@ -523,10 +528,12 @@ public class Entidad {
 		int[] vecPredecesores = new int[grafoLibres.obtenerCantidadDeNodosTotal()];
 		boolean[] conjSolucion = new boolean[grafoLibres.obtenerCantidadDeNodosTotal()];
 		int cantSolucion = 0;
+		
 		// Lleno la matriz de costos de numeros grandes
 		for (int i = 0; i < grafoLibres.obtenerCantidadDeNodosTotal(); i++) {
 			vecCostos[i] = Double.MAX_VALUE;
 		}
+		
 		// Adyacentes al nodo inicial
 		conjSolucion[nodoInicial] = true;
 		cantSolucion++;
@@ -541,10 +548,12 @@ public class Entidad {
 			}
 			vecPredecesores[adyacentes[i].obtenerIndice()] = nodoInicial;
 		}
+		
 		// Aplico Dijkstra
 		while (cantSolucion < grafoLibres.obtenerCantidadDeNodosTotal()) {
-			// Elijo W perteneciente al conjunto restante tal que el costo de W
-			// sea minimo
+			/*Elijo W perteneciente al conjunto restante tal que el costo de W
+			 * sea minimo
+			 */
 			double minimo = Double.MAX_VALUE;
 			int indiceMinimo = 0;
 			Nodo nodoW = null;
@@ -558,8 +567,10 @@ public class Entidad {
 			// Pongo a W en el conj solucion
 			conjSolucion[indiceMinimo] = true;
 			cantSolucion++;
-			// Por cada nodo I adyacente a W del conj restante
-			// Le sumo 1 al costo de ir hasta W y luego ir hasta su adyacente
+			
+			/* Por cada nodo I adyacente a W del conj restante
+			 * Le sumo 1 al costo de ir hasta W y luego ir hasta su adyacente
+			 */
 			adyacentes = grafoLibres.obtenerNodos()[indiceMinimo].obtenerNodosAdyacentes();
 			for (int i = 0; i < grafoLibres.obtenerNodos()[indiceMinimo].obtenerCantidadDeAdyacentes(); i++) {
 				double valorASumar = 1;
@@ -573,6 +584,7 @@ public class Entidad {
 				}
 			}
 		}
+		
 		// Creo el vector de nodos hasta donde quiere llegar
 		PilaDeTiles camino = new PilaDeTiles();
 		while (nodoFinal != nodoInicial) {
@@ -686,6 +698,7 @@ public class Entidad {
 				//Si el actual no está peleando ya y está cerca, inicio pelea
 				if (actual != null && !NPCs.get(key).estaPeleando() && 
 						Math.abs(actual.getPosX() - x) < 50 && Math.abs(actual.getPosY() - y) < 50){
+					
 					// iniciar pelea						
 					PaqueteBatallaNPC pBatalla = new PaqueteBatallaNPC();
 					pBatalla.setId(juego.getPersonaje().getId());

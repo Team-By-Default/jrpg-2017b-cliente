@@ -30,14 +30,18 @@ public class Juego implements Runnable {
 	private boolean corriendo;
 	private BufferStrategy bs; // Estrategia para graficar mediante buffers (Primero se "grafica" en el/los buffer/s y finalmente en el canvas)
 	private Graphics g;
+	
 	// Estados
 	private Estado estadoJuego;
 	private Estado estadoBatalla;
 	private Estado estadoBatallaNPC;
+	
 	// HandlerMouse
 	private HandlerMouse handlerMouse;
+	
 	// Camara
 	private Camara camara;
+	
 	// Conexion
 	private Cliente cliente;
 	private EscuchaMensajes escuchaMensajes;

@@ -160,9 +160,6 @@ public class EstadoBatalla extends Estado {
 						Estado.setEstado(juego.getEstadoJuego());
 						
 					} else {
-						//double evitarDanioPersonaje = (personaje.isDios() && !enemigo.isDios()  ? 1 : personaje.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado  y el de mi enemigo
-						//double evitarDanioEnemigo = (enemigo.isDios() && !personaje.isDios()  ? 1 : enemigo.getCasta().getProbabilidadEvitarDaño()); //Probabilidad de ser dañado, dependiendo mi estado y el de mi enemigo
-							
 						paqueteAtacar = new PaqueteAtacar(paquetePersonaje.getId(), paqueteEnemigo.getId(), personaje.getSalud(), 
 								personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), 
 								personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
@@ -197,8 +194,6 @@ public class EstadoBatalla extends Estado {
 
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 25, 5, personaje, miniaturaPersonaje);
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 550, 5, enemigo, miniaturaEnemigo);
-		
-
 	}
 
 	/**
@@ -231,8 +226,6 @@ public class EstadoBatalla extends Estado {
 			JOptionPane.showMessageDialog(null, "Error al crear la batalla");
 		}
 		
-
-
 
 
 		nombre = paqueteEnemigo.getNombre();
@@ -314,9 +307,6 @@ public class EstadoBatalla extends Estado {
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			paqueteEnemigo.setComando(Comando.ACTUALIZARPERSONAJE);
-			
-			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador()
-			+ " y Dios es: " + paquetePersonaje.isDios());
 
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
 			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteEnemigo));

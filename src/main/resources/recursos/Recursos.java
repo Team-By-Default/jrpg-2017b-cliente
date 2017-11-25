@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
-import dominio.Item;
 import frames.MenuCarga;
 import frames.MenuMapas;
 import mundo.Tile;

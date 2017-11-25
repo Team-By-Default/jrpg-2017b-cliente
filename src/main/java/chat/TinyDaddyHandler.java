@@ -10,7 +10,6 @@ public class TinyDaddyHandler extends TrickHandler{
 	
 	public TinyDaddyHandler(TrickHandler sucesor) {
 		super(sucesor);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

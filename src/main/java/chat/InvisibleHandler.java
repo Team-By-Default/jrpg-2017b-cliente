@@ -3,7 +3,6 @@ package chat;
 import javax.swing.JTextArea;
 
 import juego.Juego;
-import mensajeria.PaquetePersonaje;
 
 public class InvisibleHandler extends TrickHandler {
 	public final static String miComando = "war aint what it used to be";

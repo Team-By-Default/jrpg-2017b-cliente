@@ -14,6 +14,7 @@ public class Comercio extends ComandosEscucha {
 	public void ejecutar() {
 		PaqueteComerciar paqueteComerciar;
 		paqueteComerciar = gson.fromJson(cadenaLeida, PaqueteComerciar.class);
+		
 		// Cuando recibo el paquete de comercio actualizado intercambio user/ destino
 		paqueteComerciar.setIdEnemigo(paqueteComerciar.getId());
 		paqueteComerciar.setId(juego.getCliente().getPaquetePersonaje().getId());

@@ -16,11 +16,9 @@ public class PaqueteBatallaNPC extends Paquete implements Serializable, Cloneabl
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public int getIdEnemigo() {
 		return idEnemigo;

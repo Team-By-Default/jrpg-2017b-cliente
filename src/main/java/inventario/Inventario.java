@@ -13,12 +13,11 @@ import javax.swing.border.MatteBorder;
 import dominio.Item;
 import mensajeria.PaquetePersonaje;
 
-
-
 public class Inventario extends JPanel {
 	private static final int CANTCOLUMNAS = 3;
 	private static final int CANTFILAS = 3;
 	private ArrayList<Item> items;	
+	
     public Inventario(PaquetePersonaje paquetePersonaje) throws IOException {
         setLayout(new GridBagLayout());
         items = new ArrayList<Item>(paquetePersonaje.getItems());
@@ -34,7 +33,6 @@ public class Inventario extends JPanel {
                 } else {
                 	cellPane = new Celda();
                 }
-                
                 
                 Border border = null;
 				if (row < CANTFILAS - 1) {

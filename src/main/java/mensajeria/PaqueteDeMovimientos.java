@@ -8,7 +8,6 @@ public class PaqueteDeMovimientos extends Paquete implements Serializable, Clone
 	private Map<Integer, PaqueteMovimiento> personajes;
 
 	public PaqueteDeMovimientos(){
-
 	}
 
 	public PaqueteDeMovimientos(Map<Integer, PaqueteMovimiento> personajes){

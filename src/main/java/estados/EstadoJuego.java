@@ -109,11 +109,13 @@ public class EstadoJuego extends Estado {
 			while (it.hasNext()) {
 				key = it.next();
 				actualMov = ubicacionPersonajes.get(key);
+				
 				//Si el actual no es mi personaje y está en estadoJuego y no es invisible o yo soy invisible y veo a todos...
 				if (actualMov != null && 
 						actualMov.getIdPersonaje() != juego.getPersonaje().getId() && 
 						personajesConectados.get(actualMov.getIdPersonaje()).getEstado() == Estado.estadoJuego &&
 						(juego.getPersonaje().isInvisible() || !personajesConectados.get(actualMov.getIdPersonaje()).isInvisible())) {
+					
 					//... lo dibujo
 					Pantalla.centerString(g, 
 							new Rectangle((int) (actualMov.getPosX() - juego.getCamara().getxOffset() + 32), 
@@ -151,6 +153,7 @@ public class EstadoJuego extends Estado {
 			while (it.hasNext()) {
 				key = it.next();
 				actual = ubicacionNPCs.get(key);
+				
 				//Si no está peleando, lo grafico
 				if (actual != null && !NPCs.get(key).estaPeleando()) {
 						Pantalla.centerString(g, new Rectangle((int) (actual.getPosX() - juego.getCamara().getxOffset() + 32), (int) (actual.getPosY() - juego.getCamara().getyOffset() - 20 ), 0, 10), NPCs.get(actual.getIdPersonaje()).getNombre());
@@ -178,6 +181,7 @@ public class EstadoJuego extends Estado {
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
 		haySolicitud = b;
+		
 		// menu que mostrara al enemigo
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
 		this.tipoSolicitud = tipoSolicitud;

@@ -3,12 +3,15 @@ package mensajeria;
 import com.google.gson.Gson;
 
 public abstract class Comando {
+	
 	// Nombre del paquete donde se encuentran las clases con las responsabilidades
 	public static final String NOMBREPAQUETE = "comandos";
+	
 	public static final String[] CLASSNAMES = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesion", "MostrarMapas",
 			"Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl", 
 			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", 
 			"ActualizarNPCs", "BatallaNPC", "FinalizarBatallaNPC", "Cheat", "ChuckNorris" };
+	
 	public static final String[] CLASSNAMESBIS = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesionSet", "MostrarMapas",
 			"Movimiento", "RegistroSet", "SalirSet", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl", 
 			"ActualizarInventario", "Comercio", "ActualizarComercio", "Trueque", "ActualizarTrueque", "Talk", "MovimientoNPC", 
@@ -33,11 +36,11 @@ public abstract class Comando {
 	public static final int TRUEQUE = 16;
 	public static final int ACTUALIZARTRUEQUE = 17;
 	public static final int TALK = 18;
- 	public static final int MOVIMIENTONPCS = 19; //No está implementado en el servidor
- 	public static final int ACTUALIZARNPCS = 20; //No está implementado en el servidor
+ 	public static final int MOVIMIENTONPCS = 19;
+ 	public static final int ACTUALIZARNPCS = 20;
  	public static final int BATALLANPC = 21;
  	public static final int FINALIZARBATALLANPC = 22;
- 	public static final int CHEAT = 23; //No está implementado en el cliente
+ 	public static final int CHEAT = 23;
  	public static final int CHUCKNORRIS = 24;
 	
 	protected final Gson gson = new Gson();
@@ -47,6 +50,5 @@ public abstract class Comando {
 		this.cadenaLeida = cadenaLeida;
 	}
 
-	
 	public abstract void ejecutar();
 }

@@ -19,12 +19,10 @@ import recursos.Recursos;
 
 public class Celda extends JPanel {
 
-  
     private BufferedImage item;
     private PaquetePersonaje paquetePersonaje;
     private JLabel label;
     private Item it;
-
 
     public Celda(Item item, PaquetePersonaje paquetePersonaje) throws IOException {
 		this.item = item.getFotoBI();
@@ -72,7 +70,6 @@ public class Celda extends JPanel {
         
 	}
 
-	
 	protected void resetLabel() {
 		label.setIcon(new ImageIcon(Recursos.noItem.getScaledInstance(49, 49, Image.SCALE_DEFAULT)));
 		label.setToolTipText(null);
@@ -95,7 +92,6 @@ public class Celda extends JPanel {
     		Object[] options = {"Tirar", "Cancelar"};
     		if(e.getClickCount() == 2) {
     			int answer = JOptionPane.showOptionDialog(getParent(),  "¿Qué desea hacer?", "Item: " + it.getNombre(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
-    			//Tirar
     			if(answer == 0) {
     				paquetePersonaje.sacarBonus(it.getBonusSalud(), it.getBonusEnergia(), it.getBonusFuerza(), it.getBonusDestreza(), it.getBonusInteligencia());
     				resetLabel();

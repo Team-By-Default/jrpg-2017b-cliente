@@ -32,14 +32,17 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * Indica si el usuario está usando el truco invisible
 	 */
 	private boolean invisible;
+	
 	/**
 	 * Indica si el usuario está en modo Dios
 	 */
 	private boolean dios;
+	
 	/**
 	 * Multiplicador que se aplica a la fuerza
 	 */
 	private double multiplicador;
+	
 	/**
 	 * Indica si el personaje puede atravezar paredes
 	 */
@@ -75,7 +78,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	    
 	  }
 	 
-
 	 /**
 	  * Setea el id de inventario
 	  * @param inventario: id
@@ -86,7 +88,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	  }
 	 
-
 	 /**
 	  * Devuelve el id de la mochila
 	  * @return
@@ -97,7 +98,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	  }
 	 
-
 	 /**
 	  * Setea el id de la mochila
 	  * @param mochila
@@ -108,15 +108,11 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 
 	  }
 	 
-
-	 
 	  public int getAlianza() {
 	 
 	    return alianza;
 	 
 	  }
-	 
-
 	 
 	  public void setAlianza(int alianza) {
 	 
@@ -143,9 +139,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		  return this.backPack;
 		  
 	  }
-	  //
 	 
-
 	public int getEstado() {
 		return estado;
 	}
@@ -182,16 +176,13 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getCasta() {
 		return casta;
 	}
-
 
 	public void setCasta(String casta) {
 		this.casta = casta;
@@ -201,41 +192,33 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getRaza() {
 		return raza;
 	}
 
-
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
-
 
 	public int getSaludTope() {
 		return saludTope;
 	}
 
-
 	public void setSaludTope(int saludTope) {
 		this.saludTope = saludTope;
 	}
-
 
 	public int getEnergiaTope() {
 		return energiaTope;
 	}
 
-
 	public void setEnergiaTope(int energiaTope) {
 		this.energiaTope = energiaTope;
 	}
-
 
 	/**
 	 * Devuelve la fuerza ya con bonus y afectada por los trucos
@@ -243,7 +226,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	 * @return
 	 */
 	public int getFuerzaTrucada() {
-		System.out.println("Paquete dice que la fuerza es " + this.fuerza + " y con el truco es " + this.fuerza * this.multiplicador);
 		return (int) (fuerza * this.multiplicador);
 	}
 	
@@ -324,7 +306,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 	
 	public final void removerBonus() {
-		//Intente usar un iterator y por alguna razón no andaba..
 		int i = 0;
 		while(i < items.size()) {
 			sacarBonus(items.get(i).getBonusSalud(),items.get(i).getBonusEnergia(),items.get(i).getBonusFuerza(), items.get(i).getBonusDestreza(), items.get(i).getBonusInteligencia());
@@ -339,7 +320,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		inteligencia -= bonusMagia;
 	}
 	public final void ponerBonus() {
-		//Intente usar un iterator y por alguna razón no andaba..
 		int i = 0;
 		while(i < items.size()) {
 			useBonus(items.get(i).getBonusSalud(),items.get(i).getBonusEnergia(),items.get(i).getBonusFuerza(), items.get(i).getBonusDestreza(), items.get(i).getBonusInteligencia());
@@ -369,7 +349,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public Iterator<Item> getIterator() {
-		// TODO Auto-generated method stub
 		return items.iterator();
 	}
 
@@ -413,16 +392,12 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		}
 	}
 
-
-
 	/**
 	 * @return true si es invisible invisible
 	 */
 	public boolean isInvisible() {
 		return this.invisible;
 	}
-
-
 
 	/**
 	 * @param invisible: true para hacerlo invisible, false
@@ -432,16 +407,12 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		this.invisible = invisible;
 	}
 
-
-
 	/**
 	 * @return true si esta en estado Dios
 	 */
 	public boolean isDios() {
 		return this.dios;
 	}
-
-
 
 	/**
 	 * @param Dios: true para hacerlo inmune al danio, false
@@ -450,8 +421,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public void setDios(boolean dios) {
 		this.dios = dios;
 	}
-
-
 
 	/**
 	 * @return valor multiplicador de fuerza por trucos como
@@ -479,7 +448,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public void multiMultiply(double multiplicador) {
 		if(multiplicador > 1 || this.multiplicador * multiplicador * this.fuerza >= 1.0)
 			this.multiplicador *= multiplicador;
-		System.out.println("Paquete dice que el nuevo multi es " + this.multiplicador);
 	}
 	
 	/**

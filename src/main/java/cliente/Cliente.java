@@ -48,6 +48,7 @@ public class Cliente extends Thread {
 
 	//MENU COMERCIAR
 	private MenuComerciar m1;
+	
 	// Ip y puerto
 	private String ip;
 	private int puerto;
@@ -61,7 +62,7 @@ public class Cliente extends Thread {
 
 		//Intenta leer el numero de puerto de conexion del archivo config.txt. Si no puede leerlo, o si bien el numero no es un puerto, utiliza el por defecto 55050
 		try { 
-			Scanner sc = new Scanner(new File("config.txt"));//usar properties
+			Scanner sc = new Scanner(new File("config.txt"));
 			this.puerto=sc.nextInt();
 			sc.close();
 			if(this.puerto>65535||this.puerto<0)
@@ -103,6 +104,7 @@ public class Cliente extends Thread {
 		synchronized(this) {
 			try {
 				ComandosCliente comand;
+				
 				// Creo el paquete que le voy a enviar al servidor
 				paqueteUsuario = new PaqueteUsuario();
 				MenuJugar menuJugar = null;
@@ -183,83 +185,97 @@ public class Cliente extends Thread {
 		}
 
 	}
+	
 	/**Pide el cliente
 	 * @return Devuelve el cliente
 	 */
 	public Socket getSocket() {
 		return cliente;
 	}
+	
 	/**Setea el cliente
 	 * @param cliente cliente a setear
 	 */
 	public void setSocket(final Socket cliente) {
 		this.cliente = cliente;
 	}
+	
 	/**Pide la ip
 	 * @return Devuelve la ip
 	 */
 	public String getMiIp() {
 		return miIp;
 	}
+	
 	/**Setea la ip
 	 * @param miIp ip a setear
 	 */
 	public void setMiIp(final String miIp) {
 		this.miIp = miIp;
 	}
+	
 	/**Pide la entrada
 	 * @return Devuelve la entrada
 	 */
 	public ObjectInputStream getEntrada() {
 		return entrada;
 	}
+	
 	/**Setea la entrada
 	 * @param entrada entrada a setear
 	 */
 	public void setEntrada(final ObjectInputStream entrada) {
 		this.entrada = entrada;
 	}
+	
 	/**Pide la salida
 	 * @return Devuelve la salida
 	 */
 	public ObjectOutputStream getSalida() {
 		return salida;
 	}
+	
 	/**Setea la salida
 	 * @param salida salida a setear
 	 */
 	public void setSalida(final ObjectOutputStream salida) {
 		this.salida = salida;
 	}
+	
 	/**Pide el paquete usuario
 	 * @return Devuelve el paquete usuario
 	 */
 	public PaqueteUsuario getPaqueteUsuario() {
 		return paqueteUsuario;
 	}
+	
 	/**Pide el paquete personaje
 	 * @return Devuelve el paquete personaje
 	 */
 	public PaquetePersonaje getPaquetePersonaje() {
 		return paquetePersonaje;
 	}
+	
 	/**Pide el juego
 	 * @return Devuelve el juego
 	 */
 	public Juego getJuego() {
 		return wome;
 	}
+	
 	/**Pide el menu de carga
 	 * @return Devuelve el menu de carga
 	 */
 	public MenuCarga getMenuCarga() {
 		return menuCarga;
 	}
+	
 	public void actualizarItems(PaquetePersonaje paqueteActualizado) {
 		if(paquetePersonaje.getCantItems() != 0 && paquetePersonaje.getCantItems() != paqueteActualizado.getCantItems()) {
 			paquetePersonaje.anadirItem(paqueteActualizado.getItems().get(paqueteActualizado.getItems().size() -1));
 		}
 	}
+	
 	public String getIp() {
 		return ip;
 	}
@@ -267,24 +283,31 @@ public class Cliente extends Thread {
 	public void actualizarPersonaje(PaquetePersonaje pP) {
 		paquetePersonaje = pP;
 	}
+	
 	public Juego getWome() {
 		return wome;
 	}
+	
 	public void setWome(Juego wome) {
 		this.wome = wome;
 	}
+	
 	public int getPuerto() {
 		return puerto;
 	}
+	
 	public void setPaqueteUsuario(PaqueteUsuario paqueteUsuario) {
 		this.paqueteUsuario = paqueteUsuario;
 	}
+	
 	public void setPaquetePersonaje(PaquetePersonaje paquetePersonaje) {
 		this.paquetePersonaje = paquetePersonaje;
 	}
+	
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	
 	public void setMenuCarga(MenuCarga menuCarga) {
 		this.menuCarga = menuCarga;
 	}
@@ -319,6 +342,7 @@ public class Cliente extends Thread {
 	public int getAccion() {
 		return accion;
 	}
+	
 	/**Setea la accion
 	 * @param accion accion a setear
 	 */

@@ -10,14 +10,8 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
-import dominio.Asesino;
 import dominio.Casta;
-import dominio.Elfo;
-import dominio.Guerrero;
-import dominio.Hechicero;
-import dominio.Humano;
 import dominio.NonPlayableCharacter;
-import dominio.Orco;
 import dominio.Personaje;
 import interfaz.EstadoNPC;
 import interfaz.EstadoDePersonaje;
@@ -25,10 +19,7 @@ import interfaz.MenuBatalla;
 import interfaz.MenuInfoPersonaje;
 import juego.Juego;
 import mensajeria.Comando;
-import mensajeria.PaqueteAtacar;
-import mensajeria.PaqueteBatalla;
 import mensajeria.PaqueteBatallaNPC;
-import mensajeria.PaqueteNPCs;
 import mensajeria.PaqueteFinalizarBatalla;
 import mensajeria.PaqueteNPC;
 import mensajeria.PaquetePersonaje;
@@ -60,7 +51,6 @@ public class EstadoBatallaNPC extends Estado {
 	public EstadoBatallaNPC(Juego juego, PaqueteBatallaNPC paqueteBatalla) 
 	{
 		// El paquete de batalla va a tener la id del jugador
-		
 		super(juego);
 		mundo = new Mundo(juego, "recursos/mundoBatalla.txt", "recursos/mundoBatallaCapaDos.txt");
 		miTurno = true;
@@ -165,6 +155,7 @@ public class EstadoBatallaNPC extends Estado {
 						Estado.setEstado(juego.getEstadoJuego());
 					}
 					else {
+						
 						// BATALLAR VS NPC
 						if(!personaje.isDios())
 							enemigo.atacar(personaje);
@@ -260,9 +251,6 @@ public class EstadoBatallaNPC extends Estado {
 
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			juego.getCliente().getSalida().writeObject(gson.toJson(paquetePersonaje));
-			
-			System.out.println("FIN BATALLA El personaje tiene multi " + personaje.getMultiDaddy());
-			System.out.println("FIN BATALLA Estoy enviando el personaje " + paquetePersonaje.getId() + " con multi " + paquetePersonaje.getMultiplicador());
 	
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor :C");
